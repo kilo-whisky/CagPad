@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<GuardianChecks.Models.Navbar>
 
-<div class="navbar-collapse collapse pull-right">
+<div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav">
 		@foreach (var item in Model)
 		{
-			<li>@Html.ActionLink(item.Name, item.Action, item.Controller)</li>
+			<li>
+				<a href="@Url.Action(item.Action, item.Controller)" class="navbar-link"><span class="fa fa-lg fa-@item.Icon"></span>&nbsp; @item.Name</a>
+			</li>
 		}
+		<li>
+			<a class="navbar-link" href="#"><span class="fa fa-user-circle-o"></span> Logged in as: </a>
+		</li>
 	</ul>
 </div>
