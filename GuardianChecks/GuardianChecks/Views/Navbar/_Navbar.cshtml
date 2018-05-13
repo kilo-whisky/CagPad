@@ -1,0 +1,10 @@
+﻿@model IEnumerable<GuardianChecks.Models.Navbar>
+
+<div class="navbar-collapse collapse pull-right">
+	<ul class="nav navbar-nav">
+		@foreach (var item in Model)
+		{
+			<li>@Html.ActionLink(item.Name, item.Action, item.Controller)</li>
+		}
+	</ul>
+</div>
