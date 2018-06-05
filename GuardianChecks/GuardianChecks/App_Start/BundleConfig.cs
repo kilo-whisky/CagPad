@@ -16,11 +16,13 @@ namespace GuardianChecks
                          "~/Scripts/jquery-ui-1.12.1.js",
                          "~/Scripts/DataTables/jquery.dataTables.js",
                          "~/Scripts/DataTables/dataTables.bootstrap.js",
-                         "~/Scripts/respond.js"));
+												 "~/Scripts/bootstrap-toggle.js",
+												 "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/Styles").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/font-awesome.css",
+											"~/Content/bootstrap-toggle.css",
+											"~/Content/font-awesome.css",
                       "~/Content/DataTables/css/jquery.dataTables.css",
                       "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/themes/base/jquery-ui.css",

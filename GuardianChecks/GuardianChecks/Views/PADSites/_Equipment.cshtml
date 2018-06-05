@@ -1,0 +1,49 @@
+﻿@model IEnumerable<GuardianChecks.Models.Equipment>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Name)</th>
+			<th>@Html.DisplayNameFor(model => model.Description)</th>
+			<th>@Html.DisplayNameFor(model => model.Supplier)</th>
+			<th>@Html.DisplayNameFor(model => model.Expiry)</th>
+			<th>Issues</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr data-pad="@item.PadId" data-cabinet="@item.CabinetId" data-defiv="@item.DefibId">
+				<td>@Html.DisplayFor(modelItem => item.Name)</td>
+				<td>@Html.DisplayFor(modelItem => item.Description)</td>
+				<td>@Html.DisplayFor(modelItem => item.Supplier)</td>
+				<td>@Html.DisplayFor(modelItem => item.Expiry)</td>
+				<td class="text-center">
+					@if (item.MajorIssues > 0)
+					{
+						<span class="fa fa-exclamation-circle text-danger"></span>
+					}
+					else if (item.MinorIssues > 0)
+					{
+						<span class="fa fa-warning text-warning"></span>
+					}
+					else
+					{
+						<span>-</span>
+					}
+				</td>
+				<td class="text-center">
+					@if (item.CabinetId != null)
+					{
+						<a class="btn btn-default btn-sm btn-viewequip" href="@Url.Action("Details", "Cabinets", new { CabinetId = item.CabinetId })">Details</a>
+					}
+					@if (item.DefibId != null)
+					{
+						<a class="btn btn-default btn-sm btn-viewequip" href="@Url.Action("Details", "Defibs", new { DefibId = item.DefibId })">Details</a>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

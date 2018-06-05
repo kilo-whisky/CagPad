@@ -9,7 +9,7 @@
 				Parts / Warranties Expiring Soon
 			</div>
 			<div class="panel-body">
-
+				@Html.Action("_Equipment", "Home")
 			</div>
 		</div>
 	</div>
@@ -29,11 +29,17 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Reported Issues
+				<a href="@Url.Action("Index", "Issues")">Reported Issues</a>
 			</div>
 			<div class="panel-body">
-
+				@Html.Action("_Issues", "Home")
 			</div>
 		</div>
 	</div>
 </div>
+
+@section scripts {
+
+	<script src="~/Scripts/CAG/Home.js"></script>
+	
+}

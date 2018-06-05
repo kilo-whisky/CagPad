@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuardianChecks.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,16 @@ namespace GuardianChecks.Controllers
 		public ActionResult Index()
 		{
 			return View();
+		}
+
+		public PartialViewResult _Equipment()
+		{
+			return PartialView(Equipment.GetEquipment(null).Where(x => x.Expiry != null).Take(5));
+		}
+
+		public PartialViewResult _Issues()
+		{
+			return PartialView(Issue.GetIssues(null, null, null, null).Where(x => !x.Resolved).ToList());
 		}
 	}
 }

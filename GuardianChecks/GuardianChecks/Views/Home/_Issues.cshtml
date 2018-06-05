@@ -1,0 +1,47 @@
+﻿@model IEnumerable<GuardianChecks.Models.Issue>
+
+<table class="table table-bordered table-striped" id="tbl-issues">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th class="text-center">@Html.DisplayNameFor(model => model.Severity)</th>
+			<th>@Html.DisplayNameFor(model => model.Description)</th>
+			<th>@Html.DisplayNameFor(model => model.ReportedBy)</th>
+			<th>@Html.DisplayNameFor(model => model.ReportedOn)</th>
+			<th class="text-center">@Html.DisplayNameFor(model => model.Resolved)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				@if (item.CabinetId != null)
+				{
+					<td><a href="@Url.Action("Details", "Cabinets", new { CabinetId = item.CabinetId })">@item.Cabinet</a></td>
+				}
+				@if (item.DefibId != null)
+				{
+					<td><a href="@Url.Action("Details", "Defibs", new { DefibId = item.DefibId })">@item.Defib</a></td>
+				}
+				@if (item.PadId != null)
+				{
+					<td><a href="@Url.Action("Site", "PADSites", new { PadId = item.PadId })">@item.PadSite</a></td>
+				}
+				@if(item.Severity == 2)
+				{
+					<td class="text-center"><span class="fa fa-warning text-warning"></span></td>
+				}
+				@if (item.Severity == 1)
+				{
+					<td class="text-center"><span class="fa fa-exclamation-circle text-danger"></span></td>
+				}
+				<td>@Html.DisplayFor(modelItem => item.Description)</td>
+				<td>@Html.DisplayFor(modelItem => item.ReportedBy)</td>
+				<td>@Html.DisplayFor(modelItem => item.ReportedOn)</td>
+				<td class="text-center">@Html.DisplayFor(modelItem => item.Resolved)</td>
+				<td class="text-center"><a class="btn btn-default btn-sm" href="@Url.Action("Details", "Issues", new { IssueId = item.IssueId })">Details</a></td>
+			</tr>
+		}
+	</tbody>
+</table>

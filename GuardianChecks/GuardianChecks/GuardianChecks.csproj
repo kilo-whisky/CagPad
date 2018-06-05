@@ -119,14 +119,23 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CabinetsController.cs" />
+    <Compile Include="Controllers\DefibsController.cs" />
+    <Compile Include="Controllers\GuardiansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
-    <Compile Include="Controllers\PADController.cs" />
+    <Compile Include="Controllers\PADSitesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DBHelper.cs" />
     <Compile Include="Models\AED.cs" />
+    <Compile Include="Models\Cabinet.cs" />
+    <Compile Include="Models\Defib.cs" />
+    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\GuardianCheck.cs" />
+    <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Navbar.cs" />
     <Compile Include="Models\PAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +143,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-toggle.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -358,8 +368,10 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CAG\Home.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -466,10 +478,21 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Navbar\_Navbar.cshtml" />
-    <Content Include="Views\PAD\Index.cshtml" />
+    <Content Include="Views\Guardians\Index.cshtml" />
+    <Content Include="Views\PADSites\Index.cshtml" />
+    <Content Include="Views\PADSites\Site.cshtml" />
+    <Content Include="Views\PADSites\_Equipment.cshtml" />
+    <Content Include="Views\Home\_Equipment.cshtml" />
+    <Content Include="Views\Cabinets\Details.cshtml" />
+    <Content Include="Views\Defibs\Details.cshtml" />
+    <Content Include="Views\Home\_Issues.cshtml" />
+    <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Issues\Details.cshtml" />
+    <Content Include="Views\Guardians\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\GuardianChecks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

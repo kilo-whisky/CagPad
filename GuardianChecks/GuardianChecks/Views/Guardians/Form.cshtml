@@ -1,0 +1,87 @@
+﻿@model GuardianChecks.Models.GuardianCheck
+
+@{
+	ViewBag.Title = "Form";
+}
+
+<div class="panel panel-default" style="margin-top: 20px">
+	<div class="panel-heading">
+		PAD Details
+	</div>
+	<div class="panel-body">
+
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Guardian Check
+	</div>
+	<div class="panel-body">
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
+
+
+
+			<div class="form-horizontal">
+
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+				<div style="margin-left:20px">
+
+					@Html.HiddenFor(x => x.PadId)
+					@Html.HiddenFor(x => x.UserId)
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="CabinetOpenLock"> Does the cabinet open and lock correctly?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="CabinetBatteriesOk"> Are the lock batteries ok?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="CabinetLightWork"> Are the cabinet lights working?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="NothingTouchingHeater"> Have you ensured that nothing is touching the cabinet heater?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="AEDOk"> Is the AED in operating mode?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="AEDSilent"> Is the AED silent?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" name="ResusKit"> Is the resuscitation kit in the cabinet?
+						</label>
+					</div>
+
+					<div class="form-group">
+						<div>
+							<input type="submit" value="Submit" class="btn btn-default" />
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
