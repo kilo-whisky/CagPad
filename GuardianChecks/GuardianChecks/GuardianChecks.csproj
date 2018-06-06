@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -490,10 +491,12 @@
     <Content Include="Views\Issues\Index.cshtml" />
     <Content Include="Views\Issues\Details.cshtml" />
     <Content Include="Views\Guardians\Form.cshtml" />
+    <Content Include="Views\Guardians\_PadSite.cshtml" />
+    <Content Include="Views\Guardians\_KnownIssues.cshtml" />
+    <Content Include="Views\Guardians\Issues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\GuardianChecks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

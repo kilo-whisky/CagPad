@@ -4,14 +4,30 @@
 	ViewBag.Title = "Form";
 }
 
-<div class="panel panel-default" style="margin-top: 20px">
-	<div class="panel-heading">
-		PAD Details
-	</div>
-	<div class="panel-body">
 
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default" style="margin-top: 20px">
+			<div class="panel-heading">
+				PAD Details
+			</div>
+			<div class="panel-body">
+				@Html.Action("_PadSite", "Guardians", new { PadId = Model.PadId })
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default" style="margin-top: 20px">
+			<div class="panel-heading">
+				Known Issues
+			</div>
+			<div class="panel-body">
+				@Html.Action("_KnownIssues", "Guardians", new { PadId = Model.PadId })
+			</div>
+		</div>
 	</div>
 </div>
+
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -19,90 +35,83 @@
 	</div>
 	<div class="panel-body">
 
-		
-				@using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { id = "frm-check", enctype = "multipart/form-data" }))
-				{
-					@Html.AntiForgeryToken()
-					<div class="form-horizontal">
 
-						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@using (Html.BeginForm("FirstPageSubmit", "Guardians", FormMethod.Post, new { id = "frm-check", enctype = "multipart/form-data" }))
+		{
+			@Html.AntiForgeryToken()
+			<div class="form-horizontal">
 
-						<div style="margin-left:20px">
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-							@Html.HiddenFor(x => x.PadId)
-							@Html.HiddenFor(x => x.UserId)
+				<div style="margin-left:20px">
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="CabinetOpenLock" id="tgl-lock">
-									
-									Does the cabinet open and lock correctly?
-								</label>
-							</div>
+					@Html.HiddenFor(x => x.PadId)
+					@Html.HiddenFor(x => x.UserId)
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="CabinetBatteriesOk" id="tgl-batteries">
-									
-									Are the lock batteries ok?
-								</label>
-							</div>
+					<div class="form-group">
+						Does the cabinet open and lock correctly?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="CabinetOpenLock" id="tgl-lock" value="true">
+						</label>
+					</div>
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="CabinetLightWork" id="tgl-light">
-									
-									Are the cabinet lights working?
-								</label>
-							</div>
+					<div class="form-group">
+						Are the lock batteries ok?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="CabinetBatteriesOk" id="tgl-batteries" value="true">
+						</label>
+					</div>
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="nothingTouchingHeater" id="tgl-heater">
-									
-									Have you ensured that nothing is touching the cabinet heater?
-								</label>
-							</div>
+					<div class="form-group">
+						Are the cabinet lights working?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="CabinetLightWork" id="tgl-light" value="true">
+						</label>
+					</div>
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="AEDOk" id="tgl-aed">
-									
-									Is the AED in operating mode?
-								</label>
-							</div>
+					<div class="form-group">
+						Have you ensured that nothing is touching the cabinet heater?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="nothingTouchingHeater" id="tgl-heater" value="true">
+						</label>
+					</div>
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="AEDSilent" id="tgl-silent">
-								
-									Is the AED silent?
-								</label>
-							</div>
+					<div class="form-group">
+						Is the AED in operating mode?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="AEDOk" id="tgl-aed" value="true">
+						</label>
+					</div>
 
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" class="toggle" name="ResusKit" id="tgl-kit">
-									
-									Is the resuscitation kit in the cabinet?
-								</label>
-							</div>
+					<div class="form-group">
+						Is the AED silent?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="AEDSilent" id="tgl-silent" value="true">
+						</label>
+					</div>
 
-							<div class="form-group">
-								<div>
-									<input type="submit" value="Next" class="btn btn-default btn-sm" />
-								</div>
-							</div>
+					<div class="form-group">
+						Is the resuscitation kit in the cabinet?<br />
+						<label class="checkbox-inline">
+							<input type="checkbox" class="toggle" name="ResusKit" id="tgl-kit" value="true">
+						</label>
+					</div>
+
+					<div class="form-group">
+						<div>
+							<input type="submit" value="Next" class="btn btn-default btn-sm" />
 						</div>
 					</div>
-				}
+				</div>
+			</div>
+		}
 
 
 	</div>
 </div>
 
 @section scripts {
-	
+
 	<script src="~/Scripts/CAG/GuardiansForm.js"></script>
 
 }

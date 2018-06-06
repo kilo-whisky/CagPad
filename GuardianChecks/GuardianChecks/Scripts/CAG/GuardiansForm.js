@@ -1,7 +1,7 @@
-﻿$('#frm-check').on('submit', function(e){
-	e.preventDefault();
-	console.log($(this).serializeArray())
-})
+﻿//$('#frm-check').on('submit', function(e){
+//	e.preventDefault();
+//	console.log($(this).serializeArray())
+//})
 
 $('.toggle').bootstrapToggle({
 	on: "Yes",
