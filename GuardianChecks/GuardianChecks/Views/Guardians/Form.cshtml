@@ -19,8 +19,7 @@
 	</div>
 	<div class="panel-body">
 
-		<div class="row">
-			<div class="col-md-8">
+		
 				@using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { id = "frm-check", enctype = "multipart/form-data" }))
 				{
 					@Html.AntiForgeryToken()
@@ -36,7 +35,7 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="CabinetOpenLock" id="tgl-lock">
-									<button type="button" class="btn btn-sm btn-note" id="btn-lock"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+									
 									Does the cabinet open and lock correctly?
 								</label>
 							</div>
@@ -44,7 +43,7 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="CabinetBatteriesOk" id="tgl-batteries">
-									<button type="button" class="btn btn-sm btn-note" id="btn-batteries"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+									
 									Are the lock batteries ok?
 								</label>
 							</div>
@@ -52,7 +51,7 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="CabinetLightWork" id="tgl-light">
-									<button type="button" class="btn btn-sm btn-note" id="btn-light"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+									
 									Are the cabinet lights working?
 								</label>
 							</div>
@@ -60,7 +59,7 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="nothingTouchingHeater" id="tgl-heater">
-									<button type="button" class="btn btn-sm btn-note" id="btn-heater"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+									
 									Have you ensured that nothing is touching the cabinet heater?
 								</label>
 							</div>
@@ -68,7 +67,7 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="AEDOk" id="tgl-aed">
-									<button type="button" class="btn btn-sm btn-note" id="btn-aed"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+									
 									Is the AED in operating mode?
 								</label>
 							</div>
@@ -76,7 +75,7 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="AEDSilent" id="tgl-silent">
-									<button type="button" class="btn btn-sm btn-note" id="btn-silent"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+								
 									Is the AED silent?
 								</label>
 							</div>
@@ -84,45 +83,22 @@
 							<div class="form-group">
 								<label class="checkbox-inline">
 									<input type="checkbox" class="toggle" name="ResusKit" id="tgl-kit">
-									<button type="button" class="btn btn-sm btn-note" id="btn-kit"><span class="fa fa-plus"></span> Add note</button>&nbsp;
+									
 									Is the resuscitation kit in the cabinet?
 								</label>
 							</div>
 
 							<div class="form-group">
 								<div>
-									<input type="submit" value="Submit" class="btn btn-default btn-sm" />
+									<input type="submit" value="Next" class="btn btn-default btn-sm" />
 								</div>
 							</div>
 						</div>
 					</div>
 				}
-			</div>
-			<div class="col-md-4">
-				Hello
-			</div>
-		</div>
 
 
 	</div>
-</div>
-
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><span class="fa fa-sticky-note-o"></span> Notes</h4>
-			</div>
-			<div class="modal-body">
-				<div id="modal-content"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
 </div>
 
 @section scripts {
