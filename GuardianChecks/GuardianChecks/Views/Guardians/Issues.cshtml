@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Issues";
+	ViewBag.Title = "Issues";
 }
 
-<div class="panel panel-default"  style="margin-top: 20px">
+<div class="panel panel-default" style="margin-top: 20px">
 	<div class="panel-heading">
 		Issues
 	</div>
@@ -12,16 +12,18 @@
 			You answered no to the following questions, please provide some details
 		</div>
 
-		@foreach(var item in ViewBag.Issues)
+		@foreach (var item in ViewBag.Issues)
 		{
+		<div style="margin-bottom:50px;">
 			@item <br />
 			<textarea class="form-control" rows="4"></textarea>
-			@: Severity <br />
-									<select class="form-control">
-										<option value="3">For information, does not need fixing immediately</option>
-										<option value="2">There is a fault, but the equipment is still operational</option>
-										<option value="1">There is a fault, but the equipment is still operational</option>
-									</select>
+			Severity <br />
+			<select class="form-control">
+				<option value="3">For information, does not need fixing immediately</option>
+				<option value="2">There is a fault, but the equipment is still operational</option>
+				<option value="1">There is a fault, but the equipment is still operational</option>
+			</select>
+		</div>
 		}
 	</div>
 </div>

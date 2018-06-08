@@ -34,9 +34,10 @@ namespace GuardianChecks.Controllers
 			return View(g);
 		}
 
-		public ActionResult Issues(int PadId, DateTime CheckDate, List<string> Issues)
+		public ActionResult Issues(int PadId, DateTime CheckDate)
 		{
-			ViewBag.Issues = Issues.ToList();
+			ViewBag.Issues = TempData["Issues"];
+			TempData["Issues"] = ViewBag.Issues;
 			ViewBag.CheckDate = CheckDate;
 			ViewBag.PadSite = PAD.GetPadSites(PadId).First();
 			return View();
@@ -81,7 +82,8 @@ namespace GuardianChecks.Controllers
 			}
 			if(issues.Count() > 0)
 			{
-				return RedirectToAction("Issues", new { PadId = g.PadId, CheckDate = now, Issues = issues });
+				TempData["Issues"] = issues;
+				return RedirectToAction("Issues", new { PadId = g.PadId, CheckDate = now });
 			}
 			return RedirectToAction("Notes", new { PadId = g.PadId, CheckDate = now });
 		}
