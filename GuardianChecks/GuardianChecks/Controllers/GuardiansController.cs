@@ -52,42 +52,17 @@ namespace GuardianChecks.Controllers
 		{
 			DateTime now = new DateTime();
 			List<string> issues = new List<string>();
-			if (!g.CabinetOpenLock)
+			g.Date = DateTime.Now;
+			try
 			{
-				issues.Add("Does the cabinet open and lock correctly?");
+				g.upsert();
+				return RedirectToAction("Notes", new { PadId = g.PadId, CheckDate = now });
 			}
-			if (!g.CabinetBatteriesOk)
+			catch(Exception ex)
 			{
-				issues.Add("Are the lock batteries ok?");
+				throw new Exception(ex.Message);
 			}
-			if (!g.CabinetLightWork)
-			{
-				issues.Add("Are the cabinet lights working?");
-			}
-			if (!g.NothingTouchingHeater)
-			{
-				issues.Add("Have you ensured that nothing is touching the cabinet heater?");
-			}
-			if (!g.AEDOk)
-			{
-				issues.Add("Is the AED in operating mode?");
-			}
-			if (!g.AEDSilent)
-			{
-				issues.Add("Is the AED silent?");
-			}
-			if (!g.ResusKit)
-			{
-				issues.Add("Is the resuscitation kit in the cabinet?");
-			}
-			if(issues.Count() > 0)
-			{
-				TempData["Issues"] = issues;
-				return RedirectToAction("Issues", new { PadId = g.PadId, CheckDate = now });
-			}
-			return RedirectToAction("Notes", new { PadId = g.PadId, CheckDate = now });
 		}
 
-		
 	}
 }

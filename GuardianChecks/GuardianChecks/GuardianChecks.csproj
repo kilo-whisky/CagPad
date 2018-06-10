@@ -131,7 +131,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DBHelper.cs" />
-    <Compile Include="Models\AED.cs" />
     <Compile Include="Models\Cabinet.cs" />
     <Compile Include="Models\Defib.cs" />
     <Compile Include="Models\Equipment.cs" />
