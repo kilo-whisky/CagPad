@@ -19,6 +19,7 @@ namespace GuardianChecks.Models
 		public bool AEDOk { get; set; }
 		public bool AEDSilent { get; set; }
 		public bool ResusKit { get; set; }
+		public List<string> Issues { get; set; }
 
 		public int upsert()
 		{
@@ -62,7 +63,6 @@ namespace GuardianChecks.Models
 					item.ResusKit = dbh.DrGetBoolean("ResusKit");
 					list.Add(item);
 				}
-				
 			}
 			return list;
 		}

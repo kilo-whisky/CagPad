@@ -1,9 +1,9 @@
 use CAGPAD
 go
 
-create proc PAD.GuardianCheck_Upsert (
+alter proc PAD.GuardianCheck_Upsert (
 	@PadId int,
-	@Date datetime,
+	@Date datetime = null,
 	@UserId int,
 	@CabinetOpenLock bit,
 	@CabinetBatteriesOk bit,
@@ -14,11 +14,20 @@ create proc PAD.GuardianCheck_Upsert (
 	@ResusKit bit
 ) as
 
+set @Date = isnull(@date, getdate())
+
 if not exists (select * from PAD.GuardianChecks g where g.PadId = @PadId and g.Date = @Date)
 begin
 
 	insert into PAD.GuardianChecks (PadId, Date, UserId, CabinetOpenLock, CabinetBatteriesOk, CabinetLightWork, NothingTouchingHeater, AEDok, AEDSilent, ResuscitationKit)
 	values (@PadId, @Date, @UserId, @CabinetOpenLock, @CabinetBatteriesOk, @CabinetLightWork, @NothingTouchingHeater, @AEDok, @AEDSilent, @ResusKit)
+
+    create table #issues (IssueName varchar(50))
+    insert into #issues
+    exec PAD.GuardianCheck_Issues 1, '2018-06-13'
+
+    --return 
+    select count(*) from #issues
 
 end
 

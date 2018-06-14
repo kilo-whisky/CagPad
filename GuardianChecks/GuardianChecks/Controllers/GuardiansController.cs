@@ -36,8 +36,6 @@ namespace GuardianChecks.Controllers
 
 		public ActionResult Issues(int PadId, DateTime CheckDate)
 		{
-			ViewBag.Issues = TempData["Issues"];
-			TempData["Issues"] = ViewBag.Issues;
 			ViewBag.CheckDate = CheckDate;
 			ViewBag.PadSite = PAD.GetPadSites(PadId).First();
 			return View();
@@ -50,13 +48,20 @@ namespace GuardianChecks.Controllers
 
 		public ActionResult FirstPageSubmit(GuardianCheck g)
 		{
-			DateTime now = new DateTime();
-			List<string> issues = new List<string>();
-			g.Date = DateTime.Now;
+			DateTime now = DateTime.Now;
+			g.Date = now;
 			try
 			{
-				g.upsert();
-				return RedirectToAction("Notes", new { PadId = g.PadId, CheckDate = now });
+				int Issues = g.upsert();
+				if (Issues > 0)
+				{
+					return RedirectToAction("Issues", new { PadId = g.PadId, CheckDate = now });
+				}
+				else
+				{
+					return RedirectToAction("Notes", new { PadId = g.PadId, CheckDate = now });
+				}
+				
 			}
 			catch(Exception ex)
 			{
