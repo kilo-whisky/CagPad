@@ -1,7 +1,7 @@
 use CAGPAD
 go
 
-create proc PAD.GuardianCheck_Issues (@PadId int, @Date datetime)
+create proc PAD.GuardianCheck_Issues (@PadId int, @Date date)
 as
 
 begin

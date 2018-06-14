@@ -3,7 +3,7 @@ go
 
 alter proc PAD.GuardianCheck_List (
 	@PadId int = null,
-	@Date datetime = null
+	@Date date = null
 ) as
 
 select
@@ -39,4 +39,4 @@ end
 
 go
 
-exec PAD.GuardianCheck_List 1, '2018-06-11'
+exec PAD.GuardianCheck_List --1, '2018-06-11'

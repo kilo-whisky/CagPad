@@ -3,7 +3,7 @@ go
 
 alter proc PAD.GuardianCheck_Upsert (
 	@PadId int,
-	@Date datetime = null,
+	@Date date = null,
 	@UserId int,
 	@CabinetOpenLock bit,
 	@CabinetBatteriesOk bit,
@@ -14,8 +14,6 @@ alter proc PAD.GuardianCheck_Upsert (
 	@ResusKit bit
 ) as
 
-set @Date = isnull(@date, getdate())
-
 if not exists (select * from PAD.GuardianChecks g where g.PadId = @PadId and g.Date = @Date)
 begin
 
@@ -24,7 +22,7 @@ begin
 
     create table #issues (IssueName varchar(50))
     insert into #issues
-    exec PAD.GuardianCheck_Issues 1, '2018-06-13'
+    exec PAD.GuardianCheck_Issues @PadId, @Date
 
     --return 
     select count(*) from #issues
