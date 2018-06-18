@@ -36,6 +36,7 @@ namespace GuardianChecks.Controllers
 
 		public ActionResult Issues(int PadId, DateTime CheckDate)
 		{
+			ViewBag.Issues = GuardianIssues.GetIssues(PadId, CheckDate);
 			ViewBag.CheckDate = CheckDate;
 			ViewBag.PadSite = PAD.GetPadSites(PadId).First();
 			return View();
@@ -52,7 +53,8 @@ namespace GuardianChecks.Controllers
 			g.Date = now;
 			try
 			{
-				int Issues = g.upsert();
+				g.upsert();
+				int Issues = GuardianIssues.GetIssues(g.PadId, now).Count();
 				if (Issues > 0)
 				{
 					return RedirectToAction("Issues", new { PadId = g.PadId, CheckDate = now });
@@ -68,6 +70,9 @@ namespace GuardianChecks.Controllers
 				throw new Exception(ex.Message);
 			}
 		}
+
+		[HttpPost]
+		public ActionResult IssueSubmit()
 
 	}
 }

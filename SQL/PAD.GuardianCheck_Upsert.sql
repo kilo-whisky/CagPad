@@ -10,15 +10,14 @@ alter proc PAD.GuardianCheck_Upsert (
 	@CabinetLightWork bit,
 	@NothingTouchingHeater bit,
 	@AEDOk bit,
-	@AEDSilent bit,
-	@ResusKit bit
+	@AEDSilent bit
 ) as
 
 if not exists (select * from PAD.GuardianChecks g where g.PadId = @PadId and g.Date = @Date)
 begin
 
-	insert into PAD.GuardianChecks (PadId, Date, UserId, CabinetOpenLock, CabinetBatteriesOk, CabinetLightWork, NothingTouchingHeater, AEDok, AEDSilent, ResuscitationKit)
-	values (@PadId, @Date, @UserId, @CabinetOpenLock, @CabinetBatteriesOk, @CabinetLightWork, @NothingTouchingHeater, @AEDok, @AEDSilent, @ResusKit)
+	insert into PAD.GuardianChecks (PadId, Date, UserId, CabinetOpenLock, CabinetBatteriesOk, CabinetLightWork, NothingTouchingHeater, AEDok, AEDSilent)
+	values (@PadId, @Date, @UserId, @CabinetOpenLock, @CabinetBatteriesOk, @CabinetLightWork, @NothingTouchingHeater, @AEDok, @AEDSilent)
 
     create table #issues (IssueName varchar(50))
     insert into #issues
@@ -39,8 +38,7 @@ begin
 		CabinetLightWork = @CabinetLightWork, 
 		NothingTouchingHeater = @NothingTouchingHeater, 
 		AEDok = @AEDok, 
-		AEDSilent = @AEDSilent, 
-		ResuscitationKit = @ResusKit
+		AEDSilent = @AEDSilent
 	where
 		PadId = @PadId
 		and Date = @Date

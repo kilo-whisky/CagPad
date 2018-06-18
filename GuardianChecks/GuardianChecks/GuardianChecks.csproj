@@ -371,6 +371,7 @@
     <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CAG\GuardianCheck-Issues.js" />
     <Content Include="Scripts\CAG\GuardiansForm.js" />
     <Content Include="Scripts\CAG\Home.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />

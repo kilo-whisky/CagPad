@@ -6,6 +6,31 @@ using System.Web;
 
 namespace GuardianChecks.Models
 {
+	public class GuardianIssues
+	{
+		public string IssueName { get; set; }
+		public string IssueQuestion { get; set; }
+
+
+		public static List<GuardianIssues> GetIssues(int? PadId, DateTime? Date)
+		{
+			List<GuardianIssues> list = new List<GuardianIssues>();
+			using (dbHelp dbh = new dbHelp("PAD.GuardianCheck_Issues", true, "CAG"))
+			{
+				dbh.addParam("PadId", PadId);
+				dbh.addParam("Date", Date);
+				while (dbh.dr.Read())
+				{
+					GuardianIssues item = new GuardianIssues();
+					item.IssueName = dbh.drGetString("IssueName");
+					item.IssueQuestion = dbh.drGetString("IssueQuestion");
+					list.Add(item);
+				}
+			}
+			return list;
+		}
+	}
+
 	public class GuardianCheck
 	{
 		public int PadId { get; set; }
@@ -18,7 +43,6 @@ namespace GuardianChecks.Models
 		public bool NothingTouchingHeater { get; set; }
 		public bool AEDOk { get; set; }
 		public bool AEDSilent { get; set; }
-		public bool ResusKit { get; set; }
 		public List<string> Issues { get; set; }
 
 		public int upsert()
@@ -34,7 +58,6 @@ namespace GuardianChecks.Models
 				dbh.addParam("NothingTouchingHeater", NothingTouchingHeater);
 				dbh.addParam("AEDOk", AEDOk);
 				dbh.addParam("AEDSilent", AEDSilent);
-				dbh.addParam("ResusKit", ResusKit);
 				string retval = dbh.ExecNoQuery();
 				return int.Parse(retval);
 			}
@@ -60,7 +83,6 @@ namespace GuardianChecks.Models
 					item.NothingTouchingHeater = dbh.DrGetBoolean("NothingTouchingHeater");
 					item.AEDOk = dbh.DrGetBoolean("AEDOk");
 					item.AEDSilent = dbh.DrGetBoolean("AEDSilent");
-					item.ResusKit = dbh.DrGetBoolean("ResusKit");
 					list.Add(item);
 				}
 			}
