@@ -1,6 +1,7 @@
 ﻿using GuardianChecks.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -71,8 +72,10 @@ namespace GuardianChecks.Controllers
 			}
 		}
 
-		[HttpPost]
-		public ActionResult IssueSubmit()
+		public void IssueSubmit(FormCollection f)
+		{
+			var form = f;
+		}
 
 	}
 }

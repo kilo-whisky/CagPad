@@ -16,15 +16,15 @@
 			{
 				<div style="margin-bottom:50px;">
 					<strong>@item.IssueQuestion</strong> <br />
-					<textarea class="form-control" rows="4"></textarea>
+					<textarea name="Description" class="form-control" rows="4"></textarea>
 					<div class="radio">
-						<label><input type="radio" name="severity" value="3">The device is usable, issue is not urgent</label>
+						<label><input type="radio" name="severity" value="3">The PAD site is usable, issue is not urgent</label>
 					</div>
 					<div class="radio">
-						<label><input type="radio" name="severity" value="2"><span class="text-warning"> The device is usable, but requires immediate attention</span></label>
+						<label><input type="radio" name="severity" value="2"><span class="text-warning"> The PAD site is usable, but requires immediate attention</span></label>
 					</div>
 					<div class="radio disabled">
-						<label><input type="radio" name="severity" value="1"><span class="text-danger"> Device is inoperable</span></label>
+						<label><input type="radio" name="severity" value="1"><span class="text-danger"> PAD site is inoperable</span></label>
 					</div>
 
 					<input type="file" accept="image/*" name="file" multiple />
@@ -37,6 +37,10 @@
 </div>
 
 @section scripts {
+
+	<script type="text/javascript">
+		var Path_SubmitIssue = '@Url.Action("IssueSubmit", "Guardians")'
+	</script>
 	
 	<script src="~/Scripts/CAG/GuardianCheck-Issues.js"></script>
 
