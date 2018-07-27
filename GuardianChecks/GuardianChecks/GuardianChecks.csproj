@@ -138,6 +138,7 @@
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Navbar.cs" />
     <Compile Include="Models\PAD.cs" />
+    <Compile Include="Models\Questions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -371,9 +372,9 @@
     <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\CAG\GuardianCheck-Issues.js" />
-    <Content Include="Scripts\CAG\GuardiansForm.js" />
-    <Content Include="Scripts\CAG\Home.js" />
+    <Content Include="CAGScripts\GuardianCheck-Issues.js" />
+    <Content Include="CAGScripts\GuardiansForm.js" />
+    <Content Include="CAGScripts\Home.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -494,6 +495,7 @@
     <Content Include="Views\Guardians\_PadSite.cshtml" />
     <Content Include="Views\Guardians\_KnownIssues.cshtml" />
     <Content Include="Views\Guardians\Issues.cshtml" />
+    <Content Include="Views\Guardians\_Questions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

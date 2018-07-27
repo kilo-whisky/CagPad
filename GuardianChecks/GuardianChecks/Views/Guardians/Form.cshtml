@@ -35,76 +35,17 @@
 	</div>
 	<div class="panel-body">
 
-
-		@using (Html.BeginForm("FirstPageSubmit", "Guardians", FormMethod.Post, new { id = "frm-check", enctype = "multipart/form-data" }))
-		{
-			@Html.AntiForgeryToken()
-			<div class="form-horizontal">
-
-				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-				<div style="margin-left:20px">
-
-					@Html.HiddenFor(x => x.PadId)
-					@Html.HiddenFor(x => x.UserId)
-
-					<div class="form-group">
-						Does the cabinet open and lock correctly?<br />
-						<label class="checkbox-inline">
-							<input type="checkbox" class="toggle" name="CabinetOpenLock" id="tgl-lock" value="true">
-						</label>
-					</div>
-
-					<div class="form-group">
-						Are the lock batteries ok?<br />
-						<label class="checkbox-inline">
-							<input type="checkbox" class="toggle" name="CabinetBatteriesOk" id="tgl-batteries" value="true">
-						</label>
-					</div>
-
-					<div class="form-group">
-						Are the cabinet lights working?<br />
-						<label class="checkbox-inline">
-							<input type="checkbox" class="toggle" name="CabinetLightWork" id="tgl-light" value="true">
-						</label>
-					</div>
-
-					<div class="form-group">
-						Have you ensured that nothing is touching the cabinet heater?<br />
-						<label class="checkbox-inline">
-							<input type="checkbox" class="toggle" name="nothingTouchingHeater" id="tgl-heater" value="true">
-						</label>
-					</div>
-
-					<div class="form-group">
-						Is the AED in operating mode?<br />
-						<label class="checkbox-inline">
-							<input type="checkbox" class="toggle" name="AEDOk" id="tgl-aed" value="true">
-						</label>
-					</div>
-
-					<div class="form-group">
-						Is the AED silent?<br />
-						<label class="checkbox-inline">
-							<input type="checkbox" class="toggle" name="AEDSilent" id="tgl-silent" value="true">
-						</label>
-					</div>
-
-					<div class="form-group">
-						<div>
-							<input type="submit" value="Next" class="btn btn-default btn-sm" />
-						</div>
-					</div>
-				</div>
-			</div>
-		}
+		<div id="questions">
+			@Html.Action("_Questions", "Guardians")
+		</div>
 
 
+		<button class="btn btn-default" id="btn-next">Next</button>
 	</div>
 </div>
 
 @section scripts {
 
-	<script src="~/Scripts/CAG/GuardiansForm.js"></script>
+	<script src="~/CAGScripts/GuardiansForm.js"></script>
 
 }

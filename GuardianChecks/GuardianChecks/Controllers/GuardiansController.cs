@@ -24,7 +24,7 @@ namespace GuardianChecks.Controllers
 
 		public PartialViewResult _KnownIssues(int PadId)
 		{
-			return PartialView(Issue.GetIssues(null, PadId, null, null).Where(x => !x.Resolved).ToList());
+			return PartialView(Issue.GetIssues(null, null, false, PadId, null, null));
 		}
 
 		public ActionResult Form(int PadId)
@@ -35,46 +35,9 @@ namespace GuardianChecks.Controllers
 			return View(g);
 		}
 
-		public ActionResult Issues(int PadId, DateTime CheckDate)
+		public PartialViewResult _Questions()
 		{
-			ViewBag.Issues = GuardianIssues.GetIssues(PadId, CheckDate);
-			ViewBag.CheckDate = CheckDate;
-			ViewBag.PadSite = PAD.GetPadSites(PadId).First();
-			return View();
-		}
-
-		public ActionResult Notes(int PadId, DateTime CheckDate)
-		{
-			return View();
-		}
-
-		public ActionResult FirstPageSubmit(GuardianCheck g)
-		{
-			DateTime now = DateTime.Now;
-			g.Date = now;
-			try
-			{
-				g.upsert();
-				int Issues = GuardianIssues.GetIssues(g.PadId, now).Count();
-				if (Issues > 0)
-				{
-					return RedirectToAction("Issues", new { PadId = g.PadId, CheckDate = now });
-				}
-				else
-				{
-					return RedirectToAction("Notes", new { PadId = g.PadId, CheckDate = now });
-				}
-				
-			}
-			catch(Exception ex)
-			{
-				throw new Exception(ex.Message);
-			}
-		}
-
-		public void IssueSubmit(FormCollection f)
-		{
-			var form = f;
+			return PartialView(Questions.GetQuestions(null));
 		}
 
 	}

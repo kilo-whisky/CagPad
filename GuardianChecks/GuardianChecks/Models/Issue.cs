@@ -10,6 +10,9 @@ namespace GuardianChecks.Models
 	{
 		public int IssueId { get; set; }
 		public int? PadId { get; set; }
+		public int? AnswerId { get; set; }
+		public int? CheckId { get; set; }
+		public string Question { get; set; }
 		public string PadSite { get; set; }
 		public int? CabinetId { get; set; }
 		public string Cabinet { get; set; }
@@ -21,12 +24,14 @@ namespace GuardianChecks.Models
 		public DateTime ReportedOn { get; set; }
 		public bool Resolved { get; set; }
 
-		public static List<Issue> GetIssues(int? IssueId, int? PadId, int? DefibId, int? CabinetId)
+		public static List<Issue> GetIssues(int? IssueId, int? CheckId, bool? Resolved, int? PadId, int? DefibId, int? CabinetId)
 		{
 			List<Issue> list = new List<Issue>();
 			using (dbHelp dbh = new dbHelp("PAD.Issues_List", true, "CAG"))
 			{
 				dbh.addParam("IssueId", IssueId);
+				dbh.addParam("CheckId", CheckId);
+				dbh.addParam("Resolved", Resolved);
 				dbh.addParam("PadId", PadId);
 				dbh.addParam("DefibId", DefibId);
 				dbh.addParam("CabinetId", CabinetId);
@@ -36,6 +41,9 @@ namespace GuardianChecks.Models
 					item.IssueId = dbh.drGetInt32("IssueId");
 					item.PadId = dbh.drGetInt32Null("PadId");
 					item.PadSite = dbh.drGetString("PadSite");
+					item.AnswerId = dbh.drGetInt32Null("AnswerId");
+					item.CheckId = dbh.drGetInt32Null("CheckId");
+					item.Question = dbh.drGetString("Question");
 					item.DefibId = dbh.drGetInt32Null("DefibId");
 					item.Defib = dbh.drGetString("Defib");
 					item.CabinetId = dbh.drGetInt32Null("CabinetId");

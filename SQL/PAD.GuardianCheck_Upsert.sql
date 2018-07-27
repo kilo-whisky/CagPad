@@ -2,29 +2,21 @@ use CAGPAD
 go
 
 alter proc PAD.GuardianCheck_Upsert (
+    @CheckId int = null,
 	@PadId int,
 	@Date date = null,
 	@UserId int,
-	@CabinetOpenLock bit,
-	@CabinetBatteriesOk bit,
-	@CabinetLightWork bit,
-	@NothingTouchingHeater bit,
-	@AEDOk bit,
-	@AEDSilent bit
+    @Complete bit,
+    @Notes varchar(max) = null
 ) as
+
+declare @now datetime = getdate()
 
 if not exists (select * from PAD.GuardianChecks g where g.PadId = @PadId and g.Date = @Date)
 begin
 
-	insert into PAD.GuardianChecks (PadId, Date, UserId, CabinetOpenLock, CabinetBatteriesOk, CabinetLightWork, NothingTouchingHeater, AEDok, AEDSilent)
-	values (@PadId, @Date, @UserId, @CabinetOpenLock, @CabinetBatteriesOk, @CabinetLightWork, @NothingTouchingHeater, @AEDok, @AEDSilent)
-
-    create table #issues (IssueName varchar(50))
-    insert into #issues
-    exec PAD.GuardianCheck_Issues @PadId, @Date
-
-    --return 
-    select count(*) from #issues
+	insert into PAD.GuardianChecks (PadId, Date, UserId)
+	values (@PadId, cast(@now as date), @UserId)
 
 end
 
@@ -32,15 +24,18 @@ else
 
 begin
 
-	update PAD.GuardianChecks set
-		CabinetOpenLock = @CabinetOpenLock, 
-		CabinetBatteriesOk = @CabinetBatteriesOk, 
-		CabinetLightWork = @CabinetLightWork, 
-		NothingTouchingHeater = @NothingTouchingHeater, 
-		AEDok = @AEDok, 
-		AEDSilent = @AEDSilent
-	where
-		PadId = @PadId
-		and Date = @Date
+    update PAD.GuardianChecks set
+      Notes = @Notes
+    where
+        CheckId = @CheckId
+
+	if @Complete = 1
+    begin
+        update PAD.GuardianChecks set
+            Completed = @now
+        where
+            CheckId = @CheckId
+    end
+    
 
 end

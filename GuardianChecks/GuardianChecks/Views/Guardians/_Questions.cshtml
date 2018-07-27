@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GuardianChecks.Models.Questions>
+
+@foreach (var item in Model)
+{
+
+	<div class="form-group">
+		@item.Question<br />
+		<label class="checkbox-inline">
+			<input type="checkbox" class="toggle" name="@item.QuestionId" id="tgl-@item.QuestionId" value="true" data-question="@item.QuestionId">
+		</label>
+	</div>
+
+}

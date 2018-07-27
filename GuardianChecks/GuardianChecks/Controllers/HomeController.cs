@@ -21,7 +21,7 @@ namespace GuardianChecks.Controllers
 
 		public PartialViewResult _Issues()
 		{
-			return PartialView(Issue.GetIssues(null, null, null, null).Where(x => !x.Resolved).ToList());
+			return PartialView(Issue.GetIssues(null, null, false, null, null, null).Where(x => !x.Resolved).ToList());
 		}
 	}
 }

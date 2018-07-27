@@ -12,12 +12,12 @@ namespace GuardianChecks.Controllers
 		// GET: Issues
 		public ActionResult Index()
 		{
-			return View(Issue.GetIssues(null, null, null, null));
+			return View(Issue.GetIssues(null, null, false, null, null, null));
 		}
 
 		public ActionResult Details(int IssueId)
 		{
-			return View(Issue.GetIssues(IssueId, null, null, null).First());
+			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
 		}
 	}
 }
