@@ -21,5 +21,15 @@ $('#btn-next').on('click', function () {
 		};
 		questions.push(q)
 	});
-	console.log(questions)
+	var params = JSON.stringify({
+		"PadId": Data_PadId,
+		"Questions": questions
+	})
+	$.ajax({
+		url: Path_Stage1,
+		data: questions,
+		success: function (data) {
+			window.location.href = data
+		}
+	});
 })

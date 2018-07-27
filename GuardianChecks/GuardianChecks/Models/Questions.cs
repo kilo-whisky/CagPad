@@ -12,6 +12,7 @@ namespace GuardianChecks.Models
 		public string Question { get; set; }
 		public string Type { get; set; }
 		public bool Active { get; set; }
+		public bool Answer { get; set; }
 		public int? QuestionOrder { get; set; }
 
 		public static List<Questions> GetQuestions(int? QuestionId)

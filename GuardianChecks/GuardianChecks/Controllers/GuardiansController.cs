@@ -40,5 +40,23 @@ namespace GuardianChecks.Controllers
 			return PartialView(Questions.GetQuestions(null));
 		}
 
+		public ActionResult Stage1 (int PadId, List<Questions> Questions)
+		{
+			GuardianCheck gc = new GuardianCheck
+			{
+				PadId = PadId
+			};
+			int CheckId = gc.upsert();
+			foreach (var q in Questions)
+			{
+				Answers a = new Answers
+				{
+					CheckId = CheckId,
+					QuestionId = q.QuestionId,
+					Answer = q.Answer
+				};
+				a.upsert();
+			}
+		}
 	}
 }

@@ -11,7 +11,7 @@ namespace GuardianChecks.Models
 	{
 		public int? CheckId { get; set; }
 		public int PadId { get; set; }
-		public DateTime Date { get; set; }
+		public DateTime? Date { get; set; }
 		public int UserId { get; set; }
 		public bool Complete { get; set; }
 		public DateTime? Completed { get; set; }
