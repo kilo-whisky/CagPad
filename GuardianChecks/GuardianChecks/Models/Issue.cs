@@ -18,7 +18,7 @@ namespace GuardianChecks.Models
 		public string Cabinet { get; set; }
 		public int? DefibId { get; set; }
 		public string Defib { get; set; }
-		public int Severity { get; set; }
+		public int? Severity { get; set; }
 		public string Description { get; set; }
 		public string ReportedBy { get; set; }
 		public DateTime ReportedOn { get; set; }
@@ -48,7 +48,7 @@ namespace GuardianChecks.Models
 					item.Defib = dbh.drGetString("Defib");
 					item.CabinetId = dbh.drGetInt32Null("CabinetId");
 					item.Cabinet = dbh.drGetString("Cabinet");
-					item.Severity = dbh.drGetInt32("Severity");
+					item.Severity = dbh.drGetInt32Null("Severity");
 					item.Description = dbh.drGetString("Description");
 					item.ReportedBy = dbh.drGetString("ReportedBy");
 					item.ReportedOn = dbh.drGetDateTime("ReportedOn");

@@ -1,47 +1,49 @@
-﻿
+﻿@model IEnumerable<GuardianChecks.Models.Issue>
+
 @{
-	ViewBag.Title = "Issues";
+    ViewBag.Title = "Issues";
 }
-<div class="panel panel-default" style="margin-top: 20px">
-	<div class="panel-heading">
-		Issues
-	</div>
-	<div class="panel-body">
-		<div class="alert alert-info">
-			You answered no to the following questions, please provide some details
-		</div>
-		@foreach (var item in ViewBag.Issues)
-		{
-			using (Html.BeginForm("IssueSubmit", "Guardians", FormMethod.Post, new { enctype = "multipart/form-data", id = item.IssueName }))
-			{
-				<div style="margin-bottom:50px;">
-					<strong>@item.IssueQuestion</strong> <br />
-					<textarea name="Description" class="form-control" rows="4"></textarea>
-					<div class="radio">
-						<label><input type="radio" name="severity" value="3">The PAD site is usable, issue is not urgent</label>
-					</div>
-					<div class="radio">
-						<label><input type="radio" name="severity" value="2"><span class="text-warning"> The PAD site is usable, but requires immediate attention</span></label>
-					</div>
-					<div class="radio disabled">
-						<label><input type="radio" name="severity" value="1"><span class="text-danger"> PAD site is inoperable</span></label>
-					</div>
 
-					<input type="file" accept="image/*" name="file" multiple />
+<h2>Issues</h2>
+
+<div style="margin-top:25px" class="alert alert-info">You answered no to some of the questions, please could you give us some more information?</div>
+
+@foreach (var item in Model) {
+
+	<div class="issue" id="@item.IssueId">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				@item.Question
+			</div>
+			<div class="panel-body">
+
+				<div class="form-group">
+					<div class="control-label">Description</div>
+					<textarea class="form-control description" name="Description"></textarea>
 				</div>
-				}
-		}
-		<button class="btn btn-default btn-sm" id="btn-next">Next</button>
+
+				<div class="form-group">
+					<div class="control-label">Severity</div>
+					<input type="radio" name="Severity-@item.IssueId" value="3" /> The PAD site is usable and this issue is not urgent <br />
+					<input type="radio" name="Severity-@item.IssueId" value="2" /> The PAD site is usable but the issue requires attention<br />
+					<input type="radio" name="Severity-@item.IssueId" value="1" /> The PAD site is unusable<br />
+				</div>
+
+				<div class="form-group">
+					<div class="control-label">Upload an image</div>
+					<input type="file" name="Image" accept="image/*" class="image" id="image-@item.IssueId" />
+				</div>
+
+			</div>
+		</div>
 	</div>
 
-</div>
+}
+
+<button class="btn btn-default" id="btn-next">Next</button>
 
 @section scripts {
-
-	<script type="text/javascript">
-		var Path_SubmitIssue = '@Url.Action("IssueSubmit", "Guardians")'
-	</script>
 	
-	<script src="~/CAGScripts/GuardianCheck-Issues.js"></script>
+<script src="~/CAGScripts/GuardianCheck-Issues.js"></script>
 
 }

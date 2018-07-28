@@ -495,8 +495,8 @@
     <Content Include="Views\Guardians\Form.cshtml" />
     <Content Include="Views\Guardians\_PadSite.cshtml" />
     <Content Include="Views\Guardians\_KnownIssues.cshtml" />
-    <Content Include="Views\Guardians\Issues.cshtml" />
     <Content Include="Views\Guardians\_Questions.cshtml" />
+    <Content Include="Views\Guardians\Issues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

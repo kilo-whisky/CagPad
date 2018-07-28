@@ -21,14 +21,20 @@ $('#btn-next').on('click', function () {
 		};
 		questions.push(q)
 	});
+	console.log(Data_PadId);
+	console.log(questions);
 	var params = JSON.stringify({
 		"PadId": Data_PadId,
 		"Questions": questions
 	})
+	console.log(params);
 	$.ajax({
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
 		url: Path_Stage1,
-		data: questions,
+		data: params,
 		success: function (data) {
+			console.log(data);
 			window.location.href = data
 		}
 	});

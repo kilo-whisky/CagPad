@@ -40,11 +40,11 @@ namespace GuardianChecks.Controllers
 			return PartialView(Questions.GetQuestions(null));
 		}
 
-		public ActionResult Stage1 (int PadId, List<Questions> Questions)
+		public string Stage1Upsert (string PadId, List<Questions> Questions)
 		{
 			GuardianCheck gc = new GuardianCheck
 			{
-				PadId = PadId
+				PadId = int.Parse(PadId)
 			};
 			int CheckId = gc.upsert();
 			foreach (var q in Questions)
@@ -57,6 +57,14 @@ namespace GuardianChecks.Controllers
 				};
 				a.upsert();
 			}
+			int issues = Issue.GetIssues(null, CheckId, false, null, null, null).Count;
+			if (issues > 0) return Url.Action("Issues", "Guardians", new { CheckId } );
+			else return Url.Action("Confirmation", "Guardians", new { CheckId } );
+		}
+
+		public ActionResult Issues (int CheckId)
+		{
+			return View(Issue.GetIssues(null, CheckId, false, null, null, null));
 		}
 	}
 }

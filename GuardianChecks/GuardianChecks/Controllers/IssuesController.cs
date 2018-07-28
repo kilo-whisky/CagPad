@@ -19,5 +19,10 @@ namespace GuardianChecks.Controllers
 		{
 			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
 		}
+
+		public ActionResult IssueFormUpsert (int IssueId, HttpFileCollectionBase Image, string Description, string Severity)
+		{
+
+		}
 	}
 }

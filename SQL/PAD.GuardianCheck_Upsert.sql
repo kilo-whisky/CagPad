@@ -17,6 +17,8 @@ begin
 
 	insert into PAD.GuardianChecks (PadId, Date, UserId)
 	values (@PadId, cast(@now as date), @UserId)
+	select @CheckId = SCOPE_IDENTITY()
+	return @CheckId
 
 end
 
@@ -36,6 +38,8 @@ begin
         where
             CheckId = @CheckId
     end
+
+	return @CheckId
     
 
 end
