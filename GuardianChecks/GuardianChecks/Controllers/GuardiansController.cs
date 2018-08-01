@@ -14,7 +14,15 @@ namespace GuardianChecks.Controllers
 		// GET: Guardians
 		public ActionResult Index()
 		{
-			return View();
+			return View(GuardianCheck.GetChecks(null, null, null));
+		}
+
+		public ActionResult Details(int CheckId)
+		{
+			GuardianCheck check = GuardianCheck.GetChecks(CheckId, null, null).First();
+			ViewBag.PAD = PAD.GetPadSites(check.PadId).First();
+			ViewBag.Answers = Answers.GetAnswers(CheckId);
+			return View(check);
 		}
 
 		public PartialViewResult _PadSite(int PadId)
@@ -69,6 +77,7 @@ namespace GuardianChecks.Controllers
 
 		public ActionResult Confirmation (int CheckId)
 		{
+			ViewBag.Issues = Issue.GetIssues(null, CheckId, false, null, null, null).Where(c => c.Severity == 1).Count();
 			return View(GuardianCheck.GetChecks(CheckId, null, null).First());
 		}
 
@@ -79,7 +88,7 @@ namespace GuardianChecks.Controllers
 			try
 			{
 				check.upsert();
-				return RedirectToAction("Site", "PADSites", new { check.PadId });
+				return RedirectToAction("Details", "Guardians", new { check.CheckId });
 			}
 			catch (Exception ex)
 			{

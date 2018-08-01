@@ -1,0 +1,29 @@
+﻿@model IEnumerable<GuardianChecks.Models.GuardianCheck>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.CheckId)</th>
+			<th>@Html.DisplayNameFor(model => model.Date)</th>
+			<th>@Html.DisplayNameFor(model => model.Completed)</th>
+			<th>@Html.DisplayNameFor(model => model.Guardian)</th>
+			<th>@Html.DisplayNameFor(model => model.Issues)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(modelItem => item.CheckId)</td>
+				<td>@Html.DisplayFor(modelItem => item.Date)</td>
+				<td>@Html.DisplayFor(modelItem => item.Completed)</td>
+				<td>@Html.DisplayFor(modelItem => item.Guardian)</td>
+				<td>@Html.DisplayFor(modelItem => item.Issues)</td>
+				<td class="text-center">
+					<a href="@Url.Action("Details", "Guardians", new { item.CheckId })" class="btn btn-default btn-sm">Details</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

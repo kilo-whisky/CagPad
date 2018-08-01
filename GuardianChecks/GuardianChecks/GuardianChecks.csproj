@@ -482,7 +482,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Navbar\_Navbar.cshtml" />
-    <Content Include="Views\Guardians\Index.cshtml" />
     <Content Include="Views\PADSites\Index.cshtml" />
     <Content Include="Views\PADSites\Site.cshtml" />
     <Content Include="Views\PADSites\_Equipment.cshtml" />
@@ -498,6 +497,9 @@
     <Content Include="Views\Guardians\_Questions.cshtml" />
     <Content Include="Views\Guardians\Issues.cshtml" />
     <Content Include="Views\Guardians\Confirmation.cshtml" />
+    <Content Include="Views\PADSites\_Checks.cshtml" />
+    <Content Include="Views\Guardians\Details.cshtml" />
+    <Content Include="Views\Guardians\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -46,7 +46,7 @@ go
 
 exec PAD.Issues_List
     @IssueId = null,
-    @CheckId = 9,
+    @CheckId = 1,
     @Resolved = 0,
     @PadId = null,
     @CabinetId = null,

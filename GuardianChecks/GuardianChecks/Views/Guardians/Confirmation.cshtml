@@ -4,6 +4,13 @@
 	ViewBag.Title = "Confirmation";
 }
 
+@if (ViewBag.Issues > 0)
+{
+	<div class="alert alert-danger" style="margin-top: 20px">
+		<strong>Get in contact!</strong> You have indicated that the PAD site is currently inoperable, please get in contact with x to inform them
+	</div>
+}
+
 <div class="panel panel-default" style="margin-top: 20px">
 	<div class="panel-heading">
 		Check Completion

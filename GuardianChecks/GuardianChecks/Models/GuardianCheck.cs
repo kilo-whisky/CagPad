@@ -1,6 +1,7 @@
 ﻿using GuardianChecks.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,12 +12,15 @@ namespace GuardianChecks.Models
 	{
 		public int? CheckId { get; set; }
 		public int PadId { get; set; }
+		public string Location { get; set; }
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime? Date { get; set; }
 		public int UserId { get; set; }
 		public bool Complete { get; set; }
 		public DateTime? Completed { get; set; }
 		public string Guardian { get; set; }
 		public string Notes { get; set; }
+		public int Issues { get; set; }
 		
 
 		public int upsert()
@@ -47,9 +51,12 @@ namespace GuardianChecks.Models
 					GuardianCheck item = new GuardianCheck();
 					item.CheckId = dbh.drGetInt32("CheckId");
 					item.PadId = dbh.drGetInt32("PadId");
+					item.Location = dbh.drGetString("Location");
 					item.Date = dbh.drGetDateTime("Date");
+					item.Completed = dbh.drGetDateTimeNull("Completed");
 					item.UserId = dbh.drGetInt32("UserId");
 					item.Guardian = dbh.drGetString("Guardian");
+					item.Issues = dbh.drGetInt32("Issues");
 					list.Add(item);
 				}
 			}
