@@ -15,7 +15,6 @@
 					<th>@Html.DisplayNameFor(model => model.LocationName)</th>
 					<th>@Html.DisplayNameFor(model => model.Cabinet)</th>
 					<th>@Html.DisplayNameFor(model => model.Defib)</th>
-					<th>@Html.DisplayNameFor(model => model.Owner)</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -26,7 +25,6 @@
 						<td>@Html.DisplayFor(modelItem => item.LocationName)</td>
 						<td>@Html.DisplayFor(modelItem => item.Cabinet)</td>
 						<td>@Html.DisplayFor(modelItem => item.Defib)</td>
-						<td>@Html.DisplayFor(modelItem => item.Owner)</td>
 						<td class="text-center"><a class="btn btn-default btn-sm" href="@Url.Action("Site", "PADSites", new { PadId = item.PadId })">Details</a></td>
 					</tr>
 				}

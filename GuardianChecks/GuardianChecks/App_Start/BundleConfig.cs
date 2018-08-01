@@ -18,7 +18,8 @@ namespace GuardianChecks
 									"~/Scripts/DataTables/dataTables.bootstrap.min.js",
 									"~/Scripts/DataTables/dataTables.fixedHeader.js",
 									 "~/Scripts/bootstrap-toggle.js",
-									 "~/Scripts/respond.js"));
+									 "~/Scripts/respond.js",
+									 "~/Scripts/site.js"));
 
 			bundles.Add(new StyleBundle("~/Content/Styles").Include(
 								"~/Content/bootstrap.css",

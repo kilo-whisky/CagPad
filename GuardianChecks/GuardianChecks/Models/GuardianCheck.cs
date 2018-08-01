@@ -57,6 +57,7 @@ namespace GuardianChecks.Models
 					item.UserId = dbh.drGetInt32("UserId");
 					item.Guardian = dbh.drGetString("Guardian");
 					item.Issues = dbh.drGetInt32("Issues");
+					item.Notes = dbh.drGetString("Notes");
 					list.Add(item);
 				}
 			}

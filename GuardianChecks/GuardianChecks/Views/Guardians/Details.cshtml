@@ -44,9 +44,9 @@
 				var answer = item.Answer == true ? "Yes" : "No";
 				var icon = "";
 				var colour = "";
-				if (item.Severity == 1) { icon = "fa fa-info-circle"; colour = "text-info"; };
+				if (item.Severity == 3) { icon = "fa fa-info-circle"; colour = "text-info"; };
 				if (item.Severity == 2) { icon = "fa fa-warning"; colour = "text-warning"; };
-				if (item.Severity == 3) { icon = "fa fa-exclamation"; colour = "text-danger"; };
+				if (item.Severity == 1) { icon = "fa fa-exclamation"; colour = "text-danger"; };
 			}
 			<p><strong>@item.Question</strong></p>
 			@if (item.Answer)

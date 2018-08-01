@@ -4,44 +4,51 @@
     ViewBag.Title = "Guardian Checks";
 }
 
-<h2>Guardian Checks</h2>
+<div class="panel panel-default" style="margin-top: 25px;">
+	<div class="panel-heading">
+		Guardian Checks
+	</div>
+	<div class="panel-body">
+		<table class="table table-bordered table-striped" id="tbl-checks">
+			<thead>
+				<tr>
+					<th>@Html.DisplayNameFor(model => model.Date)</th>
+					<th>@Html.DisplayNameFor(model => model.Location)</th>
 
-<table class="table table-bordered table-striped" id="tbl-checks" style="margin-top: 20px;">
-	<thead>
-		<tr>
-			<th>@Html.DisplayNameFor(model => model.CheckId)</th>
-			<th>@Html.DisplayNameFor(model => model.Location)</th>
-			<th>@Html.DisplayNameFor(model => model.Date)</th>
-			<th>@Html.DisplayNameFor(model => model.Completed)</th>
-			<th>@Html.DisplayNameFor(model => model.Guardian)</th>
-			<th>@Html.DisplayNameFor(model => model.Issues)</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-		<tr>
-			<td>@Html.DisplayFor(modelItem => item.CheckId)</td>
-			<td>@Html.DisplayFor(modelItem => item.Location)</td>
-			<td>@Html.DisplayFor(modelItem => item.Date)</td>
-			<td>@Html.DisplayFor(modelItem => item.Completed)</td>
-			<td>@Html.DisplayFor(modelItem => item.Guardian)</td>
-			<td>@Html.DisplayFor(modelItem => item.Issues)</td>
-			<td class="text-center">
-				<a href="@Url.Action("Details", "Guardians", new { item.CheckId })" class="btn btn-default btn-sm">Details</a>
-			</td>
-		</tr>
-		}
-	</tbody>
-</table>
+					<th>@Html.DisplayNameFor(model => model.Issues)</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+				<tr>
+					<td>@Html.DisplayFor(modelItem => item.Date)</td>
+					<td>@Html.DisplayFor(modelItem => item.Location)</td>
+
+					<td>@Html.DisplayFor(modelItem => item.Issues)</td>
+					<td class="text-center">
+						<a href="@Url.Action("Details", "Guardians", new { item.CheckId })" class="btn btn-default btn-sm">Details</a>
+					</td>
+				</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
 
 @section scripts {
 	
 	<script type="text/javascript">
 
 		$('#tbl-checks').DataTable({
-			pageLength: 50
+			pageLength: 50,
+			columnDefs: [
+				{ targets: [0], type: "date-uk" }
+			],
+			order: [[0, 'desc']]
 		})
 
 	</script>
