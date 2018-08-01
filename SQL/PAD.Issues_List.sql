@@ -10,7 +10,7 @@ alter proc PAD.Issues_List (
     @CabinetId int = null
 ) as
 
-select
+select distinct
 	i.IssueId, 
 	i.PadId, 
 	PadSite = p.Location,
@@ -18,6 +18,7 @@ select
     a.CheckId,
     q.Question,
 	i.DefibId, 
+    i.Image,
 	Defib = d.Name,
 	i.CabinetId, 
 	Cabinet = c.Name,
@@ -28,8 +29,8 @@ select
 	i.Resolved
 from 
 	PAD.Issues i
-    left join PAD.Answers a on i.AnswerId = a.AnswerId
-    left join PAD.Questions q on a.QuestionId = q.QuestionId
+    left join PAD.Answers a on i.AnswerId = a.AnswerId and a.CheckId = isnull(@CheckId, a.CheckId)
+    left join PAD.Questions q on a.QuestionId = q.QuestionId 
 	left join PAD.PADSites p on i.PadId = p.PadId
 	left join PAD.Defibrillators d on i.DefibId = d.DefibId
 	left join PAD.Cabinets c on i.CabinetId = c.CabinetId
@@ -44,3 +45,9 @@ where
 go
 
 exec PAD.Issues_List
+    @IssueId = null,
+    @CheckId = 9,
+    @Resolved = 0,
+    @PadId = null,
+    @CabinetId = null,
+    @DefibId = null

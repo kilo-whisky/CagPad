@@ -1,49 +1,61 @@
 ﻿@model IEnumerable<GuardianChecks.Models.Issue>
 
 @{
-    ViewBag.Title = "Issues";
+	ViewBag.Title = "Issues";
 }
 
 <h2>Issues</h2>
 
 <div style="margin-top:25px" class="alert alert-info">You answered no to some of the questions, please could you give us some more information?</div>
 
-@foreach (var item in Model) {
-
-	<div class="issue" id="@item.IssueId">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				@item.Question
-			</div>
-			<div class="panel-body">
-
-				<div class="form-group">
-					<div class="control-label">Description</div>
-					<textarea class="form-control description" name="Description"></textarea>
+@foreach (var item in Model)
+{
+	using (Html.BeginForm("IssueFormUpsert", "Issues", FormMethod.Post, new { @id = item.IssueId, @class = "IssueForm", @enctype = "multipart/form-data" }))
+	{
+		<div class="issue" id="@item.IssueId">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					@item.Question
 				</div>
+				<div class="panel-body">
 
-				<div class="form-group">
-					<div class="control-label">Severity</div>
-					<input type="radio" name="Severity-@item.IssueId" value="3" /> The PAD site is usable and this issue is not urgent <br />
-					<input type="radio" name="Severity-@item.IssueId" value="2" /> The PAD site is usable but the issue requires attention<br />
-					<input type="radio" name="Severity-@item.IssueId" value="1" /> The PAD site is unusable<br />
+					<input name="IssueId" value="@item.IssueId" hidden />
+
+					<div class="form-group">
+						<div class="control-label">Description</div>
+						<textarea class="form-control description" name="Description"></textarea>
+					</div>
+
+					<div class="form-group">
+						<div class="control-label">Severity</div>
+						<input type="radio" name="Severity" value="3" /> The PAD site is usable and this issue is not urgent <br />
+						<input type="radio" name="Severity" value="2" /> The PAD site is usable but the issue requires attention<br />
+						<input type="radio" name="Severity" value="1" /> The PAD site is unusable<br />
+					</div>
+
+					<div class="form-group">
+						<div class="control-label">Upload an image</div>
+						<input type="file" name="Image" accept="image/*" class="image" id="image-@item.IssueId" />
+					</div>
+
 				</div>
-
-				<div class="form-group">
-					<div class="control-label">Upload an image</div>
-					<input type="file" name="Image" accept="image/*" class="image" id="image-@item.IssueId" />
-				</div>
-
 			</div>
 		</div>
-	</div>
+	}
 
-}
+		
+
+	}
 
 <button class="btn btn-default" id="btn-next">Next</button>
 
 @section scripts {
-	
-<script src="~/CAGScripts/GuardianCheck-Issues.js"></script>
+
+	<script type="text/javascript">
+		var Data_CheckId = @Model.First().CheckId;
+		var Path_UpsertIssue = '@Url.Action("IssueFormUpsert", "Issues")'
+	</script>
+
+	<script src="~/CAGScripts/GuardianCheck-Issues.js"></script>
 
 }

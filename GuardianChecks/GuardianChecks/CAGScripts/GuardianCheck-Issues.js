@@ -1,26 +1,47 @@
 ﻿var Issues = [];
+var issueid;
+var fileinput;
+var file;
+var issue;
 
 $('body').on('click', '#btn-next', function (e) {
 
-	$('.issue').each(function () {
-		var issueid = $(this).attr('id');
-		var fileinput = $(this).find('.image').prop('files');
-		var file;
+	$('.IssueForm').each(function () {
+
+		issueid = $(this).attr('id');
+		fileinput = $(this).find('.image').prop('files');
+		file;
 		if (fileinput.length > 0) {
 			file = fileinput[0]
 		}
-		var issue = {
-			IssueId: issueid,
-			Description: ,
-			
-		};
-		var formData = new FormData();
-		var params = JSON.Stringify({
+		issue = {
 			"IssueId": issueid,
 			"Description": $(this).find('.description').val(),
 			"Severity": $(this).find('input[type="radio"]:checked').val()
-		})
-		formData.append()
-	})
+		}
+		upsert(file, issue)
 
-})
+	});
+
+	window.location.href = '/Guardians/Confirmation?CheckId=' + Data_CheckId
+});
+
+function upsert(file, issue) {
+	console.log(file)
+	console.log(issue)
+	var formData = new FormData();
+	formData.append("image", file);
+	formData.append("issue", JSON.stringify(issue));
+	console.log(formData)
+	$.ajax({
+		type: 'POST',
+		url: Path_UpsertIssue,
+		data: formData,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function (data) {
+			console.log(data);
+		}
+	})
+}

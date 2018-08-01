@@ -23,6 +23,25 @@ namespace GuardianChecks.Models
 		public string ReportedBy { get; set; }
 		public DateTime ReportedOn { get; set; }
 		public bool Resolved { get; set; }
+		public string Image { get; set; }
+
+		public int upsert()
+		{
+			using (dbHelp dbh = new dbHelp("PAD.Issues_Upsert", true, "CAG"))
+			{
+				dbh.addParam("IssueId", IssueId);
+				dbh.addParam("PadId", PadId);
+				dbh.addParam("DefibId", DefibId);
+				dbh.addParam("CabinetId", CabinetId);
+				dbh.addParam("Severity", Severity);
+				dbh.addParam("Description", Description);
+				dbh.addParam("Image", Image);
+				dbh.addParam("UserId", 1);
+				dbh.addParam("Resolved", Resolved);
+				string retval = dbh.ExecNoQuery();
+				return int.Parse(retval);
+			}
+		}
 
 		public static List<Issue> GetIssues(int? IssueId, int? CheckId, bool? Resolved, int? PadId, int? DefibId, int? CabinetId)
 		{
@@ -53,6 +72,7 @@ namespace GuardianChecks.Models
 					item.ReportedBy = dbh.drGetString("ReportedBy");
 					item.ReportedOn = dbh.drGetDateTime("ReportedOn");
 					item.Resolved = dbh.DrGetBoolean("Resolved");
+					item.Image = dbh.drGetString("Image");
 					list.Add(item);
 				}
 			}
