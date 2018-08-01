@@ -21,6 +21,8 @@ namespace GuardianChecks.Models
 		public string Guardian { get; set; }
 		public string Notes { get; set; }
 		public int Issues { get; set; }
+		public DateTime? LastCheck { get; set; }
+		public bool Late { get; set; }
 		
 
 		public int upsert()
@@ -36,6 +38,25 @@ namespace GuardianChecks.Models
 				string retval = dbh.ExecNoQuery();
 				return int.Parse(retval);
 			}
+		}
+
+		public static List<GuardianCheck> GetLateChecks(bool? Late)
+		{
+			List<GuardianCheck> list = new List<GuardianCheck>();
+			using (dbHelp dbh = new dbHelp("PAD.GuardianCheck_Late", true, "CAG"))
+			{
+				dbh.addParam("Late", Late);
+				while (dbh.dr.Read())
+				{
+					GuardianCheck item = new GuardianCheck();
+					item.PadId = dbh.drGetInt32("PadId");
+					item.Location = dbh.drGetString("Location");
+					item.LastCheck = dbh.drGetDateTimeNull("LastCheck");
+					item.Late = dbh.DrGetBoolean("Late");
+					list.Add(item);
+				}
+			}
+			return list;
 		}
 
 		public static List<GuardianCheck> GetChecks(int? CheckId, int? PadId, DateTime? Date)

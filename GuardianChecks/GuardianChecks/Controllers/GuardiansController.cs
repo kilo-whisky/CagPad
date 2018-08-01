@@ -25,6 +25,11 @@ namespace GuardianChecks.Controllers
 			return View(check);
 		}
 
+		public PartialViewResult _Late()
+		{
+			return PartialView(GuardianCheck.GetLateChecks(true));
+		}
+
 		public PartialViewResult _PadSite(int PadId)
 		{
 			return PartialView(PAD.GetPadSites(PadId).First());

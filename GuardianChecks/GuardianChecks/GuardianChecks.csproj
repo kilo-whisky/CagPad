@@ -501,6 +501,7 @@
     <Content Include="Views\PADSites\_Checks.cshtml" />
     <Content Include="Views\Guardians\Details.cshtml" />
     <Content Include="Views\Guardians\Index.cshtml" />
+    <Content Include="Views\Guardians\_Late.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
