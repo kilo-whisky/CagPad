@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace GuardianChecks.Controllers
 {
+	[Authorize]
 	public class GuardiansController : Controller
 	{
 		// GET: Guardians
@@ -40,6 +41,7 @@ namespace GuardianChecks.Controllers
 			return PartialView(Issue.GetIssues(null, null, false, PadId, null, null));
 		}
 
+		
 		public ActionResult Form(int PadId)
 		{
 			GuardianCheck g = new GuardianCheck();

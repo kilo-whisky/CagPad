@@ -10,7 +10,7 @@ declare @today datetime = getdate();
 with lastchecks as (
     select
         p.PadId,
-        LastCheck = max(p.Completed)
+        LastCheck = cast('2018-06-14' as date)--max(p.Completed)
     from
         PAD.GuardianChecks p
     group by

@@ -1,4 +1,5 @@
-﻿using GuardianChecks.Models;
+﻿using GuardianChecks.Helpers;
+using GuardianChecks.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace GuardianChecks.Controllers
 {
 	public class HomeController : Controller
 	{
+		[Authorize]
 		public ActionResult Index()
 		{
 			return View();

@@ -127,10 +127,16 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\PADSitesController.cs" />
+    <Compile Include="Controllers\RegistrationView.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Authentication.cs" />
+    <Compile Include="Helpers\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\CustomPrincipal.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
+    <Compile Include="Helpers\RoleProvider.cs" />
     <Compile Include="Models\Answers.cs" />
     <Compile Include="Models\Cabinet.cs" />
     <Compile Include="Models\Defib.cs" />
@@ -140,6 +146,8 @@
     <Compile Include="Models\Navbar.cs" />
     <Compile Include="Models\PAD.cs" />
     <Compile Include="Models\Questions.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -502,6 +510,7 @@
     <Content Include="Views\Guardians\Details.cshtml" />
     <Content Include="Views\Guardians\Index.cshtml" />
     <Content Include="Views\Guardians\_Late.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
