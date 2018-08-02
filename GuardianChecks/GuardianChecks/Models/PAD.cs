@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using GuardianChecks.Helpers;
@@ -9,6 +10,7 @@ namespace GuardianChecks.Models
 	public class PAD
 	{
 		public int PadId { get; set; }
+		[DisplayName("Location")]
 		public string LocationName { get; set; }
 		public string Address { get; set; }
 		public string Description { get; set; }

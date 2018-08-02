@@ -39,9 +39,12 @@ textarea {
 	width: unset;
 }
 
-.dl-horizontal dd {
-    margin-left: 120px;
+@media (min-width:801px) {
+	.dl-horizontal dd {
+		margin-left: 180px;
 		margin-bottom: 10px;
+	}
 }
+
 
 
