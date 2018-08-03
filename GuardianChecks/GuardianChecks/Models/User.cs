@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using static GuardianChecks.Helpers.Authentication;
 
 namespace GuardianChecks.Models
 {
-	public class User
+	public class UserModel
 	{
 		public int UserId { get; set; }
 		public string UserName { get; set; }
 		public string Password { get; set; }
+		public string Salt { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string EmailAddress { get; set; }
@@ -20,33 +22,48 @@ namespace GuardianChecks.Models
 		public bool Active { get; set; }
 		public virtual ICollection<Role> Roles { get; set; }
 
-		public upsert()
+		public int upsert()
 		{
+			//LoginInfo hash = PasswordHash(UserName, Password);
 			using (dbHelp dbh = new dbHelp("Core.User_Upsert", true, "CAG"))
 			{
 				dbh.addParam("UserId", UserId);
 				dbh.addParam("UserName", UserName);
+				dbh.addParam("Password", PasswordHash(Password, Salt));
+				dbh.addParam("Salt", Salt);
+				dbh.addParam("FirstName", FirstName);
+				dbh.addParam("LastName", LastName);
 				dbh.addParam("EmailAddress", EmailAddress);
+				dbh.addParam("Telephone", Telephone);
+				dbh.addParam("Active", Active);
+				string retval = dbh.ExecNoQuery();
+				return int.Parse(retval);
 			}
+		}
 
-		public static User GetByEmailAddress (string EmailAddress)
+		public static UserModel GetByUserId (int UserId)
+		{
+			return GetUserList(UserId, null, null)[0];
+		}
+
+		public static UserModel GetByEmailAddress (string EmailAddress)
 		{
 			return GetUserList(null, null, EmailAddress)[0];
 		}
 
-		public static User GetByUsername(string UserName)
+		public static UserModel GetByUsername(string UserName)
 		{
 			return GetUserList(null, UserName, null)[0];
 		}
 
-		public static List<User> GetUsers()
+		public static List<UserModel> GetUsers()
 		{
 			return GetUserList(null, null, null);
 		}
 
-		private static List<User> GetUserList(int? UserId, string UserName, string EmailAddress)
+		private static List<UserModel> GetUserList(int? UserId, string UserName, string EmailAddress)
 		{
-			List<User> list = new List<User>();
+			List<UserModel> list = new List<UserModel>();
 			using (dbHelp dbh = new dbHelp("Core.User_List", true, "CAG"))
 			{
 				dbh.addParam("UserId", UserId);
@@ -54,7 +71,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("EmailAddress", EmailAddress);
 				while (dbh.dr.Read())
 				{
-					User item = new User();
+					UserModel item = new UserModel();
 					item.UserId = dbh.drGetInt32("UserId");
 					item.UserName = dbh.drGetString("UserName");
 					item.Password = dbh.drGetString("Password");
@@ -78,7 +95,7 @@ namespace GuardianChecks.Models
 		public ICollection<Role> Roles { get; set; }
 
 
-		public CustomMembershipUser(User user):base("CustomMembership", user.UserName, user.UserId, user.EmailAddress, string.Empty, string.Empty, true, false, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now)
+		public CustomMembershipUser(UserModel user):base("CustomMembership", user.UserName, user.UserId, user.EmailAddress, string.Empty, string.Empty, true, false, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now)
 			{
 			UserId = user.UserId;
 			FirstName = user.FirstName;

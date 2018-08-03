@@ -127,7 +127,6 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\PADSitesController.cs" />
-    <Compile Include="Controllers\RegistrationView.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

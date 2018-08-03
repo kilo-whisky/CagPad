@@ -19,12 +19,12 @@ namespace GuardianChecks.Controllers
 
 		public ActionResult Login(string ReturnUrl = null)
 		{
-			User u = new User();
+			UserModel u = new UserModel();
 			return View(u);
 		}
 
 		[HttpPost]
-		public ActionResult Login(User u, string ReturnUrl = null)
+		public ActionResult Login(UserModel u, string ReturnUrl = null)
 		{
 			if (ModelState.IsValid)
 			{
@@ -37,8 +37,7 @@ namespace GuardianChecks.Controllers
 						{
 							UserId = user.UserId,
 							FirstName = user.FirstName,
-							LastName = user.LastName,
-							RoleName = user.Roles.Select(r => r.RoleName).ToList()
+							LastName = user.LastName
 						};
 
 						string userData = JsonConvert.SerializeObject(userModel);
@@ -73,18 +72,20 @@ namespace GuardianChecks.Controllers
 		public ActionResult UpsertMe()
 		{
 			Authentication a = new Authentication();
-			var pass = a.PasswordHash("BimBle88");
-			User u = new User
+			UserModel u = new UserModel
 			{
+				UserId = 1,
 				UserName = "KWOOD",
 				FirstName = "Kyle",
 				LastName = "Wood",
 				EmailAddress = "steel.woodrow@gmail.com",
 				Telephone = "07839111653",
 				Active = true,
-				Password = pass
+				Password = "BimBle88",
+				Salt = Authentication.CreateSalt(10)
 			};
-			u.ups
+			u.upsert();
+			return Json("Done", JsonRequestBehavior.AllowGet);
 		}
 
 		//[HttpGet]

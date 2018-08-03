@@ -3,26 +3,20 @@ go
 
 alter proc Core.User_Login (
     @Username varchar(50),
-    @Password nvarchar(50)
+    @Password nvarchar(max) = null
 ) as
 
-if not exists (select * from Core.Users where UserName = @Username)
-begin
-    return -1
-end
+select
+    UserId,
+    UserName,
+    Salt,
+    Match = cast(case when @Password = Password then 1 else 0 end as bit)
+from
+    Core.Users
+where
+    UserName = @Username
 
-declare @UserId int,
-        @CurrentPassword nvarchar(50)
+go
 
-select @UserId = UserId, @CurrentPassword = Password from Core.Users where UserName = @Username and Active = 1
-
-if @Password = @CurrentPassword
-begin
-    return @UserId
-end
-else
-begin
-    return -2
-end
-
+exec Core.User_Login 'KWOOD'
 

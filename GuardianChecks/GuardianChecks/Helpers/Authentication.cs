@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 
@@ -10,16 +11,59 @@ namespace GuardianChecks.Helpers
 {
 	public class Authentication : MembershipProvider
 	{
-		public string PasswordHash(string password)
+
+		public class LoginInfo
 		{
-			byte[] salt;
-			new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-			var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-			byte[] hash = pbkdf2.GetBytes(20);
-			byte[] hashBytes = new byte[36];
-			Array.Copy(salt, 0, hashBytes, 0, 16);
-			Array.Copy(hash, 0, hashBytes, 16, 20);
-			return Convert.ToBase64String(hashBytes);
+			public int? UserId { get; set; }
+			public string UserName { get; set; }
+			public string Salt { get; set; }
+			public string Password { get; set; }
+			public bool? Match { get; set; }
+
+			public static LoginInfo getLogin(string Username, string Password)
+			{
+				LoginInfo login = new LoginInfo();
+				using (dbHelp dbh = new dbHelp("Core.User_login", true, "CAG"))
+				{
+					dbh.addParam("UserName", Username);
+					dbh.addParam("Password", Password);
+					while (dbh.dr.Read())
+					{
+						LoginInfo item = new LoginInfo();
+						item.UserId = dbh.drGetInt32Null("UserId");
+						item.UserName = dbh.drGetString("UserName");
+						item.Salt = dbh.drGetString("Salt");
+						item.Match = dbh.DrGetBooleanNull("Match");
+						login = item;
+					}
+					return login;
+				}
+			}
+		}
+
+		public static string ByteArrayToHexString(byte[] ba)
+		{
+			StringBuilder hex = new StringBuilder(ba.Length * 2);
+			foreach (byte b in ba)
+				hex.AppendFormat("{0:x2}", b);
+			return hex.ToString();
+		}
+
+		public static string CreateSalt(int size)
+		{
+			var rng = new RNGCryptoServiceProvider();
+			var buff = new byte[size];
+			rng.GetBytes(buff);
+			return Convert.ToBase64String(buff);
+		}
+
+		public static string PasswordHash(string password, string salt)
+		{
+			byte[] bytes = Encoding.UTF8.GetBytes(password + salt);
+			SHA256Managed sha256hashstring =
+				new SHA256Managed();
+			byte[] hash = sha256hashstring.ComputeHash(bytes);
+			return ByteArrayToHexString(hash);
 		}
 
 		public override bool ValidateUser(string username, string password)
@@ -29,16 +73,11 @@ namespace GuardianChecks.Helpers
 				return false;
 			}
 
-			using (dbHelp dbh = new dbHelp("Core.User_Login", true, "CAG"))
-			{
-				var pass = PasswordHash(password);
-				dbh.addParam("UserName", username);
-				dbh.addParam("Password", PasswordHash(password));
-				string retval = dbh.ExecNoQuery();
-				int UserId = int.Parse(retval);
-				HttpContext.Current.Session["UserId"] = UserId;
-				return UserId < 0 ? false : true;
-			}
+			LoginInfo getsalt = LoginInfo.getLogin(username, null);
+			string hashedpass = PasswordHash(password, getsalt.Salt);
+			LoginInfo l = LoginInfo.getLogin(username, hashedpass);
+			HttpContext.Current.Session["UserId"] = l.UserId;
+			return l.Match ?? false;
 		}
 
 		public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
@@ -48,7 +87,7 @@ namespace GuardianChecks.Helpers
 
 		public override MembershipUser GetUser(string username, bool userIsOnline)
 		{
-			User user = User.GetByUsername(username);
+			UserModel user = UserModel.GetByUsername(username);
 
 			if (user == null)
 			{
@@ -63,7 +102,7 @@ namespace GuardianChecks.Helpers
 
 		public override string GetUserNameByEmail(string email)
 		{
-			User user = User.GetByEmailAddress(email);
+			UserModel user = UserModel.GetByEmailAddress(email);
 			return !string.IsNullOrEmpty(user.UserName) ? user.UserName : string.Empty;
 		}
 

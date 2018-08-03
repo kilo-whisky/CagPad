@@ -1,10 +1,11 @@
 use CAGPAD
 go
 
-create proc Core.User_Upsert (
+alter proc Core.User_Upsert (
     @UserId int = null,
     @UserName varchar(50),
-    @Password nvarchar(50),
+    @Password nvarchar(max),
+    @Salt varchar(max),
     @FirstName varchar(50),
     @LastName varchar(50),
     @EmailAddress varchar(50),
@@ -15,8 +16,8 @@ create proc Core.User_Upsert (
 if not exists (select * from Core.Users where UserName = @UserName)
 begin
 
-    insert into Core.Users (UserName, FirstName, LastName, EmailAddress, Telephone, Active)
-    values (@UserName, @Password, @FirstName, @LastName, @EmailAddress, @Telephone, @Active)
+    insert into Core.Users (UserName, Password, Salt, FirstName, LastName, EmailAddress, Telephone, Active)
+    values (@UserName, @Password, @Salt, @FirstName, @LastName, @EmailAddress, @Telephone, @Active)
     select @UserId = SCOPE_IDENTITY()
     return @UserId
 
@@ -27,6 +28,16 @@ else
 begin
 
     update Core.Users set
-        
+        Password = @Password,
+        Salt = @Salt,
+        FirstName = @FirstName,
+        LastName = @LastName,
+        EmailAddress = @EmailAddress,
+        Telephone = @Telephone,
+        Active = @Active
+    where
+        UserId = @UserId
+    
+    return @UserId
 
 end

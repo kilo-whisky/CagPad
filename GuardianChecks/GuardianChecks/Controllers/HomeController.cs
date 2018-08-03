@@ -8,9 +8,10 @@ using System.Web.Mvc;
 
 namespace GuardianChecks.Controllers
 {
+	[Authorize]
 	public class HomeController : Controller
 	{
-		[Authorize]
+		
 		public ActionResult Index()
 		{
 			return View();

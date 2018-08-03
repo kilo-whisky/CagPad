@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace GuardianChecks.Controllers
 {
+	[Authorize]
 	public class CabinetsController : Controller
 	{
 		// GET: Cabinets

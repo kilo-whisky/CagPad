@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace GuardianChecks.Controllers
 {
+	[Authorize]
 	public class IssuesController : Controller
 	{
 		// GET: Issues
