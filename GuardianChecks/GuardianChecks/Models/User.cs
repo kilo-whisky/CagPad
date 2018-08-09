@@ -1,6 +1,7 @@
 ﻿using GuardianChecks.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -8,6 +9,16 @@ using static GuardianChecks.Helpers.Authentication;
 
 namespace GuardianChecks.Models
 {
+	public class PasswordReset
+	{
+		public int UserId { get; set; }
+		public string CurrentPassword { get; set; }
+		public string UserName { get; set; }
+		public string Password { get; set; }
+		[Compare("Password", ErrorMessage = "Passwords do not match, try again!")]
+		public string ComparePassword { get; set; }
+	}
+
 	public class UserModel
 	{
 		public int UserId { get; set; }
@@ -29,8 +40,11 @@ namespace GuardianChecks.Models
 			{
 				dbh.addParam("UserId", UserId);
 				dbh.addParam("UserName", UserName);
-				dbh.addParam("Password", PasswordHash(Password, Salt));
-				dbh.addParam("Salt", Salt);
+				if (Salt != null || Password != null)
+				{ 
+					dbh.addParam("Password", PasswordHash(Password, Salt));
+					dbh.addParam("Salt", Salt);
+				}
 				dbh.addParam("FirstName", FirstName);
 				dbh.addParam("LastName", LastName);
 				dbh.addParam("EmailAddress", EmailAddress);
@@ -80,6 +94,7 @@ namespace GuardianChecks.Models
 					item.EmailAddress = dbh.drGetString("EmailAddress");
 					item.Telephone = dbh.drGetString("Telephone");
 					item.FullName = dbh.drGetString("FullName");
+					item.Active = dbh.DrGetBoolean("Active");
 					list.Add(item);
 				}
 				return list;

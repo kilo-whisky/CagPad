@@ -28,7 +28,7 @@ namespace GuardianChecks.Helpers
 						(new System.Web.Routing.RouteValueDictionary
 						(new
 						{
-							controller = "Users",
+							controller = "Security",
 							action = "Login",
 						}
 						));
@@ -39,7 +39,7 @@ namespace GuardianChecks.Helpers
 				(new System.Web.Routing.RouteValueDictionary
 				 (new
 				 {
-					 controller = "Users",
+					 controller = "Security",
 					 action = "AccessDenied"
 				 }
 				 ));

@@ -16,9 +16,11 @@ namespace GuardianChecks.Helpers
 		{
 			public int? UserId { get; set; }
 			public string UserName { get; set; }
+			public string FullName { get; set; }
 			public string Salt { get; set; }
 			public string Password { get; set; }
-			public bool? Match { get; set; }
+			public bool Match { get; set; }
+
 
 			public static LoginInfo getLogin(string Username, string Password)
 			{
@@ -32,8 +34,9 @@ namespace GuardianChecks.Helpers
 						LoginInfo item = new LoginInfo();
 						item.UserId = dbh.drGetInt32Null("UserId");
 						item.UserName = dbh.drGetString("UserName");
+						item.FullName = dbh.drGetString("FullName");
 						item.Salt = dbh.drGetString("Salt");
-						item.Match = dbh.DrGetBooleanNull("Match");
+						item.Match = dbh.DrGetBoolean("Match");
 						login = item;
 					}
 					return login;
@@ -60,8 +63,7 @@ namespace GuardianChecks.Helpers
 		public static string PasswordHash(string password, string salt)
 		{
 			byte[] bytes = Encoding.UTF8.GetBytes(password + salt);
-			SHA256Managed sha256hashstring =
-				new SHA256Managed();
+			SHA256Managed sha256hashstring = new SHA256Managed();
 			byte[] hash = sha256hashstring.ComputeHash(bytes);
 			return ByteArrayToHexString(hash);
 		}
@@ -77,7 +79,9 @@ namespace GuardianChecks.Helpers
 			string hashedpass = PasswordHash(password, getsalt.Salt);
 			LoginInfo l = LoginInfo.getLogin(username, hashedpass);
 			HttpContext.Current.Session["UserId"] = l.UserId;
-			return l.Match ?? false;
+			HttpContext.Current.Session["UserName"] = l.UserName;
+			HttpContext.Current.Session["UserFullName"] = l.FullName;
+			return l.Match;
 		}
 
 		public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)

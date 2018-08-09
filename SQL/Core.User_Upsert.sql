@@ -4,8 +4,8 @@ go
 alter proc Core.User_Upsert (
     @UserId int = null,
     @UserName varchar(50),
-    @Password nvarchar(max),
-    @Salt varchar(max),
+    @Password nvarchar(max) = null,
+    @Salt varchar(max) = null,
     @FirstName varchar(50),
     @LastName varchar(50),
     @EmailAddress varchar(50),
@@ -27,9 +27,20 @@ else
 
 begin
 
+    if @Salt is not null and @Password is not null
+    begin
+        update Core.Users set
+            Password = @Password,
+            Salt = @Salt
+        where
+            UserId = @UserId
+    end
+    
+    else 
+
+    begin
+
     update Core.Users set
-        Password = @Password,
-        Salt = @Salt,
         FirstName = @FirstName,
         LastName = @LastName,
         EmailAddress = @EmailAddress,
@@ -40,4 +51,5 @@ begin
     
     return @UserId
 
+    end
 end

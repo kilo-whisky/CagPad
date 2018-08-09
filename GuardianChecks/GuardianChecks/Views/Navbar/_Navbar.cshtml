@@ -8,8 +8,17 @@
 				<a href="@Url.Action(item.Action, item.Controller)" class="navbar-link"><span class="fa fa-lg fa-@item.Icon"></span>&nbsp; @item.Name</a>
 			</li>
 		}
-		<li>
-			<a class="navbar-link" href="#"><span class="fa fa-user-circle-o"></span> Logged in as: @ViewBag.User.FullName</a>
+		<li class="dropdown">
+			@{ var fullname = Session["UserFullName"]; }
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="fa fa-user-circle-o"></span>  @fullname
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="@Url.Action("Edit", "Users", new { UserId = Session["UserId"] })">Manage</a></li>
+				<li><a href="@Url.Action("ChangePassword", "Users", new { UserId = Session["UserId"] })">Change Password</a></li>
+				<li><a href="@Url.Action("LogOut", "Security")">Logout</a></li>
+			</ul>
 		</li>
 	</ul>
 </div>
