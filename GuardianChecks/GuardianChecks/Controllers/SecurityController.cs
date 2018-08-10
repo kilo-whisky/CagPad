@@ -50,49 +50,6 @@ namespace GuardianChecks.Controllers
 				ModelState.AddModelError("", "Something Wrong : Username or Password invalid");
 				return View(u);
 			}
-
-			//	if (ModelState.IsValid)
-			//	{
-			//		if (Membership.ValidateUser(u.UserName, u.Password))
-			//		{
-			//			var user = (CustomMembershipUser)Membership.GetUser(u.UserName, false);
-			//			if (user != null)
-			//			{
-			//				CustomSerializeModel userModel = new CustomSerializeModel()
-			//				{
-			//					UserId = user.UserId,
-			//					FirstName = user.FirstName,
-			//					LastName = user.LastName
-			//				};
-
-			//				string userData = JsonConvert.SerializeObject(userModel);
-			//				DateTime now = DateTime.Now;
-			//				FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-			//					1, user.UserName, now, now.AddMinutes(15), false, userData
-			//				);
-
-			//				string enTicket = FormsAuthentication.Encrypt(authTicket);
-
-			//				HttpCookie authCookie = FormsAuthentication.GetAuthCookie(user.UserName, false);
-			//				authCookie.Expires = now.AddMinutes(15);
-			//				Response.Cookies.Add(authCookie);
-			//				//FormsAuthentication.SetAuthCookie(user.UserName, false);
-			//				//HttpCookie faCookie = new HttpCookie("Cookie1", enTicket);
-			//				//faCookie.Expires = now.AddMinutes(15);
-			//				//Response.Cookies.Add(faCookie);
-			//			}
-			//			if (Url.IsLocalUrl(ReturnUrl))
-			//			{
-			//				return Redirect(ReturnUrl);
-			//			}
-			//			else
-			//			{
-			//				return RedirectToAction("Index", "Home");
-			//			}
-			//		}
-			//	}
-			//ModelState.AddModelError("", "Something Wrong : Username or Password invalid");
-			//  return View(u);
 		}
 
 		public ActionResult AccessDenied()
@@ -255,7 +212,8 @@ namespace GuardianChecks.Controllers
 		public ActionResult LogOut()
 		{
 			FormsAuthentication.SignOut();
-			return RedirectToAction("Login");
+			Session.Clear();
+			return RedirectToAction("Login", "Security");
 		}
 
 		////[NonAction]

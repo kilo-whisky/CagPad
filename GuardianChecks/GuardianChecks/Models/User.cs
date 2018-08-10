@@ -1,6 +1,7 @@
 ﻿using GuardianChecks.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -12,23 +13,28 @@ namespace GuardianChecks.Models
 	public class PasswordReset
 	{
 		public int UserId { get; set; }
+		[DisplayName("Current Password")]
 		public string CurrentPassword { get; set; }
 		public string UserName { get; set; }
 		public string Password { get; set; }
-		[Compare("Password", ErrorMessage = "Passwords do not match, try again!")]
 		public string ComparePassword { get; set; }
 	}
 
 	public class UserModel
 	{
 		public int UserId { get; set; }
+		[DisplayName("Username")]
 		public string UserName { get; set; }
 		public string Password { get; set; }
 		public string Salt { get; set; }
+		[DisplayName("First Name")]
 		public string FirstName { get; set; }
+		[DisplayName("Last Name")]
 		public string LastName { get; set; }
+		[DisplayName("Email Address")]
 		public string EmailAddress { get; set; }
 		public string Telephone { get; set; }
+		[DisplayName("Full Name")]
 		public string FullName { get; set; }
 		public bool Active { get; set; }
 		public virtual ICollection<Role> Roles { get; set; }

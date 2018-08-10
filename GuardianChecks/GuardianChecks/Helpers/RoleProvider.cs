@@ -43,6 +43,7 @@ namespace GuardianChecks.Helpers
 				using (dbHelp dbh = new dbHelp("Core.UserRole_list", true, "CAG"))
 				{
 					dbh.addParam("UserName", username);
+					while (dbh.dr.Read())
 					{
 						roleList.Add(dbh.drGetString("roleName"));
 					}

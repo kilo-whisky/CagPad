@@ -1,7 +1,16 @@
 ﻿@model IEnumerable<GuardianChecks.Models.PAD>
 
 @{
-    ViewBag.Title = "PAD Sites";
+	ViewBag.Title = "PAD Sites";
+}
+
+@if (User.IsInRole("SYSADMIN"))
+{
+	<div class="panel panel-default" style="margin-top:30px;">
+		<div class="panel-heading">
+			<a href="@Url.Action("Create", "PADSites")" class="btn btn-default btn-sm"><span class="fa fa-plus"></span> Create</a>
+		</div>
+	</div>
 }
 
 <div class="panel panel-default" style="margin-top:30px;">

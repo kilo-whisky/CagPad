@@ -2,10 +2,28 @@
 
 <div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav">
-		@foreach (var item in Model)
+		@*@foreach (var item in Model)
 		{
 			<li>
 				<a href="@Url.Action(item.Action, item.Controller)" class="navbar-link"><span class="fa fa-lg fa-@item.Icon"></span>&nbsp; @item.Name</a>
+			</li>
+		}*@
+		<li>
+			<a href="@Url.Action("Index", "Guardians")"><span class="fa fa-wpforms"></span> Guardian Checks</a>
+		</li>
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<li>
+				<a href="@Url.Action("Index", "PADSites")"><span class="fa fa-database"></span> Database</a>
+			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<span class="fa fa-cogs"></span> Administration
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="@Url.Action("Users", "Users")">Users</a></li>
+				</ul>
 			</li>
 		}
 		<li class="dropdown">

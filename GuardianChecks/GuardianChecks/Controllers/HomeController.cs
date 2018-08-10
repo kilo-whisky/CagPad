@@ -14,6 +14,10 @@ namespace GuardianChecks.Controllers
 		
 		public ActionResult Index()
 		{
+			if (!User.IsInRole("SYSADMIN"))
+			{
+				return RedirectToAction("Index", "Guardians");
+			}
 			return View();
 		}
 

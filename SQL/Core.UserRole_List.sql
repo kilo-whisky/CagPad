@@ -8,7 +8,7 @@ alter proc Core.UserRole_List (
 
 select
     ur.UserId,
-    ur.RoleName
+    ur.roleName
 from
     Core.UserRoles ur
     join Core.Users u on ur.UserId = u.UserId
@@ -18,4 +18,4 @@ where
 
 go
 
-exec Core.UserRole_List
+exec Core.UserRole_List null, 'kwood'

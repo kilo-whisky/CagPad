@@ -30,5 +30,25 @@ namespace GuardianChecks.Controllers
 		{
 			return PartialView(GuardianCheck.GetChecks(null, PadId, null));
 		}
+
+		public PartialViewResult _Guardians (int PadId)
+		{
+			return PartialView();
+		}
+
+		public ActionResult Create()
+		{
+			PAD p = new PAD();
+			ViewBag.Cabinets = Cabinet.GetCabinets(null);
+			ViewBag.Defibs = Defib.GetDefibs(null);
+			return View(p);
+		}
+
+		[HttpPost]
+		public ActionResult Create(PAD p)
+		{
+			int PadId = p.upsert();
+			return RedirectToAction("Site", "PADSites", new { PadId });
+		}
 	}
 }

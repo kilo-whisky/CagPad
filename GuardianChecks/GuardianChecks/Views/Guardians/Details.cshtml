@@ -4,6 +4,15 @@
 	ViewBag.Title = "Details";
 }
 
+@if (Model.Completed == null)
+{
+	<div class="panel panel-default" style="margin-top:20px">
+		<div class="panel-body">
+			<a class="btn btn-default btn-sm" href="@Url.Action("Issues", "Guardians", new { Model.CheckId })">Return to form</a>
+		</div>
+	</div>
+}
+
 <div class="panel panel-default" style="margin-top: 20px;">
 	<div class="panel-heading">
 		Details (Check: @Model.CheckId)

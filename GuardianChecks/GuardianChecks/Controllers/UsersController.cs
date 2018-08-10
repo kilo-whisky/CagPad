@@ -37,12 +37,11 @@ namespace GuardianChecks.Controllers
 				if (login.Match)
 				{
 					string newsalt = Authentication.CreateSalt(10);
-					string newhash = PasswordHash(p.Password, newsalt);
 					UserModel u = new UserModel()
 					{
 						UserId = p.UserId,
 						UserName = p.UserName,
-						Password = newhash,
+						Password = p.Password,
 						Salt = newsalt
 					};
 					u.upsert();
@@ -54,8 +53,56 @@ namespace GuardianChecks.Controllers
 				}
 			}
 		}
-			
-		
+
+		public ActionResult AdminResetPassword (int UserId)
+		{
+			PasswordReset p = new PasswordReset();
+			p.UserId = UserId;
+			return View(p);
+		}
+
+		[HttpPost]
+		public ActionResult AdminResetPassword(PasswordReset p)
+		{
+			if (!ModelState.IsValid)
+			{
+				ModelState.AddModelError("", "Passwords do not match");
+				return View(p);
+			}
+			else
+			{
+				string newsalt = Authentication.CreateSalt(10);
+				UserModel u = new UserModel()
+				{
+					UserId = p.UserId,
+					UserName = p.UserName,
+					Password = p.Password,
+					Salt = newsalt
+				};
+				u.upsert();
+				return RedirectToAction("Users", "Users");
+			}
+		}
+
+		public ActionResult Create()
+		{
+			UserModel u = new UserModel();
+			u.Active = true;
+			return View(u);
+		}
+
+		[HttpPost]
+		public ActionResult Create(UserModel u)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(u);
+			}
+			u.Salt = Authentication.CreateSalt(10);
+			u.upsert();
+			return RedirectToAction("Users", "Users");
+		}
+
 		public ActionResult Edit(int UserId, string ReturnUrl = null)
 		{
 			return View(UserModel.GetByUserId(UserId));
@@ -80,6 +127,11 @@ namespace GuardianChecks.Controllers
 			{
 				throw new Exception(ex.Message);
 			}
+		}
+
+		public ActionResult Users()
+		{
+			return View(UserModel.GetUsers());
 		}
 	}
 }

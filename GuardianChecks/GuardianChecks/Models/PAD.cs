@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using GuardianChecks.Helpers;
 
 namespace GuardianChecks.Models
@@ -25,6 +26,30 @@ namespace GuardianChecks.Models
 		public string Funding { get; set; }
 		public decimal? Amount { get; set; }
 		public string Insurance { get; set; }
+		[AllowHtml]
+		public string Map { get; set; }
+
+		public int upsert()
+		{
+			using (dbHelp dbh = new dbHelp("PAD.PadSite_Upsert", true, "CAG"))
+			{
+				dbh.addParam("Location", LocationName);
+				dbh.addParam("Address", Address);
+				dbh.addParam("Description", Description);
+				dbh.addParam("Cabinet", CabinetId);
+				dbh.addParam("Defib", DefibId);
+				dbh.addParam("Owner", Owner);
+				dbh.addParam("OwnerTel", OwnerTel);
+				dbh.addParam("OwnerEmail", OwnerEmail);
+				dbh.addParam("InstallDate", InstallDate);
+				dbh.addParam("Funding", Funding);
+				dbh.addParam("Amount", Amount);
+				dbh.addParam("Insurance", Insurance);
+				dbh.addParam("Map", Map);
+				string retval = dbh.ExecNoQuery();
+				return int.Parse(retval);
+			}
+		}
 
 		public static List<PAD> GetPadSites(int? PadId)
 		{
@@ -50,6 +75,7 @@ namespace GuardianChecks.Models
 					item.Funding = dbh.drGetString("Funding");
 					item.Amount = dbh.drGetDecimalNull("Amount");
 					item.Insurance = dbh.drGetString("Insurance");
+					item.Map = dbh.drGetString("Map");
 					list.Add(item);
 				}
 			}
