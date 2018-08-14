@@ -44,7 +44,14 @@ textarea {
 		margin-left: 180px;
 		margin-bottom: 10px;
 	}
+	
 }
+
+@media (max-width: 500px) {
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+		color: #fff;
+	}
+} 
 
 
 

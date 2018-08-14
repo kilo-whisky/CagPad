@@ -20,8 +20,11 @@ namespace GuardianChecks.Models
 		public int DefibId { get; set; }
 		public string Defib { get; set; }
 		public string Owner { get; set; }
+		[DisplayName("Owner Telephone")]
 		public string OwnerTel { get; set; }
+		[DisplayName("Owner Email")]
 		public string OwnerEmail { get; set; }
+		[DisplayName("Install Date")]
 		public DateTime? InstallDate { get; set; }
 		public string Funding { get; set; }
 		public decimal? Amount { get; set; }
@@ -33,6 +36,7 @@ namespace GuardianChecks.Models
 		{
 			using (dbHelp dbh = new dbHelp("PAD.PadSite_Upsert", true, "CAG"))
 			{
+				dbh.addParam("PadId", PadId);
 				dbh.addParam("Location", LocationName);
 				dbh.addParam("Address", Address);
 				dbh.addParam("Description", Description);

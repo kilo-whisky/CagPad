@@ -315,6 +315,7 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -377,6 +378,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\cagpad - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-toggle.js" />
@@ -494,7 +496,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Navbar\_Navbar.cshtml" />
-    <Content Include="Views\PADSites\Index.cshtml" />
     <Content Include="Views\PADSites\Site.cshtml" />
     <Content Include="Views\PADSites\_Equipment.cshtml" />
     <Content Include="Views\Home\_Equipment.cshtml" />
@@ -520,6 +521,14 @@
     <Content Include="Views\Users\AdminResetPassword.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\PADSites\Create.cshtml" />
+    <Content Include="Views\Database\_PadSites.cshtml" />
+    <Content Include="Views\Database\Index.cshtml" />
+    <Content Include="Views\Database\_Cabinets.cshtml" />
+    <Content Include="Views\Database\_Defibs.cshtml" />
+    <Content Include="Views\PADSites\Index.cshtml" />
+    <Content Include="Views\Cabinets\Index.cshtml" />
+    <Content Include="Views\Defibs\Index.cshtml" />
+    <Content Include="Views\PADSites\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

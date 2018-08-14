@@ -13,12 +13,12 @@ namespace GuardianChecks.Controllers
 		// GET: Cabinets
 		public ActionResult Index()
 		{
-			return View(Cabinet.GetCabinets(null));
+			return View(Cabinet.GetCabinets(null, null));
 		}
 
 		public ActionResult Details(int CabinetId)
 		{
-			return View(Cabinet.GetCabinets(CabinetId).First());
+			return View(Cabinet.GetCabinets(CabinetId, null).First());
 		}
 	}
 }

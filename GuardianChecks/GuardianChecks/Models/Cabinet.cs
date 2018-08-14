@@ -15,12 +15,13 @@ namespace GuardianChecks.Models
 		public int? HeartSafeNumber { get; set; }
 		public DateTime? Expiry { get; set; }
 
-		public static List<Cabinet> GetCabinets(int? CabinetId)
+		public static List<Cabinet> GetCabinets(int? CabinetId, bool? Selected)
 		{
 			List<Cabinet> list = new List<Cabinet>();
 			using (dbHelp dbh = new dbHelp("PAD.Cabinet_List", true, "CAG"))
 			{
 				dbh.addParam("CabinetId", CabinetId);
+				dbh.addParam("Selected", Selected);
 				while (dbh.dr.Read())
 				{
 					Cabinet item = new Cabinet();

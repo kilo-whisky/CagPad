@@ -1,13 +1,6 @@
 ﻿@model IEnumerable<GuardianChecks.Models.PAD>
 
-@{
-    ViewBag.Title = "PAD Sites";
-}
-
-<h2>PAD Sites</h2>
-<hr />
-
-<div class="panel panel-default">
+<div class="panel panel-default" style="margin-top:30px;">
 	<div class="panel-heading">
 		PAD Sites
 	</div>
@@ -28,10 +21,7 @@
 						<td>@Html.DisplayFor(modelItem => item.LocationName)</td>
 						<td>@Html.DisplayFor(modelItem => item.Cabinet)</td>
 						<td>@Html.DisplayFor(modelItem => item.Defib)</td>
-						<td class="text-center">
-							<a href="@Url.Action("Site", "PADSites", new { PadId = item.PadId })" class="btn btn-default btn-sm"><span class="fa fa-info-circle"></span></a>
-							<a href="@Url.Action("Edit", "PADSites", new { PadId = item.PadId })" class="btn btn-default btn-sm"><span class="fa fa-pencil"></span></a>
-						</td>
+						<td class="text-center"><a class="btn btn-default btn-sm" href="@Url.Action("Site", "PADSites", new { PadId = item.PadId })">Details</a></td>
 					</tr>
 				}
 			</tbody>

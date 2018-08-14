@@ -13,12 +13,12 @@ namespace GuardianChecks.Controllers
 		// GET: Defibs
 		public ActionResult Index()
 		{
-			return View(Defib.GetDefibs(null));
+			return View(Defib.GetDefibs(null, null));
 		}
 
 		public ActionResult Details(int DefibId)
 		{
-			return View(Defib.GetDefibs(DefibId).First());
+			return View(Defib.GetDefibs(DefibId, null).First());
 		}
 
 	}

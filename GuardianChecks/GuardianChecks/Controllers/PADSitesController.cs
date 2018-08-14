@@ -39,8 +39,8 @@ namespace GuardianChecks.Controllers
 		public ActionResult Create()
 		{
 			PAD p = new PAD();
-			ViewBag.Cabinets = Cabinet.GetCabinets(null);
-			ViewBag.Defibs = Defib.GetDefibs(null);
+			ViewBag.Cabinets = Cabinet.GetCabinets(null, false);
+			ViewBag.Defibs = Defib.GetDefibs(null, false);
 			return View(p);
 		}
 
@@ -49,6 +49,20 @@ namespace GuardianChecks.Controllers
 		{
 			int PadId = p.upsert();
 			return RedirectToAction("Site", "PADSites", new { PadId });
+		}
+
+		public ActionResult Edit(int PadId)
+		{
+			ViewBag.Cabinets = Cabinet.GetCabinets(null, false);
+			ViewBag.Defibs = Defib.GetDefibs(null, false);
+			return View(PAD.GetPadSites(PadId)[0]);
+		}
+
+		[HttpPost]
+		public ActionResult Edit(PAD p)
+		{
+			p.upsert();
+			return RedirectToAction("Site", "PADSites", new { p.PadId });
 		}
 	}
 }

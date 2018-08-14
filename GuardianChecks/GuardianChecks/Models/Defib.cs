@@ -16,12 +16,13 @@ namespace GuardianChecks.Models
 		public DateTime? WarrantyExpires { get; set; } 
 		public DateTime? BatteryExpiry { get; set; }
 
-		public static List<Defib> GetDefibs(int? DefibId)
+		public static List<Defib> GetDefibs(int? DefibId, bool? Selected)
 		{
 			List<Defib> list = new List<Defib>();
 			using (dbHelp dbh = new dbHelp("PAD.Defib_List", true, "CAG"))
 			{
 				dbh.addParam("DefibId", DefibId);
+				dbh.addParam("Selected", Selected);
 				while (dbh.dr.Read())
 				{
 					Defib item = new Defib();
