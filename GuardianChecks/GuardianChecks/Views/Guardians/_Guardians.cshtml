@@ -1,0 +1,3 @@
+﻿@model GuardianChecks.Models.GuardiansSelect
+
+@Html.ListBoxFor(x => x.UserSelected, Model.UserList.Select(f => new SelectListItem { Value = f.UserId.ToString(), Text = f.FullName }), new { ID = "input-guardians" })

@@ -102,5 +102,22 @@ namespace GuardianChecks.Controllers
 				throw new Exception(ex.Message);
 			}
 		}
+
+		public PartialViewResult _Guardians(int PadId)
+		{
+			GuardiansSelect select = new GuardiansSelect(PadId);
+			return PartialView(select);
+		}
+
+		public void GuardianUpsert(int PadId, string AddRemove, string UserId)
+		{
+			Guardians guardian = new Guardians
+			{
+				PadId = PadId,
+				AddRemove = AddRemove,
+				UserId = int.Parse(UserId)
+			};
+			guardian.upsert();
+		}
 	}
 }

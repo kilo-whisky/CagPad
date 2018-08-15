@@ -8,15 +8,15 @@ alter proc PAD.PadSite_Upsert (
     @Description varchar(max) = null,
     @Cabinet int = null,
     @Defib int = null,
-    @Owner varchar(50),
-    @OwnerTel varchar(12),
-    @OwnerEmail varchar(50),
-    @InstallDate date,
-    @Funding varchar(100),
-    @Amount decimal(18,2),
-    @Insurance varchar(50),
-    @PadsExpiry date,
-    @Map nvarchar(max)
+    @Owner varchar(50) = null,
+    @OwnerTel varchar(12) = null,
+    @OwnerEmail varchar(50) = null,
+    @InstallDate date = null,
+    @Funding varchar(100) = null,
+    @Amount decimal(18,2) = null,
+    @Insurance varchar(50) = null,
+    @PadsExpiry date = null,
+    @Map nvarchar(max) = null
 ) as
 
 if not exists (select * from PAD.PADSites where PadId = @PadId)

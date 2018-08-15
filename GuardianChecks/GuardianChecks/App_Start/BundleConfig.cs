@@ -15,8 +15,9 @@ namespace GuardianChecks
 									 "~/Scripts/bootstrap.js",
 									 "~/Scripts/jquery-ui-1.12.1.js",
 									 "~/Scripts/DataTables/jquery.dataTables.min.js",
-									"~/Scripts/DataTables/dataTables.bootstrap.min.js",
-									"~/Scripts/DataTables/dataTables.fixedHeader.js",
+									 "~/Scripts/DataTables/dataTables.bootstrap.min.js",
+									 "~/Scripts/DataTables/dataTables.fixedHeader.js",
+									 "~/Content/Selectize/js/standalone/selectize.js",
 									 "~/Scripts/bootstrap-toggle.js",
 									 "~/Scripts/respond.js",
 									 "~/Scripts/site.js"));
@@ -29,6 +30,8 @@ namespace GuardianChecks
 								"~/Content/datatables/css/dataTables.bootstrap.min.css",
 								"~/Content/datatables/css/fixedHeader.bootstrap4.css",
 								"~/Content/themes/base/jquery-ui.css",
+								"~/Content/Selectize/css/selectize.css",
+								"~/Content/Selectize/css/selectize.bootstrap3.css",
 								"~/Content/site.css"));
 		}
 	}
