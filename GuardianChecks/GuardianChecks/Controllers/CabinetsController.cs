@@ -20,5 +20,35 @@ namespace GuardianChecks.Controllers
 		{
 			return View(Cabinet.GetCabinets(CabinetId, null).First());
 		}
+
+		public ActionResult Create()
+		{
+			Cabinet c = new Cabinet();
+			return View(c);
+		}
+
+		[HttpPost]
+		public ActionResult Create(Cabinet c)
+		{
+			c.upsert();
+			return RedirectToAction("Index");
+		}
+
+		public ActionResult Edit(int CabinetId)
+		{
+			return View(Cabinet.GetCabinets(CabinetId, null)[0]);
+		}
+
+		[HttpPost]
+		public ActionResult Edit(Cabinet c)
+		{
+			c.upsert();
+			return RedirectToAction("Details", "Cabinets", new { c.CabinetId });
+		}
+
+		public PartialViewResult _Issues(int CabinetId)
+		{
+			return PartialView(Issue.GetIssues(null, null, false, null, null, CabinetId));
+		}
 	}
 }

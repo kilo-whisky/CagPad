@@ -16,3 +16,17 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
 		return a < b ? 1 : a > b ? -1 : 0;
 	}
 });
+
+//datepicker defaults - UK format
+$.datepicker.setDefaults({
+	dateFormat: 'dd/mm/yy',
+	duration: 0,
+	changeMonth: true,
+	changeYear: true,
+	showOtherMonths: true,
+	selectOtherMonths: true
+});
+
+$.validator.methods.date = function (value, element) {
+	return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+}

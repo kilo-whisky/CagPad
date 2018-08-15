@@ -26,7 +26,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("CheckId", CheckId);
 				dbh.addParam("QuestionId", QuestionId);
 				dbh.addParam("Answer", Answer);
-				dbh.addParam("UserId", 1);
+				dbh.addParam("UserId", (int)HttpContext.Current.Session["UserId"]);
 				string retval = dbh.ExecNoQuery();
 				return int.Parse(retval);
 			}

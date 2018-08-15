@@ -32,7 +32,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("CheckId", CheckId);
 				dbh.addParam("PadId", PadId);
 				dbh.addParam("Date", Date);
-				dbh.addParam("UserId", 1);
+				dbh.addParam("UserId", (int)HttpContext.Current.Session["UserId"]);
 				dbh.addParam("Complete", Complete);
 				dbh.addParam("Notes", Notes);
 				string retval = dbh.ExecNoQuery();

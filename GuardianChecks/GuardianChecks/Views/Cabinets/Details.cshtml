@@ -1,32 +1,48 @@
 ﻿@model GuardianChecks.Models.Cabinet
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Cabinet Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Cabinet</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
-        <dd>@Html.DisplayFor(model => model.Name)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
-        <dd>@Html.DisplayFor(model => model.Description)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Supplier)</dt>
-        <dd>@Html.DisplayFor(model => model.Supplier)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.HeartSafeNumber)</dt>
-        <dd>@Html.DisplayFor(model => model.HeartSafeNumber)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Expiry)</dt>
-        <dd>@Html.DisplayFor(model => model.Expiry)</dd>
-    </dl>
+<div class="row">
+	<div class="col-md-10">
+		<h2>Cabinet Details</h2>
+	</div>
+	<div class="col-md-2">
+		<div class="pull-right" style="margin-top:20px">
+			<a href="@Url.Action("Edit", "Cabinets", new { CabinetId = Model.CabinetId })" class="btn btn-default" ><span class="fa fa-pencil"></span> Edit Cabinet</a>
+			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
+		</div>
+	</div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CabinetId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr style="margin-top:10px;" />
+
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">Details</div>
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>@Html.DisplayNameFor(model => model.Name)</dt>
+					<dd>@Html.DisplayFor(model => model.Name)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Description)</dt>
+					<dd>@Html.DisplayFor(model => model.Description)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Supplier)</dt>
+					<dd>@Html.DisplayFor(model => model.Supplier)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.HeartSafeNumber)</dt>
+					<dd>@Html.DisplayFor(model => model.HeartSafeNumber)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Expiry)</dt>
+					<dd>@Html.DisplayFor(model => model.Expiry)</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		@Html.Action("_Issues", "Cabinets", new { Model.CabinetId })
+	</div>
+</div>

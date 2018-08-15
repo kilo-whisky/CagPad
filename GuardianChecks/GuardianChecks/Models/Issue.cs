@@ -36,7 +36,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("Severity", Severity);
 				dbh.addParam("Description", Description);
 				dbh.addParam("Image", Image);
-				dbh.addParam("UserId", 1);
+				dbh.addParam("UserId", (int)HttpContext.Current.Session["UserId"]);
 				dbh.addParam("Resolved", Resolved);
 				string retval = dbh.ExecNoQuery();
 				return int.Parse(retval);

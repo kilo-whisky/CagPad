@@ -1,6 +1,7 @@
 ﻿using GuardianChecks.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +14,24 @@ namespace GuardianChecks.Models
 		public string Description { get; set; }
 		public string Supplier { get; set; }
 		public int? HeartSafeNumber { get; set; }
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime? Expiry { get; set; }
+
+		public int upsert()
+		{
+			using (dbHelp dbh = new dbHelp("PAD.Cabinet_Upsert", true, "CAG"))
+			{
+				dbh.addParam("CabinetId", CabinetId);
+				dbh.addParam("Name", Name);
+				dbh.addParam("Description", Description);
+				dbh.addParam("UserId", (int)HttpContext.Current.Session["UserId"]);
+				dbh.addParam("Supplier", Supplier);
+				dbh.addParam("HeartSafeNumber", HeartSafeNumber);
+				dbh.addParam("Expiry", Expiry);
+				string retval = dbh.ExecNoQuery();
+				return int.Parse(retval);
+			}
+		}
 
 		public static List<Cabinet> GetCabinets(int? CabinetId, bool? Selected)
 		{

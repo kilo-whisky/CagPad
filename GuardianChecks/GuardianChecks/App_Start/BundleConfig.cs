@@ -20,6 +20,7 @@ namespace GuardianChecks
 									 "~/Content/Selectize/js/standalone/selectize.js",
 									 "~/Scripts/bootstrap-toggle.js",
 									 "~/Scripts/respond.js",
+									 "~/Scripts/moment.js",
 									 "~/Scripts/site.js"));
 
 			bundles.Add(new StyleBundle("~/Content/Styles").Include(
