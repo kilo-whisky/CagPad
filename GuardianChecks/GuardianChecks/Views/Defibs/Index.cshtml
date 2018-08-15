@@ -1,11 +1,18 @@
 ﻿@model IEnumerable<GuardianChecks.Models.Defib>
 
 @{
-    ViewBag.Title = "Defibs";
+	ViewBag.Title = "Defibs";
 }
 
-<h2>Defibrillators</h2>
-<hr />
+<div class="row">
+	<div class="col-md-10">
+		<h2>Defibrillators</h2>
+	</div>
+	<div class="col-md-2">
+		<div class="pull-right"><a href="@Url.Action("Add", "Defibs")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add Defib</a></div>
+	</div>
+</div>
+<hr style="margin-top:10px;" />
 
 <div class="panel panel-default">
 	<div class="panel-heading">Defibs</div>

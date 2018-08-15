@@ -1,6 +1,8 @@
 ﻿using GuardianChecks.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,8 +15,31 @@ namespace GuardianChecks.Models
 		public string Description { get; set; } 
 		public string Supplier { get; set; } 
 		public string Serial { get; set; } 
-		public DateTime? WarrantyExpires { get; set; } 
+		[DisplayName("Warranty Expires")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+		public DateTime? WarrantyExpires { get; set; }
+		[DisplayName("Battery Expires")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime? BatteryExpiry { get; set; }
+		public int? PadId { get; set; }
+		public string Location { get; set; }
+
+		public int upsert()
+		{
+			using (dbHelp dbh = new dbHelp("PAD.Defib_Upsert", true, "CAG"))
+			{
+				dbh.addParam("DefibId", DefibId);
+				dbh.addParam("Name", Name);
+				dbh.addParam("Description", Description);
+				dbh.addParam("UserId", (int)HttpContext.Current.Session["UserId"]);
+				dbh.addParam("Supplier", Supplier);
+				dbh.addParam("Serial", Serial);
+				dbh.addParam("WarrantyExpires", WarrantyExpires);
+				dbh.addParam("BatteryExpiry", BatteryExpiry);
+				string retval = dbh.ExecNoQuery();
+				return int.Parse(retval);
+			}
+		}
 
 		public static List<Defib> GetDefibs(int? DefibId, bool? Selected)
 		{
@@ -33,6 +58,8 @@ namespace GuardianChecks.Models
 					item.Serial = dbh.drGetString("Serial");
 					item.WarrantyExpires = dbh.drGetDateTimeNull("WarrantyExpires");
 					item.BatteryExpiry = dbh.drGetDateTimeNull("BatteryExpiry");
+					item.PadId = dbh.drGetInt32Null("PadId");
+					item.Location = dbh.drGetString("Location");
 					list.Add(item);
 				}
 			}

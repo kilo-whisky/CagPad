@@ -554,9 +554,12 @@
     <Content Include="Views\Defibs\Index.cshtml" />
     <Content Include="Views\PADSites\Edit.cshtml" />
     <Content Include="Views\Guardians\_Guardians.cshtml" />
-    <Content Include="Views\Cabinets\Create.cshtml" />
+    <Content Include="Views\Cabinets\Add.cshtml" />
     <Content Include="Views\Cabinets\Edit.cshtml" />
     <Content Include="Views\Cabinets\_Issues.cshtml" />
+    <Content Include="Views\Defibs\Add.cshtml" />
+    <Content Include="Views\Defibs\Edit.cshtml" />
+    <Content Include="Views\Defibs\_Issues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

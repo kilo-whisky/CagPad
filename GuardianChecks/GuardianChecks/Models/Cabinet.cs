@@ -1,6 +1,7 @@
 ﻿using GuardianChecks.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -13,9 +14,12 @@ namespace GuardianChecks.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string Supplier { get; set; }
+		[DisplayName("Heartsafe Number")]
 		public int? HeartSafeNumber { get; set; }
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime? Expiry { get; set; }
+		public int? PadId { get; set; }
+		public string Location { get; set; }
 
 		public int upsert()
 		{
@@ -49,6 +53,8 @@ namespace GuardianChecks.Models
 					item.Supplier = dbh.drGetString("Supplier");
 					item.HeartSafeNumber = dbh.drGetInt32Null("HeartSafeNumber");
 					item.Expiry = dbh.drGetDateTimeNull("WarrantyExpiry");
+					item.PadId = dbh.drGetInt32Null("PadId");
+					item.Location = dbh.drGetString("Location");
 					list.Add(item);
 				}
 			}

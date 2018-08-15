@@ -21,17 +21,17 @@ namespace GuardianChecks.Controllers
 			return View(Cabinet.GetCabinets(CabinetId, null).First());
 		}
 
-		public ActionResult Create()
+		public ActionResult Add()
 		{
 			Cabinet c = new Cabinet();
 			return View(c);
 		}
 
 		[HttpPost]
-		public ActionResult Create(Cabinet c)
+		public ActionResult Add(Cabinet c)
 		{
-			c.upsert();
-			return RedirectToAction("Index");
+			int CabinetId = c.upsert();
+			return RedirectToAction("Details", "Cabinets", new { CabinetId });
 		}
 
 		public ActionResult Edit(int CabinetId)

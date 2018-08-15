@@ -5,10 +5,10 @@
 }
 
 <div class="row">
-	<div class="col-md-10">
+	<div class="col-md-8">
 		<h2>Cabinet Details</h2>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-4">
 		<div class="pull-right" style="margin-top:20px">
 			<a href="@Url.Action("Edit", "Cabinets", new { CabinetId = Model.CabinetId })" class="btn btn-default" ><span class="fa fa-pencil"></span> Edit Cabinet</a>
 			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
@@ -38,6 +38,9 @@
 
 					<dt>@Html.DisplayNameFor(model => model.Expiry)</dt>
 					<dd>@Html.DisplayFor(model => model.Expiry)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Location)</dt>
+					<dd><a href="@Url.Action("Site", "PADSites", new { Model.PadId })">@Model.Location</a></dd>
 				</dl>
 			</div>
 		</div>
