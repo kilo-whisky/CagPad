@@ -11,7 +11,8 @@ namespace GuardianChecks.Controllers
 	[Authorize]
 	public class HomeController : Controller
 	{
-		
+
+		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Index()
 		{
 			if (!User.IsInRole("SYSADMIN"))
@@ -21,14 +22,18 @@ namespace GuardianChecks.Controllers
 			return View();
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Equipment()
 		{
 			return PartialView(Equipment.GetEquipment(null).Where(x => x.Expiry != null).Take(5));
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Issues()
 		{
 			return PartialView(Issue.GetIssues(null, null, false, null, null, null).Where(x => !x.Resolved).ToList());
 		}
+
+
 	}
 }

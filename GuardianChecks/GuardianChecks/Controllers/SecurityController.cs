@@ -54,6 +54,7 @@ namespace GuardianChecks.Controllers
 
 		public ActionResult AccessDenied()
 		{
+			Response.StatusCode = 403;
 			return View();
 		}
 

@@ -14,6 +14,7 @@ namespace GuardianChecks.Controllers
     {
 		// GET: Users
 
+		[Authorize(Roles = "SYSADMIN,READER,GUARDIAN")]
 		public ActionResult ChangePassword(int UserId, string ReturnUrl = null)
 		{
 			PasswordReset p = new PasswordReset();
@@ -21,6 +22,7 @@ namespace GuardianChecks.Controllers
 			return View(p);
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER,GUARDIAN")]
 		[HttpPost]
 		public ActionResult ChangePassword(PasswordReset p, string ReturnUrl = null)
 		{
@@ -54,6 +56,7 @@ namespace GuardianChecks.Controllers
 			}
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		public ActionResult AdminResetPassword (int UserId)
 		{
 			PasswordReset p = new PasswordReset();
@@ -61,6 +64,7 @@ namespace GuardianChecks.Controllers
 			return View(p);
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		[HttpPost]
 		public ActionResult AdminResetPassword(PasswordReset p)
 		{
@@ -84,6 +88,7 @@ namespace GuardianChecks.Controllers
 			}
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		public ActionResult Create()
 		{
 			UserModel u = new UserModel();
@@ -91,6 +96,7 @@ namespace GuardianChecks.Controllers
 			return View(u);
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		[HttpPost]
 		public ActionResult Create(UserModel u)
 		{
@@ -103,11 +109,13 @@ namespace GuardianChecks.Controllers
 			return RedirectToAction("Users", "Users");
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		public ActionResult Edit(int UserId, string ReturnUrl = null)
 		{
 			return View(UserModel.GetByUserId(UserId));
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		[HttpPost]
 		public ActionResult Edit(UserModel u, string ReturnUrl = null)
 		{
@@ -129,6 +137,7 @@ namespace GuardianChecks.Controllers
 			}
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		public ActionResult Users()
 		{
 			return View(UserModel.GetUsers());

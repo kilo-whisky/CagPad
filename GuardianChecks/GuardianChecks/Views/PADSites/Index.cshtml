@@ -9,7 +9,11 @@
 		<h2>PAD Sites</h2>
 	</div>
 	<div class="col-md-2">
-		<div class="pull-right"><a href="@Url.Action("Add", "PADSites")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add PAD Site</a></div>
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<div class="pull-right"><a href="@Url.Action("Add", "PADSites")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add PAD Site</a></div>
+		}
+
 	</div>
 </div>
 <hr style="margin-top:10px;" />
@@ -37,7 +41,11 @@
 						<td>@Html.DisplayFor(modelItem => item.Defib)</td>
 						<td class="text-center">
 							<a href="@Url.Action("Site", "PADSites", new { PadId = item.PadId })" class="btn btn-default btn-sm"><span class="fa fa-info-circle"></span></a>
-							<a href="@Url.Action("Edit", "PADSites", new { PadId = item.PadId })" class="btn btn-default btn-sm"><span class="fa fa-pencil"></span></a>
+							@if (User.IsInRole("SYSADMIN"))
+							{
+								<a href="@Url.Action("Edit", "PADSites", new { PadId = item.PadId })" class="btn btn-default btn-sm"><span class="fa fa-pencil"></span></a>
+							}
+
 						</td>
 					</tr>
 				}

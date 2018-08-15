@@ -12,12 +12,13 @@ namespace GuardianChecks.Controllers
 	[Authorize]
 	public class GuardiansController : Controller
 	{
-		// GET: Guardians
+		[Authorize(Roles = "SYSADMIN,READER,GUARDIAN")]
 		public ActionResult Index()
 		{
 			return View(GuardianCheck.GetChecks(null, null, null));
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER,GUARDIAN")]
 		public ActionResult Details(int CheckId)
 		{
 			GuardianCheck check = GuardianCheck.GetChecks(CheckId, null, null).First();
@@ -26,22 +27,25 @@ namespace GuardianChecks.Controllers
 			return View(check);
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Late()
 		{
 			return PartialView(GuardianCheck.GetLateChecks(true));
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public PartialViewResult _PadSite(int PadId)
 		{
 			return PartialView(PAD.GetPadSites(PadId).First());
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public PartialViewResult _KnownIssues(int PadId)
 		{
 			return PartialView(Issue.GetIssues(null, null, false, PadId, null, null));
 		}
 
-		
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public ActionResult Form(int PadId)
 		{
 			GuardianCheck g = new GuardianCheck();
@@ -50,11 +54,13 @@ namespace GuardianChecks.Controllers
 			return View(g);
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public PartialViewResult _Questions()
 		{
 			return PartialView(Questions.GetQuestions(null));
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public string Stage1Upsert(string PadId, List<Questions> Questions)
 		{
 			GuardianCheck gc = new GuardianCheck
@@ -77,17 +83,20 @@ namespace GuardianChecks.Controllers
 			else return Url.Action("Confirmation", "Guardians", new { CheckId });
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public ActionResult Issues(int CheckId)
 		{
 			return View(Issue.GetIssues(null, CheckId, false, null, null, null));
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public ActionResult Confirmation (int CheckId)
 		{
 			ViewBag.Issues = Issue.GetIssues(null, CheckId, false, null, null, null).Where(c => c.Severity == 1).Count();
 			return View(GuardianCheck.GetChecks(CheckId, null, null).First());
 		}
 
+		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		[HttpPost]
 		public ActionResult Confirmation (GuardianCheck check)
 		{
@@ -103,12 +112,14 @@ namespace GuardianChecks.Controllers
 			}
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		public PartialViewResult _Guardians(int PadId)
 		{
 			GuardiansSelect select = new GuardiansSelect(PadId);
 			return PartialView(select);
 		}
 
+		[Authorize(Roles = "SYSADMIN")]
 		public void GuardianUpsert(int PadId, string AddRemove, string UserId)
 		{
 			Guardians guardian = new Guardians

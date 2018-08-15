@@ -10,7 +10,10 @@
 	</div>
 	<div class="col-md-4">
 		<div class="pull-right" style="margin-top:20px">
-			<a href="@Url.Action("Edit", "Defibs", new { DefibId = Model.DefibId })" class="btn btn-default"><span class="fa fa-pencil"></span> Edit Defib</a>
+			@if (User.IsInRole("SYSADMIN"))
+			{
+				<a href="@Url.Action("Edit", "Defibs", new { DefibId = Model.DefibId })" class="btn btn-default"><span class="fa fa-pencil"></span> Edit Defib</a>
+			}
 			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
 		</div>
 	</div>
@@ -52,4 +55,3 @@
 	</div>
 </div>
 
-	

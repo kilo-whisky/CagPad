@@ -13,16 +13,19 @@ namespace GuardianChecks.Controllers
 	public class IssuesController : Controller
 	{
 		// GET: Issues
+		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Index()
 		{
 			return View(Issue.GetIssues(null, null, false, null, null, null));
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Details(int IssueId)
 		{
 			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
 		}
 
+		[Authorize(Roles = "SYSADMIN,READER,GUARDIAN")]
 		[HttpPost]
 		public ActionResult IssueFormUpsert(HttpPostedFileBase image)
 		{
