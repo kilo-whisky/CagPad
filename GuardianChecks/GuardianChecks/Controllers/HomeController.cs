@@ -15,7 +15,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Index()
 		{
-			if (!User.IsInRole("SYSADMIN"))
+			if (!User.IsInRole("SYSADMIN") && !User.IsInRole("READER"))
 			{
 				return RedirectToAction("Index", "Guardians");
 			}
