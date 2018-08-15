@@ -36,7 +36,7 @@ namespace GuardianChecks.Controllers
 			return PartialView();
 		}
 
-		public ActionResult Create()
+		public ActionResult Add()
 		{
 			PAD p = new PAD();
 			ViewBag.Cabinets = Cabinet.GetCabinets(null, false);
@@ -45,7 +45,7 @@ namespace GuardianChecks.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(PAD p)
+		public ActionResult Add(PAD p)
 		{
 			int PadId = p.upsert();
 			return RedirectToAction("Site", "PADSites", new { PadId });

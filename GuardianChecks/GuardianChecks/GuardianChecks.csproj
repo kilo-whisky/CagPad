@@ -544,7 +544,7 @@
     <Content Include="Views\Users\Users.cshtml" />
     <Content Include="Views\Users\AdminResetPassword.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\PADSites\Create.cshtml" />
+    <Content Include="Views\PADSites\Add.cshtml" />
     <Content Include="Views\Database\_PadSites.cshtml" />
     <Content Include="Views\Database\Index.cshtml" />
     <Content Include="Views\Database\_Cabinets.cshtml" />

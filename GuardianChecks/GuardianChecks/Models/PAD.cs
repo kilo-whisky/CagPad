@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,12 +26,16 @@ namespace GuardianChecks.Models
 		[DisplayName("Owner Email")]
 		public string OwnerEmail { get; set; }
 		[DisplayName("Install Date")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime? InstallDate { get; set; }
 		public string Funding { get; set; }
 		public decimal? Amount { get; set; }
 		public string Insurance { get; set; }
 		[AllowHtml]
 		public string Map { get; set; }
+		[DisplayName("Defib Pads Expiry")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+		public DateTime? PadsExpiry { get; set; }
 
 		public int upsert()
 		{
@@ -50,6 +55,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("Amount", Amount);
 				dbh.addParam("Insurance", Insurance);
 				dbh.addParam("Map", Map);
+				dbh.addParam("PadsExpiry", PadsExpiry);
 				string retval = dbh.ExecNoQuery();
 				return int.Parse(retval);
 			}
@@ -80,6 +86,7 @@ namespace GuardianChecks.Models
 					item.Amount = dbh.drGetDecimalNull("Amount");
 					item.Insurance = dbh.drGetString("Insurance");
 					item.Map = dbh.drGetString("Map");
+					item.PadsExpiry = dbh.drGetDateTimeNull("PadsExpiry");
 					list.Add(item);
 				}
 			}

@@ -34,9 +34,9 @@
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.CabinetId, htmlAttributes: new { @class = "control-label" })
-		<select class="form-control" name="CabinetId">
+		<select class="selectize" name="CabinetId">
 			<option value="" disabled selected>Select a cabinet...</option>
-			@foreach(var item in ViewBag.Cabinets)
+			@foreach (var item in ViewBag.Cabinets)
 			{
 				<option value="@item.CabinetId">@item.CabinetId - @item.Description</option>
 			}
@@ -46,7 +46,7 @@
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.DefibId, htmlAttributes: new { @class = "control-label" })
-		<select class="form-control" name="DefibId">
+		<select class="selectize" name="DefibId">
 			<option value="" disabled selected>Select a defib...</option>
 			@foreach (var item in ViewBag.Defibs)
 			{
@@ -77,7 +77,7 @@
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.InstallDate, htmlAttributes: new { @class = "control-label" })
-		@Html.EditorFor(model => model.InstallDate, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.EditorFor(model => model.InstallDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
 		@Html.ValidationMessageFor(model => model.InstallDate, "", new { @class = "text-danger" })
 
 	</div>
@@ -100,14 +100,18 @@
 		@Html.LabelFor(model => model.Insurance, htmlAttributes: new { @class = "control-label" })
 		@Html.EditorFor(model => model.Insurance, new { htmlAttributes = new { @class = "form-control" } })
 		@Html.ValidationMessageFor(model => model.Insurance, "", new { @class = "text-danger" })
+	</div>
 
+	<div class="form-group">
+		@Html.LabelFor(model => model.PadsExpiry, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.PadsExpiry, new { htmlAttributes = new { @class = "form-control datepicker" } })
+		@Html.ValidationMessageFor(model => model.PadsExpiry, "", new { @class = "text-danger" })
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.Map, htmlAttributes: new { @class = "control-label" })
 		<textarea class="form-control" name="Map"></textarea>
 		@Html.ValidationMessageFor(model => model.Map, "", new { @class = "text-danger" })
-
 	</div>
 
 	<div class="form-group">
@@ -115,5 +119,19 @@
 		<input type="submit" value="Create" class="btn btn-default" />
 		<a href="@Url.Action("Index", "PADSites")" class="btn btn-default">Cancel</a>
 	</div>
+
+}
+
+
+@section scripts {
+
+	<script type="text/javascript">
+
+		$('.datepicker').datepicker();
+		$('.selectize').selectize({
+			selectOnTab: true
+		})
+
+	</script>
 
 }

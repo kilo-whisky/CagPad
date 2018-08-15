@@ -1,11 +1,18 @@
 ﻿@model IEnumerable<GuardianChecks.Models.PAD>
 
 @{
-    ViewBag.Title = "PAD Sites";
+	ViewBag.Title = "PAD Sites";
 }
 
-<h2>PAD Sites</h2>
-<hr />
+<div class="row">
+	<div class="col-md-10">
+		<h2>PAD Sites</h2>
+	</div>
+	<div class="col-md-2">
+		<div class="pull-right"><a href="@Url.Action("Add", "PADSites")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add PAD Site</a></div>
+	</div>
+</div>
+<hr style="margin-top:10px;" />
 
 <div class="panel panel-default">
 	<div class="panel-heading">
