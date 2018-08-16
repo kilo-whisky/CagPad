@@ -18,6 +18,7 @@ namespace GuardianChecks.Controllers
 		public ActionResult Add(int IssueId)
 		{
 			IssueNote note = new IssueNote();
+			note.IssueId = IssueId;
 			return View(note);
 		}
 
