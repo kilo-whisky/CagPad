@@ -12,18 +12,7 @@
 		<div class="pull-right" style="margin-top:20px">
 			@if (User.IsInRole("SYSADMIN"))
 			{
-				<button class="btn btn-success" id="btn-resolve"><span class="fa fa-check" ></span> Mark as resolved</button>
-				<a href="@Url.Action("Add", "IssueNotes", new { Model.IssueId })" class="btn btn-default"><span class="fa fa-sticky-note-o"></span> Add Note</a>
-				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Change severity <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li class="bg-danger"><a href="@Url.Action("ChangeSeverity", "Issues", new { IssueId = Model.IssueId, Severity = 1 })">Severe</a></li>
-						<li class="bg-warning"><a href="@Url.Action("ChangeSeverity", "Issues", new { IssueId = Model.IssueId, Severity = 2 })">Warning</a></li>
-						<li class="bg-info"><a href="@Url.Action("ChangeSeverity", "Issues", new { IssueId = Model.IssueId, Severity = 3 })">For info</a></li>
-					</ul>
-				</div>
+				<button class="btn btn-danger" id="btn-resolve"><span class="fa fa-close"></span> Mark as unresolved</button>
 			}
 			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
 		</div>
@@ -33,17 +22,17 @@
 
 @if (Model.Severity == 1)
 {
-	<div class="alert alert-danger"><strong>Severe!</strong> This has been reported as a severe issue, the device is currently inoperable and needs immediate attention</div>
+	<div class="alert alert-danger">This was reported as a severe issue</div>
 }
 
 @if (Model.Severity == 2)
 {
-	<div class="alert alert-warning"><strong>Warning!</strong> This device is still operable but requires attention soon</div>
+	<div class="alert alert-warning">This was reported as an urgent issue</div>
 }
 
 @if (Model.Severity == 3)
 {
-	<div class="alert alert-info"><strong>For information!</strong> This is not an urgent issue</div>
+	<div class="alert alert-info">This was not an urgent issue</div>
 }
 
 <div class="row">
@@ -101,20 +90,22 @@
 </div>
 
 @section scripts {
-	
+
 	<script type="text/javascript">
+
+		$('.hh').hide();
 
 		$('#btn-resolve').on('click', function () {
 			console.log("hello")
-			if (confirm("Are you sure that this issue has been resolved?")){
+			if (confirm("Are you sure that you want to re-open this issue?")){
 				$.ajax({
 					url: '@Url.Action("Resolve", "Issues")',
 					data: {
 						IssueId: @Model.IssueId,
-						Resolved: true
+						Resolved: false
 					},
 					success: function (data) {
-						window.location.href = data; 
+						window.location.href = data;
 					}
 				})
 			}

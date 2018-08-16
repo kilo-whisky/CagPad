@@ -1,0 +1,25 @@
+﻿@model IEnumerable<GuardianChecks.Models.IssueNote>
+
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+
+			<th>@Html.DisplayNameFor(model => model.NoteOn)</th>
+			<th>@Html.DisplayNameFor(model => model.NoteBy)</th>
+			<th>@Html.DisplayNameFor(model => model.Note)</th>
+			<th class="hh"></th>
+		</tr>
+	</thead>
+	@foreach (var item in Model)
+	{
+	<tr>
+		<td>@Html.DisplayFor(modelItem => item.NoteOn)</td>
+		<td>@Html.DisplayFor(modelItem => item.NoteBy)</td>
+		<td>@Html.DisplayFor(modelItem => item.Note)</td>
+		<td class="text-center hh">
+			<a href="@Url.Action("Trash", "IssueNotes", new { IssueId = item.IssueId, NoteId = item.NoteId })" class="btn btn-default btn-sm"><span class="fa fa-trash-o"></span></a>
+		</td>
+	</tr>
+	}
+</table>

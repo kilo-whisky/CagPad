@@ -124,6 +124,7 @@
     <Compile Include="Controllers\DefibsController.cs" />
     <Compile Include="Controllers\GuardiansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueNotesController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\PADSitesController.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Models\GuardianCheck.cs" />
     <Compile Include="Models\Guardians.cs" />
     <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\IssueNote.cs" />
     <Compile Include="Models\Navbar.cs" />
     <Compile Include="Models\PAD.cs" />
     <Compile Include="Models\Questions.cs" />
@@ -561,6 +563,11 @@
     <Content Include="Views\Defibs\Edit.cshtml" />
     <Content Include="Views\Defibs\_Issues.cshtml" />
     <Content Include="Views\Security\AccessDenied.cshtml" />
+    <Content Include="Views\Issues\_Resolved.cshtml" />
+    <Content Include="Views\Issues\_Unresolved.cshtml" />
+    <Content Include="Views\IssueNotes\_Notes.cshtml" />
+    <Content Include="Views\IssueNotes\Add.cshtml" />
+    <Content Include="Views\Issues\ResolvedIssue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

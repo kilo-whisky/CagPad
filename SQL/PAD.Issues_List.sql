@@ -24,7 +24,7 @@ select distinct
 	Cabinet = c.Name,
 	i.Severity, 
 	i.Description, 
-	ReportedBy = u.UserName, 
+	ReportedBy = u.FullName, 
 	i.ReportedOn,
 	i.Resolved
 from 
@@ -41,13 +41,14 @@ where
 	and isnull(i.PadId,0) = ISNULL(@PadId, isnull(i.PadId,0))
 	and isnull(i.DefibId,0) = ISNULL(@DefibId, isnull(i.DefibId,0))
 	and isnull(i.CabinetId,0) = ISNULL(@CabinetId, isnull(i.CabinetId,0))
+    and i.Resolved = ISNULL(@Resolved, i.Resolved)
 
 go
 
 exec PAD.Issues_List
     @IssueId = null,
-    @CheckId = 1,
-    @Resolved = 0,
+    @CheckId = null,
+    @Resolved = null,
     @PadId = null,
     @CabinetId = null,
     @DefibId = null

@@ -16,13 +16,75 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Index()
 		{
-			return View(Issue.GetIssues(null, null, false, null, null, null));
+			return View();
+		}
+
+		[Authorize(Roles = "SYSADMIN,READER")]
+		public PartialViewResult _Unresolved()
+		{
+			return PartialView(Issue.GetIssues(null, null, false, null, null, null));
+		}
+
+		[Authorize(Roles = "SYSADMIN,READER")]
+		public PartialViewResult _Resolved()
+		{
+			return PartialView(Issue.GetIssues(null, null, true, null, null, null));
 		}
 
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Details(int IssueId)
 		{
 			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
+		}
+
+		[Authorize(Roles = "SYSADMIN,READER")]
+		public ActionResult ResolvedIssue(int IssueId)
+		{
+			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
+		}
+
+		[Authorize(Roles = "SYSADMIN")]
+		public ActionResult ChangeSeverity(int IssueId, int Severity)
+		{
+			Issue i = Issue.GetIssues(IssueId, null, null, null, null, null)[0];
+			i.Severity = Severity;
+			i.upsert();
+			string note = "";
+			if (Severity == 1) note = "Changed severity of this issue to 'Severe'";
+			if (Severity == 2) note = "Changed severity of this issue to 'Warning'";
+			if (Severity == 3) note = "Changed severity of this issue to 'Severe'";
+			IssueNote n = new IssueNote()
+			{
+				IssueId = i.IssueId,
+				Note = note
+			};
+			n.upsert();
+			return RedirectToAction("Details", "Issues", new { IssueId });
+		}
+
+		[Authorize(Roles = "SYSADMIN")]
+		public JsonResult Resolve(int IssueId, bool Resolved)
+		{
+			Issue i = Issue.GetIssues(IssueId, null, null, null, null, null)[0];
+			i.Resolved = true;
+			i.upsert();
+			string note = "";
+			if (Resolved) note = "Issue marked as resolved";
+			if (!Resolved) note = "Issue marked as unresolved and re-opened";
+			IssueNote n = new IssueNote()
+			{
+				IssueId = i.IssueId,
+				Note = note
+			};
+			n.upsert();
+			if (Resolved)
+			{
+				return Json(Url.Action("Index", "Issues"), JsonRequestBehavior.AllowGet);
+			}
+			else
+			{
+				return Json(Url.Action("Details", "Issues", new { i.IssueId }), JsonRequestBehavior.AllowGet);
+			}
 		}
 
 		[Authorize(Roles = "SYSADMIN,READER,GUARDIAN")]

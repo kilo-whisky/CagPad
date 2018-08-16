@@ -11,7 +11,7 @@
 		<li>
 			<a href="@Url.Action("Index", "Guardians")"><span class="fa fa-wpforms"></span> Guardian Checks</a>
 		</li>
-		@if (User.IsInRole("SYSADMIN"))
+		@if (User.IsInRole("SYSADMIN") || User.IsInRole("READER"))
 		{
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -19,11 +19,15 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
+					<li><a href="@Url.Action("Index", "Issues")">Issues</a></li>
 					<li><a href="@Url.Action("Index", "PADSites")">PAD Sites</a></li>
 					<li><a href="@Url.Action("Index", "Cabinets")">Cabinets</a></li>
 					<li><a href="@Url.Action("Index", "Defibs")">Defibrillators</a></li>
 				</ul>
 			</li>
+		}
+		@if (User.IsInRole("SYSADMIN"))
+		{
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 					<span class="fa fa-cogs"></span> Administration
@@ -34,6 +38,8 @@
 				</ul>
 			</li>
 		}
+			
+
 		<li class="dropdown">
 			@{ var fullname = Session["UserFullName"]; }
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
