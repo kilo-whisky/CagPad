@@ -58,6 +58,12 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Postal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=45719375b8b4d528, processorArchitecture=MSIL">
+      <HintPath>..\packages\Postal.Mvc5.1.2.0\lib\net45\Postal.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.4.1\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -122,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CabinetsController.cs" />
     <Compile Include="Controllers\DefibsController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\GuardiansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueNotesController.cs" />
@@ -568,9 +575,12 @@
     <Content Include="Views\IssueNotes\_Notes.cshtml" />
     <Content Include="Views\IssueNotes\Add.cshtml" />
     <Content Include="Views\Issues\ResolvedIssue.cshtml" />
+    <Content Include="Views\Emails\_ViewStart.cshtml" />
+    <Content Include="Views\Emails\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
