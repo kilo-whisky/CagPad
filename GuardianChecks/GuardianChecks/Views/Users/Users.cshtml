@@ -1,14 +1,22 @@
 ﻿@model IEnumerable<GuardianChecks.Models.UserModel>
 
 @{
-    ViewBag.Title = "Users";
+	ViewBag.Title = "Users";
 }
 
-<div class="panel panel-default" style="margin-top: 25px;">
-	<div class="panel-heading">
-		<a href="@Url.Action("Create", "Users")" class="btn btn-default btn-sm"><span class="fa fa-plus"></span> Add User</a>
+<div class="row">
+	<div class="col-md-10">
+		<h2>Defibrillators</h2>
+	</div>
+	<div class="col-md-2">
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<div class="pull-right"><a href="@Url.Action("Create", "Users")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add User</a></div>
+		}
+
 	</div>
 </div>
+<hr style="margin-top:10px;" />
 
 <table class="table table-bordered table-striped" id="tbl-users">
 	<thead>
