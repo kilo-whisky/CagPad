@@ -151,6 +151,7 @@
     <Compile Include="Models\Questions.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -568,6 +569,7 @@
     <Content Include="Views\IssueNotes\_Notes.cshtml" />
     <Content Include="Views\IssueNotes\Add.cshtml" />
     <Content Include="Views\Issues\ResolvedIssue.cshtml" />
+    <Content Include="Views\Users\_UserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -142,5 +142,24 @@ namespace GuardianChecks.Controllers
 		{
 			return View(UserModel.GetUsers());
 		}
+
+		[Authorize(Roles = "SYSADMIN")]
+		public PartialViewResult _UserRoles(int UserId)
+		{
+			UserRolesSelect select = new UserRolesSelect(UserId);
+			return PartialView(select);
+		}
+
+		[Authorize(Roles = "SYSADMIN")]
+		public void UpsertRole(int UserId, string RoleName, string AddRemove)
+		{
+			UserRoles roles = new UserRoles()
+			{
+				UserId = UserId,
+				RoleName = RoleName,
+				AddRemove = AddRemove
+			};
+			roles.upsert();
+		}
 	}
 }
