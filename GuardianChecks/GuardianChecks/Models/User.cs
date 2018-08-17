@@ -63,25 +63,30 @@ namespace GuardianChecks.Models
 
 		public static UserModel GetByUserId (int UserId)
 		{
-			return GetUserList(UserId, null, null)[0];
+			return GetUserList(UserId, null, null, null)[0];
 		}
 
 		public static UserModel GetByEmailAddress (string EmailAddress)
 		{
-			return GetUserList(null, null, EmailAddress)[0];
+			return GetUserList(null, null, EmailAddress, null)[0];
 		}
 
 		public static UserModel GetByUsername(string UserName)
 		{
-			return GetUserList(null, UserName, null)[0];
+			return GetUserList(null, UserName, null, null)[0];
+		}
+
+		public static List<UserModel> GetByRole(string RoleName)
+		{
+			return GetUserList(null, null, null, RoleName);
 		}
 
 		public static List<UserModel> GetUsers()
 		{
-			return GetUserList(null, null, null);
+			return GetUserList(null, null, null, null);
 		}
 
-		private static List<UserModel> GetUserList(int? UserId, string UserName, string EmailAddress)
+		private static List<UserModel> GetUserList(int? UserId, string UserName, string EmailAddress, string RoleName)
 		{
 			List<UserModel> list = new List<UserModel>();
 			using (dbHelp dbh = new dbHelp("Core.User_List", true, "CAG"))
@@ -89,6 +94,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("UserId", UserId);
 				dbh.addParam("UserName", UserName);
 				dbh.addParam("EmailAddress", EmailAddress);
+				dbh.addParam("RoleName", RoleName);
 				while (dbh.dr.Read())
 				{
 					UserModel item = new UserModel();

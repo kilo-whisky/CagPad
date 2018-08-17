@@ -19,8 +19,11 @@ namespace GuardianChecks.Models
 		public int? DefibId { get; set; }
 		public string Defib { get; set; }
 		public int? Severity { get; set; }
+		public string SeverityName { get; set; }
+		public string SeverityDescription { get; set; }
 		public string Description { get; set; }
 		public string ReportedBy { get; set; }
+		public string ReportedByEmail { get; set; }
 		public DateTime ReportedOn { get; set; }
 		public bool Resolved { get; set; }
 		public string Image { get; set; }
@@ -68,8 +71,11 @@ namespace GuardianChecks.Models
 					item.CabinetId = dbh.drGetInt32Null("CabinetId");
 					item.Cabinet = dbh.drGetString("Cabinet");
 					item.Severity = dbh.drGetInt32Null("Severity");
+					item.SeverityName = dbh.drGetString("SeverityName");
+					item.SeverityDescription = dbh.drGetString("SeverityDescription");
 					item.Description = dbh.drGetString("Description");
 					item.ReportedBy = dbh.drGetString("ReportedBy");
+					item.ReportedByEmail = dbh.drGetString("ReportedByEmail");
 					item.ReportedOn = dbh.drGetDateTime("ReportedOn");
 					item.Resolved = dbh.DrGetBoolean("Resolved");
 					item.Image = dbh.drGetString("Image");

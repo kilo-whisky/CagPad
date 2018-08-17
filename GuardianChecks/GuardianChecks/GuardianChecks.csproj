@@ -148,6 +148,7 @@
     <Compile Include="Models\Answers.cs" />
     <Compile Include="Models\Cabinet.cs" />
     <Compile Include="Models\Defib.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\GuardianCheck.cs" />
     <Compile Include="Models\Guardians.cs" />
@@ -577,10 +578,12 @@
     <Content Include="Views\Issues\ResolvedIssue.cshtml" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Emails\Web.config" />
+    <Content Include="Views\Emails\Issue.cshtml" />
+    <Content Include="Views\Emails\Issue.Html.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Email\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,0 +1,52 @@
+﻿@model GuardianChecks.Models.IssueEmail
+	@{
+		Layout = null;
+	}
+
+	Content-Type: text/html; charset=utf-8
+
+	<!DOCTYPE html>
+
+	<html>
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<title></title>
+		<style type="text/css">
+			.alert {
+				padding: 15px;
+				margin-bottom: 20px;
+				border: 1px solid transparent;
+				border-radius: 4px;
+			}
+			.alert-danger {
+				color: #a94442;
+				background-color: #f2dede;
+				border-color: #ebccd1;
+			}
+			.alert-info {
+				color: rgb(49, 112, 143);
+				background-color: rgb(217, 237, 247);
+				border-color: rgb(188, 232, 241);
+			}
+			.alert-warning {
+				color: #8a6d3b;
+				background-color: #fcf8e3;
+				border-color: #faebcc;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			@{ 
+				var severity = "";
+				if (Model.Severity == 1) { severity = "danger"; }
+				if (Model.Severity == 2) { severity = "warning"; }
+				if (Model.Severity == 3) { severity = "info"; }
+			 }
+			<div class="alert alert-@severity"><strong>@Model.SeverityName!</strong> @Model.SeverityDescription</div>
+
+			<p>An issue has been reported by @Model.ReportedBy for the @Model.Location PAD site:</p>
+			<p>@Model.Description</p>
+		</div>
+	</body>
+</html>

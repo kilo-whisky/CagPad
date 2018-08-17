@@ -1,0 +1,10 @@
+﻿@model GuardianChecks.Models.IssueEmail
+@{
+    Layout = null;
+}
+
+To: @foreach (var item in Model.Administrators) { @item ; }
+CC: @Model.ReportedByEmail
+From: Cardiac Action Group Guardian Check <cagpad@gmail.com>
+Subject: Issue reported for @Model.Location PAD site
+Views: Html

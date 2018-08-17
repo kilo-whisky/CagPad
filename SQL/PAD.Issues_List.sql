@@ -23,8 +23,19 @@ select distinct
 	i.CabinetId, 
 	Cabinet = c.Name,
 	i.Severity, 
+    SeverityName = case 
+        when i.Severity = 1 then 'Severe'
+        when i.Severity = 2 then 'Warning'
+        when i.Severity = 3 then 'For information'
+    end,
+    SeverityDescription = case 
+        when i.Severity = 1 then 'This device is inoperable and requires immediate attention'
+        when i.Severity = 2 then 'This device is working, but this issue requires urgent attention'
+        when i.Severity = 3 then 'This issue is not urgent'
+    end,
 	i.Description, 
 	ReportedBy = u.FullName, 
+    ReportedByEmail = u.EmailAddress,
 	i.ReportedOn,
 	i.Resolved
 from 
