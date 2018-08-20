@@ -22,7 +22,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Unresolved()
 		{
-			return PartialView(Issue.GetIssues(null, null, false, null, null, null));
+			return PartialView(Issue.GetIssues(null, null, false, null, null, null).Where(x => x.Severity != null).ToList());
 		}
 
 		[Authorize(Roles = "SYSADMIN,READER")]

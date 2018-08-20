@@ -19,12 +19,9 @@
 				@foreach (var item in Model)
 				{
 					<tr>
-						@if (item.CabinetId != null)
-						{
+
 							<td><a href="@Url.Action("Details", "Cabinets", new { CabinetId = item.CabinetId })">@item.Cabinet</a></td>
-						}
-						@if (item.DefibId != null)
-						{
+						
 							<td><a href="@Url.Action("Details", "Defibs", new { DefibId = item.DefibId })">@item.Defib</a></td>
 						}
 						@if (item.PadId != null)
