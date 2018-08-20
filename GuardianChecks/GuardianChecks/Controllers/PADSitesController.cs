@@ -24,5 +24,10 @@ namespace GuardianChecks.Controllers
 		{
 			return PartialView(Equipment.GetEquipment(PadId));
 		}
+
+		public PartialViewResult _Checks(int PadId)
+		{
+			return PartialView(GuardianCheck.GetChecks(null, PadId, null));
+		}
 	}
 }

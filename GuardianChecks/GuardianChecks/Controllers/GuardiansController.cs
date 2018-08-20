@@ -14,7 +14,20 @@ namespace GuardianChecks.Controllers
 		// GET: Guardians
 		public ActionResult Index()
 		{
-			return View();
+			return View(GuardianCheck.GetChecks(null, null, null));
+		}
+
+		public ActionResult Details(int CheckId)
+		{
+			GuardianCheck check = GuardianCheck.GetChecks(CheckId, null, null).First();
+			ViewBag.PAD = PAD.GetPadSites(check.PadId).First();
+			ViewBag.Answers = Answers.GetAnswers(CheckId);
+			return View(check);
+		}
+
+		public PartialViewResult _Late()
+		{
+			return PartialView(GuardianCheck.GetLateChecks(true));
 		}
 
 		public PartialViewResult _PadSite(int PadId)
@@ -40,7 +53,7 @@ namespace GuardianChecks.Controllers
 			return PartialView(Questions.GetQuestions(null));
 		}
 
-		public string Stage1Upsert (string PadId, List<Questions> Questions)
+		public string Stage1Upsert(string PadId, List<Questions> Questions)
 		{
 			GuardianCheck gc = new GuardianCheck
 			{
@@ -58,13 +71,34 @@ namespace GuardianChecks.Controllers
 				a.upsert();
 			}
 			int issues = Issue.GetIssues(null, CheckId, false, null, null, null).Count;
-			if (issues > 0) return Url.Action("Issues", "Guardians", new { CheckId } );
-			else return Url.Action("Confirmation", "Guardians", new { CheckId } );
+			if (issues > 0) return Url.Action("Issues", "Guardians", new { CheckId });
+			else return Url.Action("Confirmation", "Guardians", new { CheckId });
 		}
 
-		public ActionResult Issues (int CheckId)
+		public ActionResult Issues(int CheckId)
 		{
 			return View(Issue.GetIssues(null, CheckId, false, null, null, null));
+		}
+
+		public ActionResult Confirmation (int CheckId)
+		{
+			ViewBag.Issues = Issue.GetIssues(null, CheckId, false, null, null, null).Where(c => c.Severity == 1).Count();
+			return View(GuardianCheck.GetChecks(CheckId, null, null).First());
+		}
+
+		[HttpPost]
+		public ActionResult Confirmation (GuardianCheck check)
+		{
+			check.Complete = true;
+			try
+			{
+				check.upsert();
+				return RedirectToAction("Details", "Guardians", new { check.CheckId });
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 	}
 }

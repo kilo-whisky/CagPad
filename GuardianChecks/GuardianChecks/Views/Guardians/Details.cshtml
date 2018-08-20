@@ -1,0 +1,74 @@
+﻿@model GuardianChecks.Models.GuardianCheck
+
+@{
+	ViewBag.Title = "Details";
+}
+
+<div class="panel panel-default" style="margin-top: 20px;">
+	<div class="panel-heading">
+		Details (Check: @Model.CheckId)
+	</div>
+	<div class="panel-body">
+
+		<dl class="dl-horizontal">
+
+			<dt>PAD Site</dt>
+			<dd>@ViewBag.PAD.LocationName</dd>
+
+			<dt>Date</dt>
+			<dd>@Html.DisplayFor(m => m.Date)</dd>
+
+			<dt>Guardian</dt>
+			<dd>@Model.Guardian</dd>
+
+			<dt>Completed</dt>
+			<dd>@Model.Completed</dd>
+
+			<dt>Additional Notes</dt>
+			<dd>@Model.Notes</dd>
+
+		</dl>
+
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Answers
+	</div>
+	<div class="panel-body">
+		@foreach (var item in ViewBag.Answers)
+		{
+		<div>
+			@{
+				var answer = item.Answer == true ? "Yes" : "No";
+				var icon = "";
+				var colour = "";
+				if (item.Severity == 3) { icon = "fa fa-info-circle"; colour = "text-info"; };
+				if (item.Severity == 2) { icon = "fa fa-warning"; colour = "text-warning"; };
+				if (item.Severity == 1) { icon = "fa fa-exclamation"; colour = "text-danger"; };
+			}
+			<p><strong>@item.Question</strong></p>
+			@if (item.Answer)
+			{
+				@answer
+			}
+			@if (!item.Answer)
+			{
+				<p class="@colour">
+					<span class="@icon"></span> <strong>@item.Description</strong> 
+				</p>
+				if(item.Image != null)
+				{
+					<p>
+						<a href="@item.Image"><img src="@item.Image" width="350" /></a>
+					</p>
+				}
+				<p>Resolved: @item.Resolved</p>
+				
+			}
+			<hr />
+		</div>
+		}
+	</div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model GuardianChecks.Models.GuardianCheck
+
+@{
+	ViewBag.Title = "Confirmation";
+}
+
+@if (ViewBag.Issues > 0)
+{
+	<div class="alert alert-danger" style="margin-top: 20px">
+		<strong>Get in contact!</strong> You have indicated that the PAD site is currently inoperable, please get in contact with x to inform them
+	</div>
+}
+
+<div class="panel panel-default" style="margin-top: 20px">
+	<div class="panel-heading">
+		Check Completion
+	</div>
+	<div class="panel-body">
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
+
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+			@Html.HiddenFor(x => x.CheckId)
+			@Html.HiddenFor(x => x.PadId)
+			@Html.HiddenFor(x => x.Date)
+
+
+			<div class="form-group">
+				<div class="control-label">Any additional notes?</div>
+				<textarea name="Notes" class="form-control"></textarea>
+			</div>
+
+			<div class="form-group">
+				<input type="submit" value="Confirm Complete" class="btn btn-default" />
+			</div>
+
+
+		}
+	</div>
+</div>
+
+
