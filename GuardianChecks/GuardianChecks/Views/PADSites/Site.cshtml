@@ -1,0 +1,102 @@
+﻿@model GuardianChecks.Models.PAD
+
+@{
+	ViewBag.Title = "PAD Site";
+}
+
+<div class="row">
+	<div class="col-md-8">
+		<h2>@Model.LocationName</h2>
+	</div>
+	<div class="col-md-4">
+		<div class="pull-right" style="margin-top:20px">
+			@if (User.IsInRole("SYSADMIN"))
+			{
+				<a href="@Url.Action("Edit", "PADSites", new { PadId = Model.PadId })" class="btn btn-default"><span class="fa fa-pencil"></span> Edit Site</a>
+			}
+			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
+		</div>
+	</div>
+</div>
+<hr style="margin-top:10px;" />
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Location</div>
+			<div class="panel-body">
+				@Html.Raw(Model.Map)
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Details</div>
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>@Html.DisplayNameFor(model => model.Address)</dt>
+					<dd>@Html.DisplayFor(model => model.Address)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Description)</dt>
+					<dd>@Html.DisplayFor(model => model.Description)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Owner)</dt>
+					<dd>@Html.DisplayFor(model => model.Owner)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.OwnerTel)</dt>
+					<dd>@Html.DisplayFor(model => model.OwnerTel)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.OwnerEmail)</dt>
+					<dd>@Html.DisplayFor(model => model.OwnerEmail)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.InstallDate)</dt>
+					<dd>@Model.InstallDate.</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Funding)</dt>
+					<dd>@Html.DisplayFor(model => model.Funding)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Amount)</dt>
+					<dd>@Html.DisplayFor(model => model.Amount)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Insurance)</dt>
+					<dd>@Html.DisplayFor(model => model.Insurance)</dd>
+
+				</dl>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">Equipment</div>
+			<div class="panel-body">
+				@Html.Action("_Equipment", "PADSites", new { PadId = Model.PadId })
+			</div>
+		</div>
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Guardians
+				</div>
+				<div class="panel-body">
+					@Html.Action("_Guardians", "Guardians")
+				</div>
+			</div>
+		}
+		<div class="panel panel-default">
+			<div class="panel-heading">Guardian Checks</div>
+			<div class="panel-body">
+				@Html.Action("_Checks", "PADSites", new { Model.PadId })
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+
+	<script type="text/javascript">
+		var Data_PadId = '@Model.PadId'
+		var Path_GuardianUpsert = '@Url.Action("GuardianUpsert", "Guardians")'
+	</script>
+
+	<script src="~/CAGScripts/PADSites-Site.js"></script>
+
+}

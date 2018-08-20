@@ -1,0 +1,51 @@
+﻿@model IEnumerable<GuardianChecks.Models.Cabinet>
+
+@{
+    ViewBag.Title = "Cabinets";
+}
+
+<div class="row">
+	<div class="col-md-10">
+		<h2>Cabinets</h2>
+	</div>
+	<div class="col-md-2">
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<div class="pull-right"><a href="@Url.Action("Add", "Cabinets")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add Cabinet</a></div>
+		}
+	</div>
+</div>
+<hr style="margin-top:10px;" />
+
+<div class="panel panel-default">
+	<div class="panel-heading">Cabinets</div>
+	<div class="panel-body">
+		<table class="table table-bordered table-condensed table-striped" id="tbl-cabinets">
+			<thead>
+				<tr>
+					<th>@Html.DisplayNameFor(model => model.Name)</th>
+					<th>@Html.DisplayNameFor(model => model.Description)</th>
+					<th>@Html.DisplayNameFor(model => model.HeartSafeNumber)</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>@Html.DisplayFor(modelItem => item.Name)</td>
+						<td>@Html.DisplayFor(modelItem => item.Description)</td>
+						<td>@Html.DisplayFor(modelItem => item.HeartSafeNumber)</td>
+						<td class="text-center">
+							<a href="@Url.Action("Details", "Cabinets", new { CabinetId = item.CabinetId })" class="btn btn-default btn-sm"><span class="fa fa-info-circle"></span></a>
+							@if (User.IsInRole("SYSADMIN"))
+							{
+								<a href="@Url.Action("Edit", "Cabinets", new { CabinetId = item.CabinetId })" class="btn btn-default btn-sm"><span class="fa fa-pencil"></span></a>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

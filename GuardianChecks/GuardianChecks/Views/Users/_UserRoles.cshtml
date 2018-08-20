@@ -1,0 +1,3 @@
+﻿@model GuardianChecks.Models.UserRolesSelect
+
+@Html.ListBoxFor(x => x.RoleSelected, Model.RoleList.Select(f => new SelectListItem { Value = f.RoleName, Text = f.RoleDescription }), new { ID = "roles" })

@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -119,18 +120,45 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CabinetsController.cs" />
+    <Compile Include="Controllers\DefibsController.cs" />
+    <Compile Include="Controllers\GuardiansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueNotesController.cs" />
+    <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
+    <Compile Include="Controllers\PADSitesController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Authentication.cs" />
+    <Compile Include="Helpers\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\CustomPrincipal.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
+    <Compile Include="Helpers\RoleProvider.cs" />
+    <Compile Include="Models\Answers.cs" />
+    <Compile Include="Models\Cabinet.cs" />
+    <Compile Include="Models\Defib.cs" />
+    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\GuardianCheck.cs" />
+    <Compile Include="Models\Guardians.cs" />
+    <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\IssueNote.cs" />
     <Compile Include="Models\Navbar.cs" />
+    <Compile Include="Models\PAD.cs" />
+    <Compile Include="Models\Questions.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CAGScripts\PADSites-Site.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-toggle.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -292,6 +320,16 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\logo.png" />
+    <Content Include="Content\Selectize\css\selectize.bootstrap2.css" />
+    <Content Include="Content\Selectize\css\selectize.bootstrap3.css" />
+    <Content Include="Content\Selectize\css\selectize.css" />
+    <Content Include="Content\Selectize\css\selectize.default.css" />
+    <Content Include="Content\Selectize\css\selectize.legacy.css" />
+    <Content Include="Content\Selectize\js\selectize.js" />
+    <Content Include="Content\Selectize\js\selectize.min.js" />
+    <Content Include="Content\Selectize\js\standalone\selectize.js" />
+    <Content Include="Content\Selectize\js\standalone\selectize.min.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -354,9 +392,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Selectize\less\selectize.less" />
+    <Content Include="Content\Selectize\less\selectize.legacy.less" />
+    <Content Include="Content\Selectize\less\selectize.default.less" />
+    <Content Include="Content\Selectize\less\selectize.bootstrap3.less" />
+    <Content Include="Content\Selectize\less\selectize.bootstrap2.less" />
+    <Content Include="Content\Selectize\less\plugins\remove_button.less" />
+    <Content Include="Content\Selectize\less\plugins\optgroup_columns.less" />
+    <Content Include="Content\Selectize\less\plugins\dropdown_header.less" />
+    <Content Include="Content\Selectize\less\plugins\drag_drop.less" />
+    <None Include="Properties\PublishProfiles\cagpad - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="CAGScripts\GuardianCheck-Issues.js" />
+    <Content Include="CAGScripts\GuardiansForm.js" />
+    <Content Include="CAGScripts\Home.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -445,12 +498,19 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -463,6 +523,53 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Navbar\_Navbar.cshtml" />
+    <Content Include="Views\PADSites\Site.cshtml" />
+    <Content Include="Views\PADSites\_Equipment.cshtml" />
+    <Content Include="Views\Home\_Equipment.cshtml" />
+    <Content Include="Views\Cabinets\Details.cshtml" />
+    <Content Include="Views\Defibs\Details.cshtml" />
+    <Content Include="Views\Home\_Issues.cshtml" />
+    <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Issues\Details.cshtml" />
+    <Content Include="Views\Guardians\Form.cshtml" />
+    <Content Include="Views\Guardians\_PadSite.cshtml" />
+    <Content Include="Views\Guardians\_KnownIssues.cshtml" />
+    <Content Include="Views\Guardians\_Questions.cshtml" />
+    <Content Include="Views\Guardians\Issues.cshtml" />
+    <Content Include="Views\Guardians\Confirmation.cshtml" />
+    <Content Include="Views\PADSites\_Checks.cshtml" />
+    <Content Include="Views\Guardians\Details.cshtml" />
+    <Content Include="Views\Guardians\Index.cshtml" />
+    <Content Include="Views\Guardians\_Late.cshtml" />
+    <Content Include="Views\Security\Login.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\ChangePassword.cshtml" />
+    <Content Include="Views\Users\Users.cshtml" />
+    <Content Include="Views\Users\AdminResetPassword.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\PADSites\Add.cshtml" />
+    <Content Include="Views\Database\_PadSites.cshtml" />
+    <Content Include="Views\Database\Index.cshtml" />
+    <Content Include="Views\Database\_Cabinets.cshtml" />
+    <Content Include="Views\Database\_Defibs.cshtml" />
+    <Content Include="Views\PADSites\Index.cshtml" />
+    <Content Include="Views\Cabinets\Index.cshtml" />
+    <Content Include="Views\Defibs\Index.cshtml" />
+    <Content Include="Views\PADSites\Edit.cshtml" />
+    <Content Include="Views\Guardians\_Guardians.cshtml" />
+    <Content Include="Views\Cabinets\Add.cshtml" />
+    <Content Include="Views\Cabinets\Edit.cshtml" />
+    <Content Include="Views\Cabinets\_Issues.cshtml" />
+    <Content Include="Views\Defibs\Add.cshtml" />
+    <Content Include="Views\Defibs\Edit.cshtml" />
+    <Content Include="Views\Defibs\_Issues.cshtml" />
+    <Content Include="Views\Security\AccessDenied.cshtml" />
+    <Content Include="Views\Issues\_Resolved.cshtml" />
+    <Content Include="Views\Issues\_Unresolved.cshtml" />
+    <Content Include="Views\IssueNotes\_Notes.cshtml" />
+    <Content Include="Views\IssueNotes\Add.cshtml" />
+    <Content Include="Views\Issues\ResolvedIssue.cshtml" />
+    <Content Include="Views\Users\_UserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

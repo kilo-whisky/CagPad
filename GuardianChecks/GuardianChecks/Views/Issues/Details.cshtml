@@ -1,0 +1,125 @@
+﻿@model GuardianChecks.Models.Issue
+
+@{
+	ViewBag.Title = "Issue Details";
+}
+
+<div class="row">
+	<div class="col-md-6">
+		<h2>Issue Details</h2>
+	</div>
+	<div class="col-md-6">
+		<div class="pull-right" style="margin-top:20px">
+			@if (User.IsInRole("SYSADMIN"))
+			{
+				<button class="btn btn-success" id="btn-resolve"><span class="fa fa-check" ></span> Mark as resolved</button>
+				<a href="@Url.Action("Add", "IssueNotes", new { Model.IssueId })" class="btn btn-default"><span class="fa fa-sticky-note-o"></span> Add Note</a>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Change severity <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li class="bg-danger"><a href="@Url.Action("ChangeSeverity", "Issues", new { IssueId = Model.IssueId, Severity = 1 })">Severe</a></li>
+						<li class="bg-warning"><a href="@Url.Action("ChangeSeverity", "Issues", new { IssueId = Model.IssueId, Severity = 2 })">Warning</a></li>
+						<li class="bg-info"><a href="@Url.Action("ChangeSeverity", "Issues", new { IssueId = Model.IssueId, Severity = 3 })">For info</a></li>
+					</ul>
+				</div>
+			}
+			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
+		</div>
+	</div>
+</div>
+<hr style="margin-top:10px;" />
+
+@if (Model.Severity == 1)
+{
+	<div class="alert alert-danger"><strong>Severe!</strong> This has been reported as a severe issue, the device is currently inoperable and needs immediate attention</div>
+}
+
+@if (Model.Severity == 2)
+{
+	<div class="alert alert-warning"><strong>Warning!</strong> This device is still operable but requires attention soon</div>
+}
+
+@if (Model.Severity == 3)
+{
+	<div class="alert alert-info"><strong>For information!</strong> This is not an urgent issue</div>
+}
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Details
+			</div>
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>@Html.DisplayNameFor(model => model.Description)</dt>
+					<dd>@Html.DisplayFor(model => model.Description)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.PadSite)</dt>
+					<dd><a href="@Url.Action("Site", "PADSites", new { Model.PadId })">@Model.PadSite</a></dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Cabinet)</dt>
+					<dd><a href="@Url.Action("Details", "Cabinets", new { Model.CabinetId })">@Model.Cabinet</a></dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Defib)</dt>
+					<dd><a href="@Url.Action("Details", "Defibs", new { Model.DefibId })">@Model.Defib</a></dd>
+
+					<dt>@Html.DisplayNameFor(model => model.ReportedBy)</dt>
+					<dd>@Html.DisplayFor(model => model.ReportedBy)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.ReportedOn)</dt>
+					<dd>@Html.DisplayFor(model => model.ReportedOn)</dd>
+				</dl>
+			</div>
+		</div>
+
+		@if (!string.IsNullOrEmpty(Model.Image))
+		{
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Image
+				</div>
+				<div class="panel-body">
+					<a href="@Model.Image" target="_blank"><img src="@Model.Image" width="100%" /></a>
+				</div>
+			</div>
+		}
+
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Notes
+			</div>
+			<div class="panel-body">
+				@Html.Action("_Notes", "IssueNotes", new { Model.IssueId })
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+	
+	<script type="text/javascript">
+
+		$('#btn-resolve').on('click', function () {
+			console.log("hello")
+			if (confirm("Are you sure that this issue has been resolved?")){
+				$.ajax({
+					url: '@Url.Action("Resolve", "Issues")',
+					data: {
+						IssueId: @Model.IssueId,
+						Resolved: true
+					},
+					success: function (data) {
+						window.location.href = data; 
+					}
+				})
+			}
+		})
+
+	</script>
+
+}

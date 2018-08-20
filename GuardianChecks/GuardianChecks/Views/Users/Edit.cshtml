@@ -1,0 +1,112 @@
+﻿@model GuardianChecks.Models.UserModel
+
+@{
+				/**/
+
+				ViewBag.Title = "Edit";
+}
+
+<h2>Manage User</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<h4>@Model.FullName</h4>
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+	@Html.HiddenFor(m => m.UserId)
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+		@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label " })
+		@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label" })
+
+		@Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label" })
+
+		@Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+
+	</div>
+
+
+	if (User.IsInRole("SYSADMIN"))
+	{
+		<div class="form-group">
+			@Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label" })
+			<br />
+			@Html.CheckBoxFor(model => model.Active)
+			@Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+		</div>
+
+		<div class="form-group">
+			<div class="control-label"><strong>User Roles</strong></div>
+			@Html.Action("_UserRoles", "Users", new { UserId = Model.UserId })
+		</div>
+	}
+
+
+	<div class="form-group">
+		<input type="submit" value="Save" class="btn btn-default" />
+
+	</div>
+
+}
+
+@section scripts {
+	
+		<script type="text/javascript">
+
+			$('#roles').selectize({
+				framework: 'bootstrap',
+				delimiter: ',',
+				persist: false,
+				selectOnTab: true,
+				plugins: ['remove_button'],
+				onItemAdd: function (value) { AddRemoveRole(value, "a"); },
+				onItemRemove: function (value) { AddRemoveRole(value, "r"); }
+			});
+
+			function AddRemoveRole(value, addremove) {
+				$.ajax({
+					url: '@Url.Action("UpsertRole", "Users")',
+					data: {
+						UserId: @Model.UserId,
+						AddRemove: addremove,
+						RoleName: value
+					},
+					success: function (data) {
+						console.log(data);
+					},
+					error: function (error) {
+						console.log(error);
+					}
+				})
+			}
+
+		</script>
+
+}

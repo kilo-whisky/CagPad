@@ -1,10 +1,56 @@
 ﻿@model IEnumerable<GuardianChecks.Models.Navbar>
 
-<div class="navbar-collapse collapse pull-right">
+<div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav">
-		@foreach (var item in Model)
+		@*@foreach (var item in Model)
 		{
-			<li>@Html.ActionLink(item.Name, item.Action, item.Controller)</li>
+			<li>
+				<a href="@Url.Action(item.Action, item.Controller)" class="navbar-link"><span class="fa fa-lg fa-@item.Icon"></span>&nbsp; @item.Name</a>
+			</li>
+		}*@
+		<li>
+			<a href="@Url.Action("Index", "Guardians")"><span class="fa fa-wpforms"></span> Guardian Checks</a>
+		</li>
+		@if (User.IsInRole("SYSADMIN") || User.IsInRole("READER"))
+		{
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<span class="fa fa-database"></span>  Database
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="@Url.Action("Index", "Issues")">Issues</a></li>
+					<li><a href="@Url.Action("Index", "PADSites")">PAD Sites</a></li>
+					<li><a href="@Url.Action("Index", "Cabinets")">Cabinets</a></li>
+					<li><a href="@Url.Action("Index", "Defibs")">Defibrillators</a></li>
+				</ul>
+			</li>
 		}
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<span class="fa fa-cogs"></span> Administration
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="@Url.Action("Users", "Users")">Users</a></li>
+				</ul>
+			</li>
+		}
+			
+
+		<li class="dropdown">
+			@{ var fullname = Session["UserFullName"]; }
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="fa fa-user-circle-o"></span>  @fullname
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="@Url.Action("Edit", "Users", new { UserId = Session["UserId"] })">Manage</a></li>
+				<li><a href="@Url.Action("ChangePassword", "Users", new { UserId = Session["UserId"] })">Change Password</a></li>
+				<li><a href="@Url.Action("LogOut", "Security")">Logout</a></li>
+			</ul>
+		</li>
 	</ul>
 </div>

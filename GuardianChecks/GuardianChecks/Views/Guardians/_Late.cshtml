@@ -1,0 +1,23 @@
+﻿@model IEnumerable<GuardianChecks.Models.GuardianCheck>
+
+<table class="table table-bordered table-striped table-condensed" id="tbl-late">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Location)</th>
+			<th>@Html.DisplayNameFor(model => model.LastCheck)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(modelItem => item.Location)</td>
+				<td>@Html.DisplayFor(modelItem => item.LastCheck)</td>
+				<td class="text-center">
+					<a href="@Url.Action("Site","PADSites", new { item.PadId })" class="btn btn-default btn-sm">Details</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

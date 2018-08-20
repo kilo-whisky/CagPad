@@ -1,0 +1,33 @@
+﻿@model IEnumerable<GuardianChecks.Models.Equipment>
+
+<table class="table table-bordered table-striped table-condensed" id="tbl-expiry">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Name)</th>
+			<th>@Html.DisplayNameFor(model => model.Description)</th>
+			<th>@Html.DisplayNameFor(model => model.Expiry)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			var datespan = item.Expiry - DateTime.Today;
+			<tr data-pad="@item.PadId" data-cabinet="@item.CabinetId" data-defiv="@item.DefibId" data-expiry="@datespan">
+				<td>@Html.DisplayFor(modelItem => item.Name)</td>
+				<td>@Html.DisplayFor(modelItem => item.Description)</td>
+				<td>@Html.DisplayFor(modelItem => item.Expiry)</td>
+				<td class="text-center">
+					@if (item.CabinetId != null)
+					{
+						<a class="btn btn-default btn-sm btn-viewequip" href="@Url.Action("Details", "Cabinets", new { CabinetId = item.CabinetId })">Details</a>
+					}
+					@if (item.DefibId != null)
+					{
+						<a class="btn btn-default btn-sm btn-viewequip" href="@Url.Action("Details", "Defibs", new { DefibId = item.DefibId })">Details</a>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

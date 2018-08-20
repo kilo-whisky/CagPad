@@ -1,0 +1,116 @@
+﻿@model GuardianChecks.Models.Issue
+
+@{
+	ViewBag.Title = "Issue Details";
+}
+
+<div class="row">
+	<div class="col-md-6">
+		<h2>Issue Details</h2>
+	</div>
+	<div class="col-md-6">
+		<div class="pull-right" style="margin-top:20px">
+			@if (User.IsInRole("SYSADMIN"))
+			{
+				<button class="btn btn-danger" id="btn-resolve"><span class="fa fa-close"></span> Mark as unresolved</button>
+			}
+			<a href="@Url.Action("Index")" class="btn btn-default"><span class="fa fa-undo"></span> Back to list</a>
+		</div>
+	</div>
+</div>
+<hr style="margin-top:10px;" />
+
+@if (Model.Severity == 1)
+{
+	<div class="alert alert-danger">This was reported as a severe issue</div>
+}
+
+@if (Model.Severity == 2)
+{
+	<div class="alert alert-warning">This was reported as an urgent issue</div>
+}
+
+@if (Model.Severity == 3)
+{
+	<div class="alert alert-info">This was not an urgent issue</div>
+}
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Details
+			</div>
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>@Html.DisplayNameFor(model => model.Description)</dt>
+					<dd>@Html.DisplayFor(model => model.Description)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.PadSite)</dt>
+					<dd><a href="@Url.Action("Site", "PADSites", new { Model.PadId })">@Model.PadSite</a></dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Cabinet)</dt>
+					<dd><a href="@Url.Action("Details", "Cabinets", new { Model.CabinetId })">@Model.Cabinet</a></dd>
+
+					<dt>@Html.DisplayNameFor(model => model.Defib)</dt>
+					<dd><a href="@Url.Action("Details", "Defibs", new { Model.DefibId })">@Model.Defib</a></dd>
+
+					<dt>@Html.DisplayNameFor(model => model.ReportedBy)</dt>
+					<dd>@Html.DisplayFor(model => model.ReportedBy)</dd>
+
+					<dt>@Html.DisplayNameFor(model => model.ReportedOn)</dt>
+					<dd>@Html.DisplayFor(model => model.ReportedOn)</dd>
+				</dl>
+			</div>
+		</div>
+
+		@if (!string.IsNullOrEmpty(Model.Image))
+		{
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Image
+				</div>
+				<div class="panel-body">
+					<a href="@Model.Image" target="_blank"><img src="@Model.Image" width="100%" /></a>
+				</div>
+			</div>
+		}
+
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Notes
+			</div>
+			<div class="panel-body">
+				@Html.Action("_Notes", "IssueNotes", new { Model.IssueId })
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+
+	<script type="text/javascript">
+
+		$('.hh').hide();
+
+		$('#btn-resolve').on('click', function () {
+			console.log("hello")
+			if (confirm("Are you sure that you want to re-open this issue?")){
+				$.ajax({
+					url: '@Url.Action("Resolve", "Issues")',
+					data: {
+						IssueId: @Model.IssueId,
+						Resolved: false
+					},
+					success: function (data) {
+						window.location.href = data;
+					}
+				})
+			}
+		})
+
+	</script>
+
+}

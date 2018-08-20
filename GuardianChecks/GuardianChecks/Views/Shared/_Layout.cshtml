@@ -18,8 +18,11 @@
 				</button>
 				<a class="navbar-brand" href="~/" id="link-header"><span class="fa fa-lg fa-heartbeat"> </span>&nbsp;Guernsey PAD Sites</a>
 			</div>
-			@Html.Action("_Navbar", "Navbar")
-			<a class="btn btn-default btn-sm"><span class="fa fa-user-circle-o"></span></a>
+			<div class="navbar-right">
+				@Html.Action("_Navbar", "Navbar")
+			</div>
+			
+			
 		</div>
 	</div>
 	<div class="container-fluid body-content">

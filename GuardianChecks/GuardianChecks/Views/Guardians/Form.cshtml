@@ -1,0 +1,58 @@
+﻿@model GuardianChecks.Models.GuardianCheck
+
+@{
+	ViewBag.Title = "Form";
+}
+
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default" style="margin-top: 20px">
+			<div class="panel-heading">
+				PAD Details
+			</div>
+			<div class="panel-body">
+				@Html.Action("_PadSite", "Guardians", new { PadId = Model.PadId })
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default" style="margin-top: 20px">
+			<div class="panel-heading">
+				Known Issues
+			</div>
+			<div class="panel-body">
+				@Html.Action("_KnownIssues", "Guardians", new { PadId = Model.PadId })
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Guardian Check
+	</div>
+	<div class="panel-body">
+
+		<div id="questions">
+			@Html.Action("_Questions", "Guardians")
+		</div>
+
+
+		<button class="btn btn-default" id="btn-next">Next</button>
+	</div>
+</div>
+
+@section scripts {
+
+	<script type="text/javascript">
+
+		var Data_PadId = '@Model.PadId'
+		var Path_Stage1 = '@Url.Action("Stage1Upsert", "Guardians")'
+
+	</script>
+
+	<script src="~/CAGScripts/GuardiansForm.js"></script>
+
+}

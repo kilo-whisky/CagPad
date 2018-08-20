@@ -1,0 +1,46 @@
+﻿@model IEnumerable<GuardianChecks.Models.UserModel>
+
+@{
+	ViewBag.Title = "Users";
+}
+
+<div class="row">
+	<div class="col-md-10">
+		<h2>Defibrillators</h2>
+	</div>
+	<div class="col-md-2">
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<div class="pull-right"><a href="@Url.Action("Create", "Users")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add User</a></div>
+		}
+
+	</div>
+</div>
+<hr style="margin-top:10px;" />
+
+<table class="table table-bordered table-striped" id="tbl-users">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.FullName)</th>
+			<th>@Html.DisplayNameFor(model => model.EmailAddress)</th>
+			<th>@Html.DisplayNameFor(model => model.Active)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr data-user="@item.UserId">
+				<td>@Html.DisplayFor(modelItem => item.FullName)</td>
+				<td>@Html.DisplayFor(modelItem => item.EmailAddress)</td>
+				<td>@Html.DisplayFor(modelItem => item.Active)</td>
+				<td class="text-center">
+					<div class="btn-group-sm">
+						<a href="@Url.Action("Edit", "Users", new { UserId = item.UserId })" class="btn btn-default btn-sm"><span class="fa fa-pencil"></span></a>
+						<a href="@Url.Action("AdminResetPassword", "Users", new { UserId = item.UserId })" class="btn btn-default btn-sm"><span class="fa fa-key"></span></a>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

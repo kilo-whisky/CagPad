@@ -1,0 +1,27 @@
+﻿@model IEnumerable<GuardianChecks.Models.Issue>
+
+<table class="table table-bordered table-striped table-condensed" id="tbl-issues">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>@Html.DisplayNameFor(model => model.Description)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{ var colour = ""; }
+		@foreach (var item in Model)
+		{
+			{
+				if (item.Severity == 2) { colour = "warning"; };
+				if (item.Severity == 1) { colour = "danger"; };
+			}
+		<tr class="@colour">
+				<td><a href="@Url.Action("Site", "PADSites", new { PadId = item.PadId })">@item.PadSite</a></td>
+		
+			<td>@Html.DisplayFor(modelItem => item.Description)</td>
+			<td class="text-center"><a class="btn btn-default btn-sm" href="@Url.Action("Details", "Issues", new { IssueId = item.IssueId })">Details</a></td>
+		</tr>
+		}
+	</tbody>
+</table>

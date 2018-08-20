@@ -17,14 +17,14 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 .navbar {
-    background-color: #01248C !important;
+	background-color: #337AB7 !important;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -34,3 +34,24 @@ textarea {
 .navbar-inverse .navbar-brand {
     color: #fff
 }
+
+.dl-horizontal dt {
+	width: unset;
+}
+
+@media (min-width:801px) {
+	.dl-horizontal dd {
+		margin-left: 180px;
+		margin-bottom: 10px;
+	}
+	
+}
+
+@media (max-width: 500px) {
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+		color: #fff;
+	}
+} 
+
+
+

@@ -7,9 +7,10 @@ using System.Web.Mvc;
 
 namespace GuardianChecks.Controllers
 {
+	[Authorize]
 	public class NavbarController : Controller
 	{
-		public PartialViewResult _Navbar()
+		public ActionResult _Navbar()
 		{
 			return PartialView(Navbar.GetNav(null, null).Where(x => x.Active == true));
 		}

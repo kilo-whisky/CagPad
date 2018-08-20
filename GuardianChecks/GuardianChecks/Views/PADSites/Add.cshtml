@@ -1,0 +1,137 @@
+﻿@model GuardianChecks.Models.PAD
+
+@{
+	ViewBag.Title = "Create PAD Site";
+}
+
+<h2>Create PAD Site</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.LocationName, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.LocationName, "", new { @class = "text-danger" })
+
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+		<textarea class="form-control" name="Address"></textarea>
+		@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.CabinetId, htmlAttributes: new { @class = "control-label" })
+		<select class="selectize" name="CabinetId">
+			<option value="" disabled selected>Select a cabinet...</option>
+			@foreach (var item in ViewBag.Cabinets)
+			{
+				<option value="@item.CabinetId">@item.CabinetId - @item.Description</option>
+			}
+		</select>
+		@Html.ValidationMessageFor(model => model.CabinetId, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.DefibId, htmlAttributes: new { @class = "control-label" })
+		<select class="selectize" name="DefibId">
+			<option value="" disabled selected>Select a defib...</option>
+			@foreach (var item in ViewBag.Defibs)
+			{
+				<option value="@item.DefibId">@item.Description - @item.Serial</option>
+			}
+		</select>
+		@Html.ValidationMessageFor(model => model.DefibId, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Owner, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.OwnerTel, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.OwnerTel, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.OwnerTel, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.OwnerEmail, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.OwnerEmail, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.OwnerEmail, "", new { @class = "text-danger" })
+
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.InstallDate, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.InstallDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+		@Html.ValidationMessageFor(model => model.InstallDate, "", new { @class = "text-danger" })
+
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Funding, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.Funding, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Funding, "", new { @class = "text-danger" })
+
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Insurance, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.Insurance, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Insurance, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.PadsExpiry, htmlAttributes: new { @class = "control-label" })
+		@Html.EditorFor(model => model.PadsExpiry, new { htmlAttributes = new { @class = "form-control datepicker" } })
+		@Html.ValidationMessageFor(model => model.PadsExpiry, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Map, htmlAttributes: new { @class = "control-label" })
+		<textarea class="form-control" name="Map"></textarea>
+		@Html.ValidationMessageFor(model => model.Map, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+
+		<input type="submit" value="Create" class="btn btn-default" />
+		<a href="@Url.Action("Index", "PADSites")" class="btn btn-default">Cancel</a>
+	</div>
+
+}
+
+
+@section scripts {
+
+	<script type="text/javascript">
+
+		$('.datepicker').datepicker();
+		$('.selectize').selectize({
+			selectOnTab: true
+		})
+
+	</script>
+
+}

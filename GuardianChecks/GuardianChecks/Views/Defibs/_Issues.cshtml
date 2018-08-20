@@ -1,0 +1,30 @@
+﻿@model IEnumerable<GuardianChecks.Models.Issue>
+
+<div class="panel panel-default">
+	<div class="panel-heading">Known Issues</div>
+	<div class="panel-body">
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>@Html.DisplayNameFor(model => model.Severity)</th>
+					<th>@Html.DisplayNameFor(model => model.Description)</th>
+					<th>@Html.DisplayNameFor(model => model.ReportedOn)</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>@Html.DisplayFor(modelItem => item.Severity)</td>
+						<td>@Html.DisplayFor(modelItem => item.Description)</td>
+						<td>@Html.DisplayFor(modelItem => item.ReportedOn)</td>
+						<td class="text-center">
+							<a href="@Url.Action("Details", "Issues", new { item.IssueId })" class="btn btn-default btn-sm">Details</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
