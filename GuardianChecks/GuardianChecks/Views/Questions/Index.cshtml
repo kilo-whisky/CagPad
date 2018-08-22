@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GuardianChecks.Models.Questions>
+
+@{
+	ViewBag.Title = "Questions";
+}
+
+<div class="row">
+	<div class="col-md-10">
+		<h2>Questions</h2>
+	</div>
+	<div class="col-md-2">
+		@if (User.IsInRole("SYSADMIN"))
+		{
+			<div class="pull-right"><a href="@Url.Action("Add", "Questions")" class="btn btn-success" style="margin-top:20px"><span class="fa fa-plus"></span> Add Question</a></div>
+		}
+	</div>
+</div>
+<hr style="margin-top:10px;" />
+
+<table class="table table-bordered table-striped" cellspacing="0" id="tbl-questions">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Question)</th>
+			<th>@Html.DisplayNameFor(model => model.Type)</th>
+			<th>@Html.DisplayNameFor(model => model.Active)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(modelItem => item.Question)</td>
+				<td>@Html.DisplayFor(modelItem => item.TypeName)</td>
+				<td>@Html.DisplayFor(modelItem => item.Active)</td>
+				<td class="text-center">
+					<a href="@Url.Action("Edit", "Questions", new { item.QuestionId })" class="btn btn-default btn-sm">Edit</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

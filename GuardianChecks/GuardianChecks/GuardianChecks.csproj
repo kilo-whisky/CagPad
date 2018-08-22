@@ -128,6 +128,7 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\PADSitesController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -570,6 +571,9 @@
     <Content Include="Views\IssueNotes\Add.cshtml" />
     <Content Include="Views\Issues\ResolvedIssue.cshtml" />
     <Content Include="Views\Users\_UserRoles.cshtml" />
+    <Content Include="Views\Questions\Index.cshtml" />
+    <Content Include="Views\Questions\Add.cshtml" />
+    <Content Include="Views\Questions\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

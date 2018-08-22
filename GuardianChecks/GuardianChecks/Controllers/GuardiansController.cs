@@ -57,7 +57,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public PartialViewResult _Questions()
 		{
-			return PartialView(Questions.GetQuestions(null));
+			return PartialView(Questions.GetQuestions(null, true));
 		}
 
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
