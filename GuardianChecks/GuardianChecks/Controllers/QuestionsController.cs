@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace GuardianChecks.Controllers
 {
+	[Authorize(Roles = "SYSADMIN")]
 	public class QuestionsController : Controller
 	{
 		// GET: Questions

@@ -15,8 +15,11 @@ namespace GuardianChecks.Models
 		public int UserId { get; set; }
 		[DisplayName("Current Password")]
 		public string CurrentPassword { get; set; }
+		[DisplayName("User Name")]
 		public string UserName { get; set; }
+		[DisplayName("New Password")]
 		public string Password { get; set; }
+		[DisplayName("Confirm New Password")]
 		public string ComparePassword { get; set; }
 	}
 
