@@ -509,6 +509,13 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Uploads\1.jpg" />
+    <Content Include="Uploads\11.jpg" />
+    <Content Include="Uploads\12.jpg" />
+    <Content Include="Uploads\2.jpg" />
+    <Content Include="Uploads\3.PNG" />
+    <Content Include="Uploads\4.jpg" />
+    <Content Include="Uploads\5.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
