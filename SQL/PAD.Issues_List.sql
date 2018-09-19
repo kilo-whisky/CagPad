@@ -7,7 +7,8 @@ alter proc PAD.Issues_List (
     @Resolved bit = null,
     @PadId int = null,
     @DefibId int = null,
-    @CabinetId int = null
+    @CabinetId int = null,
+    @CompletedCheck bit = null
 ) as
 
 select distinct
@@ -35,6 +36,7 @@ from
 	left join PAD.Defibrillators d on i.DefibId = d.DefibId
 	left join PAD.Cabinets c on i.CabinetId = c.CabinetId
 	left join core.Users u on i.ReportedBy = u.UserId
+    left join PAD.GuardianChecks g on a.CheckId = g.CheckId
 where
     i.IssueId = ISNULL(@IssueId, i.IssueId)
     and isnull(a.CheckId, 0) = ISNULL(@CheckId, isnull(a.CheckId,0))
@@ -42,7 +44,13 @@ where
 	and isnull(i.DefibId,0) = ISNULL(@DefibId, isnull(i.DefibId,0))
 	and isnull(i.CabinetId,0) = ISNULL(@CabinetId, isnull(i.CabinetId,0))
     and i.Resolved = ISNULL(@Resolved, i.Resolved)
-
+    and 1 = case
+        when @CompletedCheck is null then 1
+        when g.Completed is not null and @CompletedCheck = 1 then 1
+        when g.Completed is null and @CompletedCheck = 1 then 0
+        when g.Completed is not null and @CompletedCheck = 0 then 0
+        when g.Completed is null and @CompletedCheck = 0 then 1
+    end
 go
 
 exec PAD.Issues_List
@@ -51,4 +59,5 @@ exec PAD.Issues_List
     @Resolved = null,
     @PadId = null,
     @CabinetId = null,
-    @DefibId = null
+    @DefibId = null,
+    @CompletedCheck = 0

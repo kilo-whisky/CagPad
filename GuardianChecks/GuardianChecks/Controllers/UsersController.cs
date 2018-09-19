@@ -59,8 +59,12 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN")]
 		public ActionResult AdminResetPassword (int UserId)
 		{
-			PasswordReset p = new PasswordReset();
-			p.UserId = UserId;
+			var u = UserModel.GetByUserId(UserId);
+			PasswordReset p = new PasswordReset
+			{
+				UserId = u.UserId,
+				UserName = u.UserName
+			};
 			return View(p);
 		}
 

@@ -55,7 +55,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Issues(int CabinetId)
 		{
-			return PartialView(Issue.GetIssues(null, null, false, null, null, CabinetId));
+			return PartialView(Issue.GetIssues(null, null, false, null, null, CabinetId, true));
 		}
 	}
 }

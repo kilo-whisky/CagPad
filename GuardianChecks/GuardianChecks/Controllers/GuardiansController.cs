@@ -42,7 +42,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public PartialViewResult _KnownIssues(int PadId)
 		{
-			return PartialView(Issue.GetIssues(null, null, false, PadId, null, null));
+			return PartialView(Issue.GetIssues(null, null, false, PadId, null, null, true));
 		}
 
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
@@ -78,7 +78,7 @@ namespace GuardianChecks.Controllers
 				};
 				a.upsert();
 			}
-			int issues = Issue.GetIssues(null, CheckId, false, null, null, null).Count;
+			int issues = Issue.GetIssues(null, CheckId, false, null, null, null, false).Count;
 			if (issues > 0) return Url.Action("Issues", "Guardians", new { CheckId });
 			else return Url.Action("Confirmation", "Guardians", new { CheckId });
 		}
@@ -86,13 +86,13 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public ActionResult Issues(int CheckId)
 		{
-			return View(Issue.GetIssues(null, CheckId, false, null, null, null));
+			return View(Issue.GetIssues(null, CheckId, false, null, null, null, true));
 		}
 
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public ActionResult Confirmation (int CheckId)
 		{
-			ViewBag.Issues = Issue.GetIssues(null, CheckId, false, null, null, null).Where(c => c.Severity == 1).Count();
+			ViewBag.Issues = Issue.GetIssues(null, CheckId, false, null, null, null, false).Where(c => c.Severity == 1).Count();
 			return View(GuardianCheck.GetChecks(CheckId, null, null).First());
 		}
 

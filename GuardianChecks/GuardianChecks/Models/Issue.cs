@@ -43,7 +43,7 @@ namespace GuardianChecks.Models
 			}
 		}
 
-		public static List<Issue> GetIssues(int? IssueId, int? CheckId, bool? Resolved, int? PadId, int? DefibId, int? CabinetId)
+		public static List<Issue> GetIssues(int? IssueId, int? CheckId, bool? Resolved, int? PadId, int? DefibId, int? CabinetId, bool? Completed)
 		{
 			List<Issue> list = new List<Issue>();
 			using (dbHelp dbh = new dbHelp("PAD.Issues_List", true, "CAG"))
@@ -54,6 +54,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("PadId", PadId);
 				dbh.addParam("DefibId", DefibId);
 				dbh.addParam("CabinetId", CabinetId);
+				dbh.addParam("CompletedCheck", Completed);
 				while (dbh.dr.Read())
 				{
 					Issue item = new Issue();

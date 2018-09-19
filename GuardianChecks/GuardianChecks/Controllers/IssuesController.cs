@@ -22,31 +22,31 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Unresolved()
 		{
-			return PartialView(Issue.GetIssues(null, null, false, null, null, null).Where(x => x.Severity != null).ToList());
+			return PartialView(Issue.GetIssues(null, null, false, null, null, null, true).Where(x => x.Severity != null).ToList());
 		}
 
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public PartialViewResult _Resolved()
 		{
-			return PartialView(Issue.GetIssues(null, null, true, null, null, null));
+			return PartialView(Issue.GetIssues(null, null, true, null, null, null, null));
 		}
 
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult Details(int IssueId)
 		{
-			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
+			return View(Issue.GetIssues(IssueId, null, null, null, null, null, null).First());
 		}
 
 		[Authorize(Roles = "SYSADMIN,READER")]
 		public ActionResult ResolvedIssue(int IssueId)
 		{
-			return View(Issue.GetIssues(IssueId, null, null, null, null, null).First());
+			return View(Issue.GetIssues(IssueId, null, null, null, null, null, null).First());
 		}
 
 		[Authorize(Roles = "SYSADMIN")]
 		public ActionResult ChangeSeverity(int IssueId, int Severity)
 		{
-			Issue i = Issue.GetIssues(IssueId, null, null, null, null, null)[0];
+			Issue i = Issue.GetIssues(IssueId, null, null, null, null, null, null)[0];
 			i.Severity = Severity;
 			i.upsert();
 			string note = "";
@@ -65,7 +65,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN")]
 		public JsonResult Resolve(int IssueId, bool Resolved)
 		{
-			Issue i = Issue.GetIssues(IssueId, null, null, null, null, null)[0];
+			Issue i = Issue.GetIssues(IssueId, null, null, null, null, null, null)[0];
 			i.Resolved = true;
 			i.upsert();
 			string note = "";
@@ -93,7 +93,7 @@ namespace GuardianChecks.Controllers
 		{
 			var input = Request.Form["issue"];
 			Issue issue = JsonConvert.DeserializeObject<Issue>(input);
-			Issue existing = Issue.GetIssues(issue.IssueId, null, null, null, null, null).First();
+			Issue existing = Issue.GetIssues(issue.IssueId, null, null, null, null, null, null).First();
 
 			if (image != null && image.ContentLength > 0)
 			{
