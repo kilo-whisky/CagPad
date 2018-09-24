@@ -40,16 +40,16 @@ begin
 
     begin
 
-    update Core.Users set
-        FirstName = @FirstName,
-        LastName = @LastName,
-        EmailAddress = @EmailAddress,
-        Telephone = @Telephone,
-        Active = @Active
-    where
-        UserId = @UserId
+        update Core.Users set
+            FirstName = @FirstName,
+            LastName = @LastName,
+            EmailAddress = @EmailAddress,
+            Telephone = @Telephone,
+            Active = @Active
+        where
+            UserId = @UserId
     
-    return @UserId
+        return @UserId
 
     end
 end
