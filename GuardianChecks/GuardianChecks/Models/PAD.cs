@@ -11,14 +11,14 @@ namespace GuardianChecks.Models
 {
 	public class PAD
 	{
-		public int PadId { get; set; }
+		public int? PadId { get; set; }
 		[DisplayName("Location")]
 		public string LocationName { get; set; }
 		public string Address { get; set; }
 		public string Description { get; set; }
-		public int CabinetId { get; set; }
+		public int? CabinetId { get; set; }
 		public string Cabinet { get; set; }
-		public int DefibId { get; set; }
+		public int? DefibId { get; set; }
 		public string Defib { get; set; }
 		public string Owner { get; set; }
 		[DisplayName("Owner Telephone")]

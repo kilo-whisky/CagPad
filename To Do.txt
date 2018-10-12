@@ -1,0 +1,5 @@
+finish assigning pad sites
+send list of pad sites that i couldn't create
+clear out test checks
+prevent checks from being shown in any lists until they're marked as completed
+only show pad sites not checked if they had their first check
