@@ -86,7 +86,7 @@ namespace GuardianChecks.Controllers
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]
 		public ActionResult Issues(int CheckId)
 		{
-			return View(Issue.GetIssues(null, CheckId, false, null, null, null, true));
+			return View(Issue.GetIssues(null, CheckId, false, null, null, null, false));
 		}
 
 		[Authorize(Roles = "SYSADMIN,GUARDIAN")]

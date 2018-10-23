@@ -74,9 +74,9 @@ namespace GuardianChecks.Models
 					item.LocationName = dbh.drGetString("Location");
 					item.Address = dbh.drGetString("Address");
 					item.Description = dbh.drGetString("Description");
-					item.CabinetId = dbh.drGetInt32("CabinetId");
+					item.CabinetId = dbh.drGetInt32Null("CabinetId");
 					item.Cabinet = dbh.drGetString("Cabinet");
-					item.DefibId = dbh.drGetInt32("DefibId");
+					item.DefibId = dbh.drGetInt32Null("DefibId");
 					item.Defib = dbh.drGetString("Defib");
 					item.Owner = dbh.drGetString("Owner");
 					item.OwnerTel = dbh.drGetString("OwnerTel");
