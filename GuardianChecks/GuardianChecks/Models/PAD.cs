@@ -36,6 +36,7 @@ namespace GuardianChecks.Models
 		[DisplayName("Defib Pads Expiry")]
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime? PadsExpiry { get; set; }
+		public int QuestionSet { get; set; }
 
 		public int upsert()
 		{
@@ -56,6 +57,7 @@ namespace GuardianChecks.Models
 				dbh.addParam("Insurance", Insurance);
 				dbh.addParam("Map", Map);
 				dbh.addParam("PadsExpiry", PadsExpiry);
+				dbh.addParam("QuestionSet", QuestionSet);
 				string retval = dbh.ExecNoQuery();
 				return int.Parse(retval);
 			}
@@ -87,6 +89,7 @@ namespace GuardianChecks.Models
 					item.Insurance = dbh.drGetString("Insurance");
 					item.Map = dbh.drGetString("Map");
 					item.PadsExpiry = dbh.drGetDateTimeNull("PadsExpiry");
+					item.QuestionSet = dbh.drGetInt32("QuestionSet");
 					list.Add(item);
 				}
 			}

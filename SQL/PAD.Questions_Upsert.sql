@@ -1,7 +1,7 @@
 use CAGPAD
 go
 
-create proc PAD.Questions_Upsert(
+alter proc PAD.Questions_Upsert(
     @QuestionId int = null,
     @Question varchar(1000),
     @Type char(1),
